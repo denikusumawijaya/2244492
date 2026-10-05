@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Math Tutoring by Deni - Coordinate Geometry</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--primary:#2563eb;--primary-dark:#1e40af;--secondary:#f59e0b;--success:#10b981;--danger:#ef4444;--bg:#f8fafc;--card:#fff;--text:#1e293b;--muted:#64748b;--border:#e2e8f0}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+.tr{font-style:italic;font-size:.82em;color:var(--muted);display:block;margin-top:2px}
+header{background:var(--primary);color:#fff;padding:10px 20px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,.12);position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:8px}
+header .brand{font-weight:700;font-size:1.05em}
+header .topic{font-size:.88em;text-align:center;flex:1}
+header .topic .tr{color:rgba(255,255,255,.85)}
+header button{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:8px 14px;border-radius:6px;cursor:pointer;font-size:.85em;white-space:nowrap}
+header button:hover{background:rgba(255,255,255,.25)}
+.main-container{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 52px)}
+.sidebar{background:var(--card);border-right:1px solid var(--border);padding:14px;overflow-y:auto;position:sticky;top:52px;height:calc(100vh - 52px)}
+.sidebar h3{font-size:.72em;color:var(--muted);text-transform:uppercase;margin-bottom:8px;letter-spacing:1px}
+.nav-link{display:block;padding:8px 10px;border-radius:6px;cursor:pointer;margin-bottom:3px;font-size:.84em;border:1px solid transparent;transition:all .15s}
+.nav-link:hover{background:#eff6ff}
+.nav-link.active{background:var(--primary);color:#fff;pointer-events:none;cursor:default}
+.nav-link .nl-title{display:block;font-weight:600}
+.nav-link .time{font-size:.76em;color:var(--muted);display:block;margin-top:2px}
+.nav-link.active .time,.nav-link.active .tr{color:rgba(255,255,255,.85)}
+.nav-link.disabled{opacity:.45;cursor:not-allowed;font-size:.8em;padding:6px 10px}
+.content-area{padding:22px 28px;overflow-y:auto;max-width:1100px;margin:0 auto;width:100%}
+.page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:12px;border-bottom:2px solid var(--border);flex-wrap:wrap;gap:8px}
+.page-header h2{color:var(--primary-dark);font-size:1.1em}
+.page-header .badge{background:var(--secondary);color:#fff;padding:4px 10px;border-radius:20px;font-size:.76em;font-weight:600}
+.card{background:var(--card);border-radius:10px;padding:22px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:16px;border:1px solid var(--border)}
+.card.explain{border-left:4px solid var(--primary)}
+.card.task{border-left:4px solid var(--secondary)}
+.card h3{color:var(--primary-dark);margin-bottom:12px;font-size:1.1em}
+.math-block{background:#f1f5f9;padding:12px 14px;border-radius:8px;margin:12px 0;overflow-x:auto}
+.example-box{background:#fef3c7;border-left:4px solid var(--secondary);padding:12px 16px;margin:12px 0;border-radius:6px}
+.example-box h4{color:#92400e;margin-bottom:6px;font-size:.95em}
+.tip-box{background:#dbeafe;border-left:4px solid var(--primary);padding:10px 14px;margin:10px 0;border-radius:6px}
+.tip-box h4{color:#1e40af;margin-bottom:4px;font-size:.9em}
+.illustration{text-align:center;margin:14px 0;padding:14px;background:#f1f5f9;border-radius:8px}
+.q-text{font-size:1em;margin-bottom:12px;line-height:1.7}
+.options{display:flex;flex-direction:column;gap:8px}
+.option{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:2px solid var(--border);border-radius:8px;cursor:pointer;background:#fff;transition:all .15s}
+.option:hover{border-color:var(--primary);background:#eff6ff}
+.option.selected{border-color:var(--primary);background:#dbeafe}
+.option.correct{border-color:var(--success);background:#d1fae5}
+.option.incorrect{border-color:var(--danger);background:#fee2e2}
+.option .marker{min-width:18px;width:18px;height:18px;border:2px solid var(--muted);border-radius:50%;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:.7em;color:#fff}
+.option.selected .marker{background:var(--primary);border-color:var(--primary)}
+.option.correct .marker{background:var(--success);border-color:var(--success)}
+.option.incorrect .marker{background:var(--danger);border-color:var(--danger)}
+.option.checkbox .marker{border-radius:3px}
+.option .opt-text{flex:1}
+.fill-input{padding:8px 12px;border:2px solid var(--border);border-radius:6px;font-size:1em;width:100%;margin:8px 0;font-family:inherit}
+.fill-input:focus{border-color:var(--primary);outline:none}
+.btn-submit{background:var(--primary);color:#fff;border:none;padding:9px 20px;border-radius:6px;cursor:pointer;font-size:.88em;font-weight:600;margin-top:12px}
+.btn-submit:hover{background:var(--primary-dark)}
+.feedback{margin-top:12px;padding:14px;border-radius:8px;display:none}
+.feedback.show{display:block}
+.feedback.correct{background:#d1fae5;border:1px solid var(--success)}
+.feedback.incorrect{background:#fee2e2;border:1px solid var(--danger)}
+.feedback h4{margin-bottom:6px}
+.feedback ol,.feedback ul{margin:6px 0;padding-left:22px}
+.feedback li{margin:4px 0}
+.card ol, .card ul { padding-left: 26px; margin: 10px 0; }
+.card li { margin: 5px 0; }
+.example-box ol, .example-box ul { padding-left: 22px; margin: 8px 0; }
+.tip-box ol, .tip-box ul { padding-left: 22px; margin: 8px 0; }
+.math-block ol, .math-block ul { padding-left: 22px; margin: 8px 0; }
+.pagination{display:flex;justify-content:space-between;align-items:center;margin-top:18px;padding-top:14px;border-top:1px solid var(--border)}
+.pagination button{background:var(--primary);color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.84em}
+.pagination button:disabled{background:#cbd5e1;cursor:not-allowed}
+.pagination .indicator{font-size:.82em;color:var(--muted);text-align:center;flex:1;padding:0 10px}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center}
+.modal.active{display:flex}
+.modal-content{background:#fff;padding:22px;border-radius:12px;max-width:460px;width:90%}
+.modal-content h3{color:var(--primary-dark);margin-bottom:12px}
+.modal-content ul{list-style:none;padding-left:0}
+.modal-content li{padding:10px 0;border-bottom:1px solid var(--border)}
+.modal-content li:last-child{border-bottom:none}
+.modal-close{background:var(--primary);color:#fff;border:none;padding:8px 18px;border-radius:6px;cursor:pointer;margin-top:12px}
+.sort-list{display:flex;flex-direction:column;gap:6px}
+.sort-item{padding:10px 12px;border:2px solid var(--border);border-radius:8px;background:#fff;cursor:pointer;display:flex;align-items:center;gap:10px;transition:all .15s}
+.sort-item:hover{border-color:var(--primary)}
+.sort-item.selected{border-color:var(--primary);background:#dbeafe}
+.sort-item .pos{background:var(--primary);color:#fff;min-width:24px;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8em;flex-shrink:0}
+.sort-item .sort-text{flex:1}
+.pair-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pair-col h4{font-size:.85em;color:var(--muted);margin-bottom:6px;text-transform:uppercase}
+.pair-col{display:flex;flex-direction:column;gap:6px}
+.pair-item{padding:10px 12px;border:2px solid var(--border);border-radius:8px;background:#fff;cursor:pointer;text-align:center;font-size:.92em}
+.pair-item.selected{border-color:var(--primary);background:#dbeafe}
+.pair-item.paired{opacity:.5;cursor:default;border-color:var(--success);background:#d1fae5}
+.pairs-list{margin-top:10px}
+.pair-row{display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:#f1f5f9;border-radius:6px;margin-bottom:4px;font-size:.85em}
+.pair-row .remove{cursor:pointer;color:var(--danger);font-weight:700;margin-left:6px}
+.page-numbers {display:flex;gap:3px;flex-wrap:nowrap;justify-content:center;flex:1;overflow-x:auto;padding:0 3px;}
+.page-num {min-width:28px;height:26px;border:1px solid var(--border);background:#fff;border-radius:4px;cursor:pointer;font-size:.7em;display:flex;align-items:center;justify-content:center;padding:0 4px;white-space:nowrap;transition:all .15s;flex-shrink:0;}
+.page-num.page-num-e {background:#eff6ff;border-color:#93c5fd;color:#1e40af;}
+.page-num.page-num-t {background:#fffbeb;border-color:#fcd34d;color:#92400e;}
+.page-num.page-num-e:hover {background:#dbeafe;border-color:var(--primary);}
+.page-num.page-num-t:hover {background:#fef3c7;border-color:var(--secondary);}
+.page-num.page-num-e.active {background:var(--primary);color:#fff;border-color:var(--primary);font-weight:600;}
+.page-num.page-num-t.active {background:var(--secondary);color:#fff;border-color:var(--secondary);font-weight:600;}
+.page-num:disabled {opacity:1;cursor:default;}
+@media(max-width:1100px){.main-container{grid-template-columns:180px 1fr}.content-area{padding:18px 20px}}
+@media(max-width:760px){.main-container{grid-template-columns:1fr}.sidebar{display:none}.content-area{padding:16px}header{font-size:.9em}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">Math Tutoring by Deni</div>
+  <div class="topic">Topic: Coordinate Geometry: Coordinates <span class="tr">Topik: Geometri Koordinat: Koordinat</span></div>
+  <button id="classRulesBtn">Class Rules <span class="tr">Aturan Kelas</span></button>
+</header>
+<div class="main-container">
+  <nav class="sidebar" id="sidebar"></nav>
+  <main class="content-area">
+    <div id="pageContent"></div>
+    <div class="pagination">
+      <button id="prevBtn">← Previous <span class="tr">Sebelumnya</span></button>
+      <div class="page-numbers" id="pageNums"></div>
+      <button id="nextBtn">Next <span class="tr">Berikutnya</span> →</button>
+    </div>
+  </main>
+</div>
+<div id="classRulesModal" class="modal">
+  <div class="modal-content">
+    <h3>Class Rules <span class="tr">Aturan Kelas</span></h3>
+    <ul>
+      <li>Speak in turn <span class="tr">Berbicara secara bergantian</span></li>
+      <li>Ask permission before leaving the class <span class="tr">Meminta izin jika ingin meninggalkan kelas</span></li>
+      <li>Turn on microphone and camera when needed <span class="tr">Menyalakan microphone dan camera jika diperlukan</span></li>
+    </ul>
+    <button class="modal-close">Close <span class="tr">Tutup</span></button>
+  </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  if(!window.renderMathInElement){setTimeout(arguments.callee,50);return;}
+  const sectionsData = {
+    a: {
+      title: 'Spiral Review Warm-up', titleEn: 'Spiral Review Warm-up', time: '00:00 - 00:10',
+      pages: [
+        { type:'explanation', pageTitle:'E1: Cartesian Plane Basics', pageTitleEn:'Dasar-Dasar Bidang Kartesius',
+          body:`<p>The <strong>Cartesian Plane</strong> is a 2D space formed by two perpendicular number lines: the horizontal $x$-axis and the vertical $y$-axis. <span class="tr"><strong>Bidang Kartesius</strong> adalah ruang 2D yang dibentuk oleh dua garis bilangan saling tegak lurus: sumbu-$x$ horizontal dan sumbu-$y$ vertikal.</span></p>
+          <div class="illustration"><svg width="280" height="200" viewBox="0 0 280 200"><line x1="20" y1="100" x2="260" y2="100" stroke="#333" stroke-width="2"/><polygon points="260,100 250,95 250,105" fill="#333"/><line x1="140" y1="20" x2="140" y2="180" stroke="#333" stroke-width="2"/><polygon points="140,20 135,30 145,30" fill="#333"/><text x="250" y="115" font-size="12">x</text><text x="125" y="30" font-size="12">y</text><text x="135" y="115" font-size="12">0</text><circle cx="180" cy="60" r="3" fill="#ef4444"/><text x="185" y="60" font-size="12">A(2, 1)</text><circle cx="100" cy="140" r="3" fill="#10b981"/><text x="60" y="140" font-size="12">B(-1, -2)</text></svg><div style="font-size:.82em;color:var(--muted);margin-top:6px">Points are written as ordered pairs $(x, y)$. <span class="tr">Titik ditulis sebagai pasangan berurutan $(x, y)$.</span></div></div>
+          <p>The intersection of the axes is the origin $(0,0)$. The plane is divided into 4 quadrants (I, II, III, IV). <span class="tr">Perpotongan kedua sumbu adalah titik origin $(0,0)$. Bidang dibagi menjadi 4 kuadran.</span></p>
+          <div class="math-block"><strong>Quadrant I:</strong> $(+,+)$ <span class="tr">Kuadran I</span><br><strong>Quadrant II:</strong> $(-,+)$ <span class="tr">Kuadran II</span><br><strong>Quadrant III:</strong> $(-,-)$ <span class="tr">Kuadran III</span><br><strong>Quadrant IV:</strong> $(+,-)$ <span class="tr">Kuadran IV</span></div>`
+        },
+        { type:'task', pageTitle:'T1: Identify Coordinates', pageTitleEn:'Identifikasi Koordinat', taskType:'radio',
+          question:'Which quadrant does the point $(-3, 4)$ lie in?', questionEn:'Di kuadran manakah titik $(-3, 4)$ terletak?',
+          options:[{text:'Quadrant I <span class="tr">Kuadran I</span>', correct:false},{text:'Quadrant II <span class="tr">Kuadran II</span>', correct:true},{text:'Quadrant III <span class="tr">Kuadran III</span>', correct:false},{text:'Quadrant IV <span class="tr">Kuadran IV</span>', correct:false}],
+          explanation:`<p>The $x$-coordinate is $-3$ (negative), and the $y$-coordinate is $4$ (positive). $(-,+)$ corresponds to Quadrant II. <span class="tr">Koordinat-$x$ negatif dan koordinat-$y$ positif, sesuai dengan Kuadran II.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: Points on Axes', pageTitleEn:'Titik pada Sumbu', taskType:'checkbox',
+          question:'Select all points that lie ON the coordinate axes (not in any quadrant).', questionEn:'Pilih semua titik yang TERLETAK PADA sumbu koordinat (bukan di kuadran manapun).',
+          options:[{text:'$(0, 5)$', correct:true},{text:'$(3, 0)$', correct:true},{text:'$(-2, -4)$', correct:false},{text:'$(0, 0)$', correct:true}],
+          explanation:`<p>Points on axes must have at least one coordinate as $0$. $(0, 5)$ is on the $y$-axis, $(3, 0)$ is on the $x$-axis, and $(0,0)$ is the origin. <span class="tr">Titik pada sumbu harus memiliki minimal satu koordinat $0$.</span></p>`
+        },
+        { type:'task', pageTitle:'T3: True or False', pageTitleEn:'Benar atau Salah', taskType:'truefalse',
+          question:'True or false: The point $(-5, -2)$ lies in Quadrant IV.', questionEn:'Benar atau salah: Titik $(-5, -2)$ terletak di Kuadran IV.',
+          correctAnswer:'false',
+          explanation:`<p>False. Both $x$ and $y$ are negative, so it lies in Quadrant III. <span class="tr">Salah. Keduanya negatif, jadi di Kuadran III.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E2: The Distance Formula', pageTitleEn:'Rumus Jarak',
+          body:`<p>To find the exact distance between any two points $A(x_1, y_1)$ and $B(x_2, y_2)$, we use the Pythagorean theorem. <span class="tr">Untuk mencari jarak tepat antara dua titik, kita gunakan teorema Pythagoras.</span></p>
+          <div class="math-block">$d = \\sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$</div>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>Find distance between $A(1, 2)$ and $B(4, 6)$. <span class="tr">Cari jarak antara $A(1, 2)$ dan $B(4, 6)$.</span>
+          <ol><li>Find $\\Delta x = 4 - 1 = 3$ <span class="tr">Selisih $x$</span></li><li>Find $\\Delta y = 6 - 2 = 4$ <span class="tr">Selisih $y$</span></li><li>$d = \\sqrt{3^2 + 4^2} = \\sqrt{9 + 16} = \\sqrt{25} = 5$</li></ol></div>`
+        },
+        { type:'task', pageTitle:'T4: Calculate Distance', pageTitleEn:'Hitung Jarak', taskType:'fill',
+          question:'Find the distance between $A(1, 2)$ and $B(4, 6)$. $d = \\dots$', questionEn:'Cari jarak antara $A(1, 2)$ dan $B(4, 6)$. $d = \\dots$',
+          correctAnswer:'5', acceptableAnswers:['5'],
+          explanation:`<p>$d = \\sqrt{(4-1)^2 + (6-2)^2} = \\sqrt{3^2 + 4^2} = \\sqrt{25} = 5$. <span class="tr">Substitusi langsung ke rumus.</span></p>`
+        },
+        { type:'task', pageTitle:'T5: Distance with Negatives', pageTitleEn:'Jarak dengan Negatif', taskType:'fill',
+          question:'Find the distance between $P(-2, 1)$ and $Q(4, 9)$. $d = \\dots$', questionEn:'Cari jarak antara $P(-2, 1)$ dan $Q(4, 9)$. $d = \\dots$',
+          correctAnswer:'10', acceptableAnswers:['10'],
+          explanation:`<p>$\\Delta x = 4 - (-2) = 6$. $\\Delta y = 9 - 1 = 8$. $d = \\sqrt{6^2 + 8^2} = \\sqrt{36 + 64} = \\sqrt{100} = 10$. <span class="tr">Perhatikan tanda negatif saat pengurangan.</span></p>`
+        },
+        { type:'task', pageTitle:'T6: Match Distances', pageTitleEn:'Pasangkan Jarak', taskType:'pairing',
+          question:'Match the point pairs with their exact distance.', questionEn:'Pasangkan pasangan titik dengan jarak tepatnya.',
+          pairs:[{left:'$(1,1)$ to $(4,5)$ <span class="tr">ke</span>', right:'$5$'},{left:'$(0,0)$ to $(3,4)$ <span class="tr">ke</span>', right:'$5$'},{left:'$(-2,1)$ to $(4,9)$ <span class="tr">ke</span>', right:'$10$'},{left:'$(-3,0)$ to $(0,4)$ <span class="tr">ke</span>', right:'$5$'}],
+          explanation:`<p>Apply $d = \\sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}$ for all pairs. <span class="tr">Gunakan rumus jarak untuk semua pasangan.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E3: The Midpoint Formula', pageTitleEn:'Rumus Titik Tengah',
+          body:`<p>The midpoint $M(x_m, y_m)$ of a line segment $AB$ is the average of the coordinates of its endpoints. <span class="tr">Titik tengah $M$ dari ruas garis $AB$ adalah rata-rata dari koordinat titik ujungnya.</span></p>
+          <div class="math-block">$M = \\left( \\dfrac{x_1 + x_2}{2} , \\dfrac{y_1 + y_2}{2} \\right)$</div>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>Find midpoint of $A(-2, 3)$ and $B(4, 5)$. <span class="tr">Cari titik tengah $A(-2, 3)$ dan $B(4, 5)$.</span>
+          <ol><li>$x_m = \\dfrac{-2 + 4}{2} = \\dfrac{2}{2} = 1$</li><li>$y_m = \\dfrac{3 + 5}{2} = \\dfrac{8}{2} = 4$</li><li>Midpoint is $M(1, 4)$</li></ol></div>`
+        },
+        { type:'task', pageTitle:'T7: Find Midpoint x', pageTitleEn:'Cari Titik Tengah x', taskType:'fill',
+          question:'Midpoint of $A(-2, 3)$ and $B(4, 5)$ has $x_m = \\dots$', questionEn:'Titik tengah dari $A(-2, 3)$ dan $B(4, 5)$ memiliki $x_m = \\dots$',
+          correctAnswer:'1', acceptableAnswers:['1'],
+          explanation:`<p>$x_m = \\dfrac{-2 + 4}{2} = \\dfrac{2}{2} = 1$. <span class="tr">Jumlahkan $x$ lalu bagi 2.</span></p>`
+        },
+        { type:'task', pageTitle:'T8: True or False', pageTitleEn:'Benar atau Salah', taskType:'truefalse',
+          question:'True or false: The midpoint of $(0,0)$ and $(0, 6)$ is $(0, 3)$.', questionEn:'Benar atau salah: Titik tengah $(0,0)$ dan $(0, 6)$ adalah $(0, 3)$.',
+          correctAnswer:'true',
+          explanation:`<p>$y_m = \\dfrac{0+6}{2} = 3$. $x$ stays $0$. So $M(0, 3)$. <span class="tr">$y_m = 3$. $x$ tetap $0$.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: Order Midpoint Steps', pageTitleEn:'Urutkan Langkah Titik Tengah', taskType:'sorting',
+          question:'Order the steps to find midpoint of $(x_1,y_1)$ and $(x_2,y_2)$.', questionEn:'Urutkan langkah mencari titik tengah $(x_1,y_1)$ dan $(x_2,y_2)$.',
+          items:['Add $x_1$ and $x_2$ <span class="tr">Jumlahkan $x_1$ dan $x_2$</span>','Divide the sum by 2 to get $x_m$ <span class="tr">Bagi 2 untuk dapat $x_m$</span>','Add $y_1$ and $y_2$ <span class="tr">Jumlahkan $y_1$ dan $y_2$</span>','Divide the sum by 2 to get $y_m$ <span class="tr">Bagi 2 untuk dapat $y_m$</span>'], correctOrder:[0,1,2,3],
+          explanation:`<p>Find average of $x$-coordinates, then average of $y$-coordinates. <span class="tr">Cari rata-rata koordinat-$x$, lalu rata-rata koordinat-$y$.</span></p>`
+        },
+        { type:'task', pageTitle:'T10: Find Missing Endpoint', pageTitleEn:'Cari Titik Ujung Hilang', taskType:'fill',
+          question:'If $M(3, 2)$ is the midpoint of $A(1, y)$ and $B(x, 4)$, find $x$.', questionEn:'Jika $M(3, 2)$ adalah titik tengah $A(1, y)$ dan $B(x, 4)$, cari $x$.',
+          correctAnswer:'5', acceptableAnswers:['5'],
+          explanation:`<p>Work backwards: $x = 2(x_m) - x_A = 2(3) - 1 = 5$. <span class="tr">Rumus titik ujung yang hilang: $x_B = 2x_M - x_A$.</span></p>`
+        }
+      ]
+    },
+    b: {
+      title: 'Introduction & Real-World Connection', titleEn: 'Introduction & Real-World Connection', time: '00:10 - 00:15',
+      pages: [
+        { type:'explanation', pageTitle:'E1: GPS and Maps', pageTitleEn:'GPS dan Peta',
+          body:`<p>Coordinate geometry is the basis of GPS navigation. Every point on Earth can be defined by a latitude (like $y$) and longitude (like $x$). <span class="tr">Geometri koordinat adalah dasar navigasi GPS. Setiap titik di Bumi dapat didefinisikan oleh lintang (seperti $y$) dan bujur (seperti $x$).</span></p>
+          <div class="illustration"><svg width="280" height="150" viewBox="0 0 280 150"><rect x="20" y="20" width="240" height="110" fill="#dbeafe" stroke="#2563eb" rx="8"/><line x1="20" y1="75" x2="260" y2="75" stroke="#93c5fd" stroke-dasharray="4"/><line x1="140" y1="20" x2="140" y2="130" stroke="#93c5fd" stroke-dasharray="4"/><circle cx="180" cy="60" r="6" fill="#ef4444"/><text x="190" y="60" font-size="12">Your Location</text><text x="190" y="74" font-size="10" fill="#64748b">(4, 1)</text></svg><div style="font-size:.82em;color:var(--muted);margin-top:6px">Grid systems in maps <span class="tr">Sistem kisi pada peta</span></div></div>`
+        },
+        { type:'task', pageTitle:'T1: Map to Coordinates', pageTitleEn:'Peta ke Koordinat', taskType:'radio',
+          question:'On a map, if longitude represents the horizontal position, it corresponds to which axis?', questionEn:'Pada peta, jika bujur mewakili posisi horizontal, hal ini sesuai dengan sumbu apa?',
+          options:[{text:'$x$-axis <span class="tr">Sumbu-$x$</span>', correct:true},{text:'$y$-axis <span class="tr">Sumbu-$y$</span>', correct:false},{text:'Origin <span class="tr">Origin</span>', correct:false},{text:'Neither <span class="tr">Bukan keduanya</span>', correct:false}],
+          explanation:`<p>Horizontal position is represented by the $x$-axis. <span class="tr">Posisi horizontal diwakili oleh sumbu-$x$.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: Grid Distance', pageTitleEn:'Jarak Kisi', taskType:'fill',
+          question:'On a city grid, $1$ unit $= 1$ km. If you are at $(1, 1)$ and go to $(1, 6)$, distance traveled is $\\dots$ km.', questionEn:'Pada kisi kota, $1$ unit $= 1$ km. Jika Anda di $(1, 1)$ dan ke $(1, 6)$, jarak tempuh adalah $\\dots$ km.',
+          correctAnswer:'5', acceptableAnswers:['5'],
+          explanation:`<p>Only $y$ changes. $d = |6 - 1| = 5$ units $= 5$ km. <span class="tr">Hanya $y$ yang berubah. $d = |6 - 1| = 5$ km.</span></p>`
+        },
+        { type:'task', pageTitle:'T3: Screen Pixels', pageTitleEn:'Piksel Layar', taskType:'truefalse',
+          question:'True or false: Computer screens use Cartesian coordinate systems where origin is usually top-left.', questionEn:'Benar atau salah: Layar komputer menggunakan sistem koordinat Kartesius di mana origin biasanya di kiri atas.',
+          correctAnswer:'true',
+          explanation:`<p>Yes, though $y$ increases downwards in screen coordinates, the concept is Cartesian. <span class="tr">Ya, meskipun $y$ bertambah ke bawah, konsepnya Kartesius.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E2: Distance on Grids', pageTitleEn:'Jarak pada Kisi',
+          body:`<p>For horizontal or vertical lines, distance is simply the absolute difference in $x$ or $y$ coordinates. <span class="tr">Untuk garis horizontal atau vertikal, jaraknya adalah selisih mutlak koordinat $x$ atau $y$.</span></p>
+          <div class="math-block">$d = |x_2 - x_1|$ (Horizontal) <br> $d = |y_2 - y_1|$ (Vertical)</div>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>Distance between $(-3, 5)$ and $(2, 5)$. <span class="tr">Jarak antara $(-3, 5)$ dan $(2, 5)$.</span><p>Since $y$ is constant, $d = |2 - (-3)| = |5| = 5$.</p></div>`
+        },
+        { type:'task', pageTitle:'T4: Horizontal Distance', pageTitleEn:'Jarak Horizontal', taskType:'radio',
+          question:'Distance between $(-3, 5)$ and $(2, 5)$?', questionEn:'Jarak antara $(-3, 5)$ dan $(2, 5)$?',
+          options:[{text:'$1$', correct:false},{text:'$5$', correct:true},{text:'$8$', correct:false},{text:'$10$', correct:false}],
+          explanation:`<p>$d = |2 - (-3)| = |5| = 5$. <span class="tr">$d = |2 - (-3)| = 5$.</span></p>`
+        },
+        { type:'task', pageTitle:'T5: Vertical Distance', pageTitleEn:'Jarak Vertikal', taskType:'fill',
+          question:'Distance between $(4, -1)$ and $(4, 5)$. $d = \\dots$', questionEn:'Jarak antara $(4, -1)$ dan $(4, 5)$. $d = \\dots$',
+          correctAnswer:'6', acceptableAnswers:['6'],
+          explanation:`<p>$d = |5 - (-1)| = |6| = 6$. <span class="tr">$d = |5 - (-1)| = 6$.</span></p>`
+        },
+        { type:'task', pageTitle:'T6: Match Distances', pageTitleEn:'Pasangkan Jarak', taskType:'pairing',
+          question:'Match the point pairs with their distances.', questionEn:'Pasangkan pasangan titik dengan jaraknya.',
+          pairs:[{left:'$(1, 1)$ to $(4, 1)$ <span class="tr">ke</span>', right:'$3$'},{left:'$(-2, 3)$ to $(-2, 8)$ <span class="tr">ke</span>', right:'$5$'},{left:'$(0, 0)$ to $(0, -4)$ <span class="tr">ke</span>', right:'$4$'},{left:'$(6, 2)$ to $(1, 2)$ <span class="tr">ke</span>', right:'$5$'}],
+          explanation:`<p>Use $|x_2 - x_1|$ or $|y_2 - y_1|$. <span class="tr">Gunakan rumus selisih koordinat.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E3: Midpoint on Grids', pageTitleEn:'Titik Tengah pada Kisi',
+          body:`<p>The midpoint is exactly halfway between two points. For a horizontal/vertical line, we just average the changing coordinate. <span class="tr">Titik tengah berada tepat di tengah. Untuk garis horizontal/vertikal, kita rata-ratakan koordinat yang berubah.</span></p>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>Midpoint of $(2, 8)$ and $(12, 8)$. <span class="tr">Titik tengah $(2, 8)$ dan $(12, 8)$.</span><p>$x_m = \\dfrac{2+12}{2} = 7$. So, $M(7, 8)$.</p></div>`
+        },
+        { type:'task', pageTitle:'T7: Find Midpoint', pageTitleEn:'Cari Titik Tengah', taskType:'fill',
+          question:'Midpoint of $(-4, 2)$ and $(6, 2)$. $x_m = \\dots$', questionEn:'Titik tengah dari $(-4, 2)$ dan $(6, 2)$. $x_m = \\dots$',
+          correctAnswer:'1', acceptableAnswers:['1'],
+          explanation:`<p>$x_m = \\dfrac{-4 + 6}{2} = \\dfrac{2}{2} = 1$. <span class="tr">$x_m = \\dfrac{-4 + 6}{2} = 1$.</span></p>`
+        },
+        { type:'task', pageTitle:'T8: True or False', pageTitleEn:'Benar atau Salah', taskType:'truefalse',
+          question:'True or false: The midpoint of $(0,0)$ and $(0, 6)$ is $(0, 3)$.', questionEn:'Benar atau salah: Titik tengah $(0,0)$ dan $(0, 6)$ adalah $(0, 3)$.',
+          correctAnswer:'true',
+          explanation:`<p>$y_m = \\dfrac{0+6}{2} = 3$. $x$ stays $0$. <span class="tr">$y_m = 3$. $x$ tetap $0$.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: Order Midpoint Steps', pageTitleEn:'Urutkan Langkah Titik Tengah', taskType:'sorting',
+          question:'Order the steps to find midpoint of $(2, 8)$ and $(12, 8)$.', questionEn:'Urutkan langkah mencari titik tengah $(2, 8)$ dan $(12, 8)$.',
+          items:['Identify that $y$ is constant (8) <span class="tr">Identifikasi $y$ konstan</span>','Add the $x$-coordinates: $2 + 12 = 14$ <span class="tr">Jumlahkan $x$</span>','Divide by 2: $14 / 2 = 7$ <span class="tr">Bagi 2</span>','Write midpoint $(7, 8)$ <span class="tr">Tulis titik tengah</span>'], correctOrder:[0,1,2,3],
+          explanation:`<p>Follow algebraic steps for midpoint. <span class="tr">Ikuti langkah aljabar titik tengah.</span></p>`
+        },
+        { type:'task', pageTitle:'T10: Apply Midpoint', pageTitleEn:'Terapkan Titik Tengah', taskType:'radio',
+          question:'If $A(1, 4)$ and $B(1, 10)$, what is the midpoint?', questionEn:'Jika $A(1, 4)$ dan $B(1, 10)$, berapa titik tengahnya?',
+          options:[{text:'$(1, 7)$', correct:true},{text:'$(2, 14)$', correct:false},{text:'$(1, 14)$', correct:false},{text:'$(1, 5)$', correct:false}],
+          explanation:`<p>$x$ is constant. $y_m = \\dfrac{4+10}{2} = 7$. So $M(1, 7)$. <span class="tr">$x$ konstan. $y_m = 7$.</span></p>`
+        }
+      ]
+    },
+    c: {
+      title: 'Review of Prior Knowledge', titleEn: 'Review of Prior Knowledge', time: '00:15 - 00:20',
+      pages: [
+        { type:'explanation', pageTitle:'E1: Gradient Formula', pageTitleEn:'Rumus Gradien',
+          body:`<p>The gradient (or slope) $m$ of a line measures its steepness and direction. <span class="tr">Gradien $m$ dari suatu garis mengukur kemiringan dan arahnya.</span></p>
+          <div class="math-block">$m = \\dfrac{y_2 - y_1}{x_2 - x_1} = \\dfrac{\\text{Rise}}{\\text{Run}}$</div>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>Find gradient of $A(1, 2)$ and $B(4, 11)$. <span class="tr">Cari gradien $A(1, 2)$ dan $B(4, 11)$.</span>
+          <p>$m = \\dfrac{11 - 2}{4 - 1} = \\dfrac{9}{3} = 3$.</p></div>`
+        },
+        { type:'task', pageTitle:'T1: Calculate Gradient', pageTitleEn:'Hitung Gradien', taskType:'fill',
+          question:'Find gradient of $(1, 2)$ and $(4, 11)$. $m = \\dots$', questionEn:'Cari gradien dari $(1, 2)$ dan $(4, 11)$. $m = \\dots$',
+          correctAnswer:'3', acceptableAnswers:['3'],
+          explanation:`<p>$m = \\dfrac{11 - 2}{4 - 1} = \\dfrac{9}{3} = 3$. <span class="tr">Selisih $y$ dibagi selisih $x$.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: Horizontal Line Gradient', pageTitleEn:'Gradien Garis Horizontal', taskType:'radio',
+          question:'What is the gradient of $A(2, 5)$ and $B(6, 5)$?', questionEn:'Berapa gradien dari $A(2, 5)$ dan $B(6, 5)$?',
+          options:[{text:'$0$', correct:true},{text:'$1$', correct:false},{text:'$4$', correct:false},{text:'Undefined <span class="tr">Tak terdefinisi</span>', correct:false}],
+          explanation:`<p>$m = \\dfrac{5-5}{6-2} = \\dfrac{0}{4} = 0$. Horizontal lines have $m=0$. <span class="tr">Garis horizontal memiliki $m=0$.</span></p>`
+        },
+        { type:'task', pageTitle:'T3: Vertical Line Gradient', pageTitleEn:'Gradien Garis Vertikal', taskType:'truefalse',
+          question:'True or false: A vertical line has a gradient of 0.', questionEn:'Benar atau salah: Garis vertikal memiliki gradien 0.',
+          correctAnswer:'false',
+          explanation:`<p>Vertical lines have undefined gradient because run ($x_2 - x_1$) is 0, causing division by 0. <span class="tr">Garis vertikal memiliki gradien tak terdefinisi karena dibagi 0.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E2: Equation of a Line', pageTitleEn:'Persamaan Garis',
+          body:`<p>The equation of a straight line is $y = mx + c$, where $m$ is gradient and $c$ is $y$-intercept. <span class="tr">Persamaan garis lurus adalah $y = mx + c$, di mana $m$ adalah gradien dan $c$ adalah perpotongan sumbu-$y$.</span></p>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>Line has $m=3$ and passes through $(0, 1)$. $c=1$. Equation: $y = 3x + 1$. <span class="tr">Garis memiliki $m=3$ dan melalui $(0, 1)$. Persamaan: $y = 3x + 1$.</span></div>`
+        },
+        { type:'task', pageTitle:'T4: Find y-intercept', pageTitleEn:'Cari Perpotongan-y', taskType:'fill',
+          question:'Line $y = 2x + c$ passes through $(0, 7)$. $c = \\dots$', questionEn:'Garis $y = 2x + c$ melalui $(0, 7)$. $c = \\dots$',
+          correctAnswer:'7', acceptableAnswers:['7'],
+          explanation:`<p>At $x=0$, $y=c$. Since point is $(0, 7)$, $c=7$. <span class="tr">Saat $x=0$, $y=c$.</span></p>`
+        },
+        { type:'task', pageTitle:'T5: Form Equation', pageTitleEn:'Susun Persamaan', taskType:'radio',
+          question:'A line has gradient $3$ and $y$-intercept $-1$. What is its equation?', questionEn:'Garis memiliki gradien $3$ dan perpotongan-y $-1$. Berapa persamaannya?',
+          options:[{text:'$y = 3x - 1$', correct:true},{text:'$y = -x + 3$', correct:false},{text:'$y = -3x + 1$', correct:false},{text:'$y = x - 3$', correct:false}],
+          explanation:`<p>Substitute $m=3$ and $c=-1$ into $y = mx + c$. <span class="tr">Substitusi $m=3$ dan $c=-1$ ke $y = mx + c$.</span></p>`
+        },
+        { type:'task', pageTitle:'T6: Match Equations', pageTitleEn:'Pasangkan Persamaan', taskType:'pairing',
+          question:'Match the equation to its gradient.', questionEn:'Pasangkan persamaan dengan gradiennya.',
+          pairs:[{left:'$y = 4x + 2$', right:'$4$'},{left:'$y = -x + 5$', right:'$-1$'},{left:'$y = \\dfrac{1}{2}x$', right:'$\\dfrac{1}{2}$'},{left:'$2y = 6x - 4$', right:'$3$'}],
+          explanation:`<p>Convert to $y = mx + c$ form to find $m$. For $2y = 6x - 4$, divide by 2: $y = 3x - 2$. <span class="tr">Ubah ke bentuk $y = mx + c$.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E3: Parallel and Perpendicular', pageTitleEn:'Sejajar dan Tegak Lurus',
+          body:`<p>Parallel lines have the same gradient: $m_1 = m_2$. <span class="tr">Garis sejajar memiliki gradien sama.</span></p>
+          <p>Perpendicular lines have gradients that multiply to $-1$: $m_1 \\times m_2 = -1$. <span class="tr">Garis tegak lurus memiliki hasil kali gradien $-1$.</span></p>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>If $m_1 = 2$, perpendicular gradient $m_2 = -\\dfrac{1}{2}$. <span class="tr">Jika $m_1 = 2$, gradien tegak lurusnya $m_2 = -\\dfrac{1}{2}$.</span></div>`
+        },
+        { type:'task', pageTitle:'T7: Parallel Gradient', pageTitleEn:'Gradien Sejajar', taskType:'fill',
+          question:'Line $L_1$ has gradient $4$. Parallel line $L_2$ has gradient $\\dots$', questionEn:'Garis $L_1$ memiliki gradien $4$. Garis sejajar $L_2$ memiliki gradien $\\dots$',
+          correctAnswer:'4', acceptableAnswers:['4'],
+          explanation:`<p>Parallel lines have identical gradients. <span class="tr">Garis sejajar memiliki gradien yang sama.</span></p>`
+        },
+        { type:'task', pageTitle:'T8: Perpendicular Gradient', pageTitleEn:'Gradien Tegak Lurus', taskType:'truefalse',
+          question:'True or false: The gradient perpendicular to $y = 2x + 1$ is $y = -0.5x + 1$.', questionEn:'Benar atau salah: Gradien tegak lurus $y = 2x + 1$ adalah $y = -0.5x + 1$.',
+          correctAnswer:'true',
+          explanation:`<p>$m_1 = 2$. $m_2 = -\\dfrac{1}{2} = -0.5$. $2 \\times -0.5 = -1$. <span class="tr">$2 \\times -0.5 = -1$.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: Identify Parallel Lines', pageTitleEn:'Identifikasi Garis Sejajar', taskType:'checkbox',
+          question:'Select all lines parallel to $y = 3x - 4$.', questionEn:'Pilih semua garis yang sejajar dengan $y = 3x - 4$.',
+          options:[{text:'$y = 3x + 2$', correct:true},{text:'$y = -\\dfrac{1}{3}x$', correct:false},{text:'$2y = 6x + 1$', correct:true},{text:'$y = 4x - 4$', correct:false}],
+          explanation:`<p>Parallel lines must have $m=3$. $2y = 6x + 1 \\Rightarrow y = 3x + 0.5$. <span class="tr">Garis sejajar harus memiliki $m=3$.</span></p>`
+        },
+        { type:'task', pageTitle:'T10: Order Equation Steps', pageTitleEn:'Urutkan Langkah Persamaan', taskType:'sorting',
+          question:'Order the steps to find the equation of a line given points $(1, 2)$ and $(3, 8)$.', questionEn:'Urutkan langkah mencari persamaan garis dari titik $(1, 2)$ dan $(3, 8)$.',
+          items:['Calculate gradient $m = \\dfrac{8-2}{3-1} = 3$ <span class="tr">Hitung gradien</span>','Substitute $m$ and point $(1,2)$ into $y - y_1 = m(x - x_1)$ <span class="tr">Substitusi $m$ dan titik</span>','Simplify to find $c$: $2 = 3(1) + c \\Rightarrow c = -1$ <span class="tr">Sederhanakan untuk cari $c$</span>','Write final equation $y = 3x - 1$ <span class="tr">Tulis persamaan akhir</span>'], correctOrder:[0,1,2,3],
+          explanation:`<p>Standard procedure: find $m$, then find $c$ using a point, then write equation. <span class="tr">Prosedur standar: cari $m$, lalu cari $c$, lalu tulis persamaan.</span></p>`
+        }
+      ]
+    },
+    d: {
+      title: 'Problem Introduction', titleEn: 'Problem Introduction', time: '00:20 - 00:30',
+      pages: [
+        { type:'explanation', pageTitle:'E1: Area of Triangle on Plane', pageTitleEn:'Luas Segitiga pada Bidang',
+          body:`<p>To find the area of a triangle given its vertices $A(x_1, y_1)$, $B(x_2, y_2)$, and $C(x_3, y_3)$, we can use the "Box Method" (enclosing it in a rectangle) or the determinant formula (often called the Shoelace Formula). <span class="tr">Untuk mencari luas segitiga dari titik sudutnya, kita bisa menggunakan "Metode Kotak" atau rumus determinan (Rumus Shoelace).</span></p>
+          <div class="math-block">$\\text{Area} = \\frac{1}{2} |x_1(y_2 - y_3) + x_2(y_3 - y_1) + x_3(y_1 - y_2)|$</div>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>Find area of triangle with vertices $A(0,0), B(4,0), C(0,3)$. <span class="tr">Cari luas segitiga dengan titik sudut $A(0,0), B(4,0), C(0,3)$.</span>
+          <ol><li>$\\text{Area} = \\frac{1}{2} |0(0 - 3) + 4(3 - 0) + 0(0 - 0)|$</li><li>$= \\frac{1}{2} |0 + 12 + 0|$</li><li>$= \\frac{1}{2} \\times 12 = 6$ sq units.</li></ol>
+          <p><em>Alternatively</em>: Base $= 4$, Height $= 3$. $Area = \\frac{1}{2} \\times 4 \\times 3 = 6$. <span class="tr"><em>Alternatif</em>: Alas $= 4$, Tinggi $= 3$.</span></p></div>`
+        },
+        { type:'task', pageTitle:'T1: Calculate Area', pageTitleEn:'Hitung Luas', taskType:'fill',
+          question:'Triangle has vertices $(0,0), (6,0), (0,4)$. Area = $\\dots$', questionEn:'Segitiga memiliki titik sudut $(0,0), (6,0), (0,4)$. Luas = $\\dots$',
+          correctAnswer:'12', acceptableAnswers:['12'],
+          explanation:`<p>Base $= 6$, Height $= 4$. <span class="tr">Alas $= 6$, Tinggi $= 4$.</span> $\\text{Area} = \\dfrac{1}{2} \\times 6 \\times 4 = 12$. <span class="tr">Setengah alas kali tinggi.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: Area of Rectangle', pageTitleEn:'Luas Persegi Panjang', taskType:'radio',
+          question:'Rectangle vertices: $(1,1), (5,1), (5,4), (1,4)$. What is its area?', questionEn:'Titik sudut persegi panjang: $(1,1), (5,1), (5,4), (1,4)$. Berapa luasnya?',
+          options:[{text:'$12$', correct:true},{text:'$15$', correct:false},{text:'$16$', correct:false},{text:'$9$', correct:false}],
+          explanation:`<p>Width $= |5-1| = 4$. Height $= |4-1| = 3$. <span class="tr">Lebar $= 4$, Tinggi $= 3$.</span> Area $= 4 \\times 3 = 12$. <span class="tr">Lebar kali tinggi.</span></p>`
+        },
+        { type:'task', pageTitle:'T3: Right Triangle Area', pageTitleEn:'Luas Segitiga Siku-siku', taskType:'truefalse',
+          question:'True or false: Triangle with vertices $(0,0), (x,0), (0,y)$ has area $\\dfrac{xy}{2}$.', questionEn:'Benar atau salah: Segitiga dengan titik $(0,0), (x,0), (0,y)$ memiliki luas $\\dfrac{xy}{2}$.',
+          correctAnswer:'true',
+          explanation:`<p>Base $=x$, Height $=y$. <span class="tr">Alas $=x$, Tinggi $=y$.</span> Area $= \\dfrac{1}{2} \\times x \\times y = \\dfrac{xy}{2}$. <span class="tr">Rumus luas segitiga siku-siku di origin.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E2: Collinearity', pageTitleEn:'Kolinearitas',
+          body:`<p>Three points are collinear (lie on the same straight line) if the gradient between $A$ and $B$ equals the gradient between $B$ and $C$. <span class="tr">Tiga titik dikatakan kolinear (terletak pada satu garis lurus) jika gradien antara $A$ dan $B$ sama dengan gradien antara $B$ dan $C$.</span></p>
+          <div class="math-block">$m_{AB} = m_{BC}$</div>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>Are $A(1,2), B(2,4), C(3,6)$ collinear? <span class="tr">Apakah kolinear?</span>
+          <p>$m_{AB} = \\dfrac{4-2}{2-1} = 2$. $m_{BC} = \\dfrac{6-4}{3-2} = 2$. Yes, collinear.</p></div>`
+        },
+        { type:'task', pageTitle:'T4: Check Collinearity', pageTitleEn:'Cek Kolinearitas', taskType:'truefalse',
+          question:'True or false: $A(1,2), B(2,4), C(3,6)$ are collinear.', questionEn:'Benar atau salah: $A(1,2), B(2,4), C(3,6)$ kolinear.',
+          correctAnswer:'true',
+          explanation:`<p>$m_{AB} = 2$, $m_{BC} = 2$. Gradients are equal. <span class="tr">Gradien sama, jadi kolinear.</span></p>`
+        },
+        { type:'task', pageTitle:'T5: Identify Collinear Points', pageTitleEn:'Identifikasi Titik Kolinear', taskType:'checkbox',
+          question:'Select all sets of points that are collinear.', questionEn:'Pilih semua himpunan titik yang kolinear.',
+          options:[{text:'$(1,2), (2,4), (3,6)$', correct:true},{text:'$(0,0), (1,1), (2,3)$', correct:false},{text:'$(0,0), (0,1), (0,2)$', correct:true},{text:'$(-1,-1), (0,0), (1,2)$', correct:false}],
+          explanation:`<p>Check if $m_{AB} = m_{BC}$. Vertical lines (like $x=0$) are also collinear. <span class="tr">Periksa apakah gradiennya sama. Garis vertikal juga kolinear.</span></p>`
+        },
+        { type:'task', pageTitle:'T6: Match Gradients', pageTitleEn:'Pasangkan Gradien', taskType:'pairing',
+          question:'Match the point pairs with their gradients.', questionEn:'Pasangkan pasangan titik dengan gradiennya.',
+          pairs:[{left:'$(1,1)$ to $(2,4)$ <span class="tr">ke</span>', right:'$3$'},{left:'$(-1,2)$ to $(1,6)$ <span class="tr">ke</span>', right:'$2$'},{left:'$(0,5)$ to $(1,2)$ <span class="tr">ke</span>', right:'$-3$'},{left:'$(2,4)$ to $(4,4)$ <span class="tr">ke</span>', right:'$0$'}],
+          explanation:`<p>Use $m = \\dfrac{y_2 - y_1}{x_2 - x_1}$. <span class="tr">Gunakan rumus gradien.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E3: Ratio Division (Internal)', pageTitleEn:'Pembagian Rasio (Internal)',
+          body:`<p>A point $P(x,y)$ divides a line segment $AB$ in the ratio $m:n$. <span class="tr">Titik $P$ membagi ruas garis $AB$ dalam rasio $m:n$.</span></p>
+          <div class="math-block">$P = \\left( \\dfrac{mx_2 + nx_1}{m+n} , \\dfrac{my_2 + ny_1}{m+n} \\right)$</div>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>$P$ divides $A(0,0)$ and $B(6,9)$ in ratio $1:2$. <span class="tr">P bagi $A(0,0)$ dan $B(6,9)$ dengan rasio $1:2$.</span>
+          <p>$x_p = \\dfrac{1(6) + 2(0)}{1+2} = \\dfrac{6}{3} = 2$. $y_p = \\dfrac{1(9) + 2(0)}{3} = 3$. So $P(2,3)$.</p></div>`
+        },
+        { type:'task', pageTitle:'T7: Calculate x in Ratio', pageTitleEn:'Hitung x dalam Rasio', taskType:'fill',
+          question:'$P$ divides $A(0,0)$ and $B(6,9)$ in ratio $1:2$. Find $x_p$.', questionEn:'$P$ membagi $A(0,0)$ dan $B(6,9)$ dengan rasio $1:2$. Cari $x_p$.',
+          correctAnswer:'2', acceptableAnswers:['2'],
+          explanation:`<p>$x_p = \\dfrac{1(6) + 2(0)}{1+2} = \\dfrac{6}{3} = 2$. <span class="tr">Substitusi ke rumus rasio.</span></p>`
+        },
+        { type:'task', pageTitle:'T8: Midpoint as Ratio', pageTitleEn:'Titik Tengah sebagai Rasio', taskType:'radio',
+          question:'$P$ divides $A(-2, 1)$ and $B(4, 7)$ in ratio $1:1$. What is $P$?', questionEn:'$P$ membagi $A(-2, 1)$ dan $B(4, 7)$ dengan rasio $1:1$. Berapa $P$?',
+          options:[{text:'$(1, 4)$', correct:true},{text:'$(2, 3)$', correct:false},{text:'$(3, 6)$', correct:false},{text:'$(-1, 2)$', correct:false}],
+          explanation:`<p>Ratio $1:1$ is a midpoint. $x = \\dfrac{-2+4}{2} = 1$, $y = \\dfrac{1+7}{2} = 4$. <span class="tr">Rasio $1:1$ adalah titik tengah.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: Collinearity Steps', pageTitleEn:'Langkah Kolinearitas', taskType:'sorting',
+          question:'Order the steps to check if $A, B, C$ are collinear.', questionEn:'Urutkan langkah cek apakah $A, B, C$ kolinear.',
+          items:['Calculate gradient $m_{AB}$ <span class="tr">Hitung gradien $m_{AB}$</span>','Calculate gradient $m_{BC}$ <span class="tr">Hitung gradien $m_{BC}$</span>','Compare $m_{AB}$ and $m_{BC}$ <span class="tr">Bandingkan</span>','If equal, points are collinear <span class="tr">Jika sama, kolinear</span>'], correctOrder:[0,1,2,3],
+          explanation:`<p>Standard procedure for collinearity. <span class="tr">Prosedur standar kolinearitas.</span></p>`
+        },
+        { type:'task', pageTitle:'T10: Calculate y in Ratio', pageTitleEn:'Hitung y dalam Rasio', taskType:'fill',
+          question:'$P$ divides $A(0,0)$ and $B(6,9)$ in ratio $1:2$. Find $y_p$.', questionEn:'$P$ membagi $A(0,0)$ dan $B(6,9)$ dengan rasio $1:2$. Cari $y_p$.',
+          correctAnswer:'3', acceptableAnswers:['3'],
+          explanation:`<p>$y_p = \\dfrac{1(9) + 2(0)}{1+2} = \\dfrac{9}{3} = 3$. <span class="tr">Substitusi $y$ ke rumus rasio.</span></p>`
+        }
+      ]
+    },
+    e: {
+      title: 'Guided Practice', titleEn: 'Guided Practice', time: '00:30 - 00:45',
+      pages: [
+        { type:'explanation', pageTitle:'E1: Parallelogram Properties', pageTitleEn:'Sifat Jajar Genjang',
+          body:`<p>A parallelogram has diagonals that bisect each other. This means the midpoint of diagonal $AC$ is the same as the midpoint of diagonal $BD$. <span class="tr">Jajar genjang memiliki diagonal yang saling membagi dua. Artinya titik tengah diagonal $AC$ sama dengan titik tengah diagonal $BD$.</span></p>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>Three vertices of a parallelogram are $A(1,2), B(4,2), C(5,4)$. Find $D$. <span class="tr">Tiga titik sudut jajar genjang adalah $A(1,2), B(4,2), C(5,4)$. Cari $D$.</span>
+          <p>Midpoint of $AC = \\left( \\dfrac{1+5}{2}, \\dfrac{2+4}{2} \\right) = (3, 3)$. Let $D=(x,y)$. Midpoint of $BD = \\left( \\dfrac{4+x}{2}, \\dfrac{2+y}{2} \\right) = (3, 3)$. So $x=2, y=4$. $D(2,4)$.</p></div>`
+        },
+        { type:'task', pageTitle:'T1: Find Missing x', pageTitleEn:'Cari x yang Hilang', taskType:'fill',
+          question:'Parallelogram $ABCD$: $A(1,2), B(4,2), C(5,4)$. Find $x$-coordinate of $D$.', questionEn:'Jajar genjang $ABCD$: $A(1,2), B(4,2), C(5,4)$. Cari koordinat-$x$ titik $D$.',
+          correctAnswer:'2', acceptableAnswers:['2'],
+          explanation:`<p>Midpoint of $AC$ is $(3,3)$. $\\dfrac{4+x}{2} = 3 \\Rightarrow 4+x = 6 \\Rightarrow x=2$. <span class="tr">Gunakan sifat diagonal saling membagi dua.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: Find Missing y', pageTitleEn:'Cari y yang Hilang', taskType:'fill',
+          question:'Parallelogram $ABCD$: $A(1,2), B(4,2), C(5,4)$. Find $y$-coordinate of $D$.', questionEn:'Jajar genjang $ABCD$: $A(1,2), B(4,2), C(5,4)$. Cari koordinat-$y$ titik $D$.',
+          correctAnswer:'4', acceptableAnswers:['4'],
+          explanation:`<p>Midpoint of $AC$ is $(3,3)$. $\\dfrac{2+y}{2} = 3 \\Rightarrow 2+y = 6 \\Rightarrow y=4$. <span class="tr">$D(2,4)$.</span></p>`
+        },
+        { type:'task', pageTitle:'T3: Parallelogram Diagonals', pageTitleEn:'Diagonal Jajar Genjang', taskType:'truefalse',
+          question:'True or false: In a parallelogram, the diagonals are always equal in length.', questionEn:'Benar atau salah: Pada jajar genjang, diagonal selalu sama panjang.',
+          correctAnswer:'false',
+          explanation:`<p>Diagonals bisect each other but are not necessarily equal in length (that's a rectangle). <span class="tr">Diagonal saling membagi dua tapi belum tentu sama panjang.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E2: Perpendicular Bisector', pageTitleEn:'Pembagi Dua Tegak Lurus',
+          body:`<p>The perpendicular bisector of $AB$ is a line perpendicular to $AB$ that passes through its midpoint. <span class="tr">Pembagi dua tegak lurus dari $AB$ adalah garis tegak lurus $AB$ yang melalui titik tengahnya.</span></p>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>$A(0,1), B(2,5)$. Midpoint $M(1,3)$. $m_{AB} = 2$. Perp gradient $= -1/2$. <span class="tr">Gradien tegak lurusnya $-1/2$.</span>
+          <p>Equation: $y - 3 = -\\dfrac{1}{2}(x - 1)$.</p></div>`
+        },
+        { type:'task', pageTitle:'T4: Perp Bisector Gradient', pageTitleEn:'Gradien Pembagi Tegak Lurus', taskType:'fill',
+          question:'Gradient of $AB$ is $2$. Gradient of its perpendicular bisector is $\\dots$', questionEn:'Gradien $AB$ adalah $2$. Gradien pembagi dua tegak lurusnya adalah $\\dots$',
+          correctAnswer:'-1/2', acceptableAnswers:['-1/2','-0.5','- 1/2'],
+          explanation:`<p>Perpendicular gradients multiply to $-1$. $2 \\times m_2 = -1 \\Rightarrow m_2 = -1/2$. <span class="tr">Perkalian gradien tegak lurus adalah $-1$.</span></p>`
+        },
+        { type:'task', pageTitle:'T5: Perp Bisector Equation', pageTitleEn:'Persamaan Pembagi Tegak Lurus', taskType:'radio',
+          question:'A perp bisector passes through $(0,1)$ with gradient $-1/2$. What is its equation?', questionEn:'Pembagi tegak lurus melalui $(0,1)$ dengan gradien $-1/2$. Berapa persamaannya?',
+          options:[{text:'$y = -0.5x + 1$', correct:true},{text:'$y = 2x + 1$', correct:false},{text:'$y = -0.5x - 1$', correct:false},{text:'$y = -2x + 1$', correct:false}],
+          explanation:`<p>Using $y = mx + c$. $m = -1/2$, $c = 1$. So $y = -0.5x + 1$. <span class="tr">Substitusi $m$ dan $c$.</span></p>`
+        },
+        { type:'task', pageTitle:'T6: Match Perp Gradients', pageTitleEn:'Pasangkan Gradien Tegak Lurus', taskType:'pairing',
+          question:'Match the line gradient to its perpendicular gradient.', questionEn:'Pasangkan gradien garis dengan gradien tegak lurusnya.',
+          pairs:[{left:'$m = 3$', right:'$m = -1/3$'},{left:'$m = -2$', right:'$m = 1/2$'},{left:'$m = 1/4$', right:'$m = -4$'},{left:'$m = -1$', right:'$m = 1$'}],
+          explanation:`<p>Perpendicular gradient $= -1/m$. <span class="tr">Gradien tegak lurus adalah negatif kebalikannya.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E3: Shapes in Coordinate Geometry', pageTitleEn:'Bangun pada Geometri Koordinat',
+          body:`<p>Properties of shapes can be proven using coordinates. <span class="tr">Sifat bangun dapat dibuktikan dengan koordinat.</span></p>
+          <ul><li><strong>Rhombus</strong>: All sides equal, diagonals are perpendicular bisectors. <span class="tr">Belah ketupat: diagonal tegak lurus.</span></li><li><strong>Rectangle</strong>: All angles $90^\\circ$, diagonals are equal in length. <span class="tr">Persegi panjang: diagonal sama panjang.</span></li></ul>
+          <div class="math-block">$d = \\sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$ <span class="tr">Gunakan rumus jarak untuk cek panjang.</span></div>`
+        },
+        { type:'task', pageTitle:'T7: Rhombus Diagonals', pageTitleEn:'Diagonal Belah Ketupat', taskType:'truefalse',
+          question:'True or false: The diagonals of a rhombus are perpendicular bisectors of each other.', questionEn:'Benar atau salah: Diagonal belah ketupat saling tegak lurus dan membagi dua.',
+          correctAnswer:'true',
+          explanation:`<p>Yes, in a rhombus, diagonals intersect at $90^\\circ$ and bisect each other. <span class="tr">Ya, diagonal belah ketupat berpotongan $90^\\circ$ dan saling membagi dua sama panjang.</span></p>`
+        },
+        { type:'task', pageTitle:'T8: Rectangle Properties', pageTitleEn:'Sifat Persegi Panjang', taskType:'checkbox',
+          question:'Select all properties of a rectangle in coordinate geometry.', questionEn:'Pilih semua sifat persegi panjang pada geometri koordinat.',
+          options:[{text:'Opposite sides have equal length <span class="tr">Sisi berhadapan sama panjang</span>', correct:true},{text:'Diagonals bisect each other <span class="tr">Diagonal saling membagi dua</span>', correct:true},{text:'Diagonals are perpendicular <span class="tr">Diagonal tegak lurus</span>', correct:false},{text:'All angles are 90 degrees <span class="tr">Semua sudut 90 derajat</span>', correct:true}],
+          explanation:`<p>Rectangle diagonals are equal in length and bisect, but are not perpendicular. <span class="tr">Diagonal persegi panjang sama panjang dan saling membagi dua, tapi tidak tegak lurus.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: Perp Bisector Steps', pageTitleEn:'Langkah Pembagi Tegak Lurus', taskType:'sorting',
+          question:'Order the steps to find the perpendicular bisector of $AB$.', questionEn:'Urutkan langkah mencari pembagi dua tegak lurus $AB$.',
+          items:['Find the midpoint of $AB$ <span class="tr">Cari titik tengah</span>','Calculate gradient $m_{AB}$ <span class="tr">Hitung gradien</span>','Find perpendicular gradient $m_{\\perp}$ <span class="tr">Cari gradien tegak lurus</span>','Substitute $M$ and $m_{\\perp}$ into $y - y_m = m(x - x_m)$ <span class="tr">Substitusi ke persamaan</span>'], correctOrder:[0,1,2,3],
+          explanation:`<p>Standard geometric procedure for perpendicular bisectors. <span class="tr">Prosedur standar geometri untuk pembagi dua tegak lurus.</span></p>`
+        },
+        { type:'task', pageTitle:'T10: Apply Ratio Division', pageTitleEn:'Terapkan Pembagian Rasio', taskType:'fill',
+          question:'Point $P$ divides $A(1,3)$ and $B(5,1)$ in ratio $1:1$. Find $x_p$.', questionEn:'Titik $P$ membagi $A(1,3)$ dan $B(5,1)$ dengan rasio $1:1$. Cari $x_p$.',
+          correctAnswer:'3', acceptableAnswers:['3'],
+          explanation:`<p>Ratio $1:1$ is midpoint. $x_p = \\dfrac{1+5}{2} = 3$. <span class="tr">Rasio $1:1$ sama dengan titik tengah.</span></p>`
+        }
+      ]
+    },
+    f: {
+      title: 'Independent Practice', titleEn: 'Independent Practice', time: '00:45 - 00:55',
+      pages: [
+        { type:'explanation', pageTitle:'E1: Equation of a Circle', pageTitleEn:'Persamaan Lingkaran',
+          body:`<p>The equation of a circle with center $(a, b)$ and radius $r$ is derived from the distance formula. <span class="tr">Persamaan lingkaran dengan pusat $(a, b)$ dan jari-jari $r$ diturunkan dari rumus jarak.</span></p>
+          <div class="math-block">$(x - a)^2 + (y - b)^2 = r^2$</div>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>Find center and radius of $(x - 2)^2 + (y + 3)^2 = 25$. <span class="tr">Cari pusat dan jari-jari.</span>
+          <p>Center $= (2, -3)$. Radius $= \\sqrt{25} = 5$.</p></div>`
+        },
+        { type:'task', pageTitle:'T1: Find Radius', pageTitleEn:'Cari Jari-jari', taskType:'fill',
+          question:'$(x - 1)^2 + (y - 2)^2 = 16$. Radius $r = \\dots$', questionEn:'$(x - 1)^2 + (y - 2)^2 = 16$. Jari-jari $r = \\dots$',
+          correctAnswer:'4', acceptableAnswers:['4'],
+          explanation:`<p>$r = \\sqrt{16} = 4$. <span class="tr">Akar dari konstanta di ruas kanan.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: Find Center', pageTitleEn:'Cari Pusat', taskType:'radio',
+          question:'What is the center of $(x + 4)^2 + (y - 5)^2 = 9$?', questionEn:'Berapa pusat dari $(x + 4)^2 + (y - 5)^2 = 9$?',
+          options:[{text:'$(-4, 5)$', correct:true},{text:'$(4, -5)$', correct:false},{text:'$(-4, -5)$', correct:false},{text:'$(4, 5)$', correct:false}],
+          explanation:`<p>$(x - a)^2 \\Rightarrow a = -4$. $(y - b)^2 \\Rightarrow b = 5$. Center $(-4, 5)$. <span class="tr">Perhatikan tanda minus pada rumus.</span></p>`
+        },
+        { type:'task', pageTitle:'T3: Point on Circle', pageTitleEn:'Titik pada Lingkaran', taskType:'truefalse',
+          question:'True or false: The point $(3, 2)$ lies on the circle $(x - 3)^2 + (y - 2)^2 = 5$.', questionEn:'Benar atau salah: Titik $(3, 2)$ terletak pada lingkaran $(x - 3)^2 + (y - 2)^2 = 5$.',
+          correctAnswer:'false',
+          explanation:`<p>Substitute $x=3, y=2$: $(3-3)^2 + (2-2)^2 = 0 \\neq 5$. It is the center, not on the circle. <span class="tr">Titik $(3,2)$ adalah pusat lingkaran, bukan di kelilinginya.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E2: Intersection of Lines', pageTitleEn:'Perpotongan Garis',
+          body:`<p>To find the intersection of two lines, solve their equations simultaneously. <span class="tr">Untuk mencari perpotongan dua garis, selesaikan persamaannya secara simultan.</span></p>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>Find intersection of $y = 2x + 1$ and $y = -x + 4$. <span class="tr">Cari perpotongan.</span>
+          <ol><li>$2x + 1 = -x + 4$</li><li>$3x = 3$</li><li>$x = 1$</li><li>$y = 2(1) + 1 = 3$</li></ol>
+          <p>Intersection is $(1, 3)$.</p></div>`
+        },
+        { type:'task', pageTitle:'T4: Find Intersection x', pageTitleEn:'Cari Perpotongan x', taskType:'fill',
+          question:'Intersection of $y = x$ and $y = 2x - 1$. $x = \\dots$', questionEn:'Perpotongan $y = x$ dan $y = 2x - 1$. $x = \\dots$',
+          correctAnswer:'1', acceptableAnswers:['1'],
+          explanation:`<p>$x = 2x - 1 \\Rightarrow x = 1$. <span class="tr">Samakan kedua persamaan.</span></p>`
+        },
+        { type:'task', pageTitle:'T5: Find Intersection Point', pageTitleEn:'Cari Titik Perpotongan', taskType:'radio',
+          question:'What is the intersection of $y = 3x - 2$ and $y = x + 2$?', questionEn:'Berapa perpotongan dari $y = 3x - 2$ dan $y = x + 2$?',
+          options:[{text:'$(2, 4)$', correct:true},{text:'$(1, 1)$', correct:false},{text:'$(0, 2)$', correct:false},{text:'$(4, 2)$', correct:false}],
+          explanation:`<p>$3x - 2 = x + 2 \\Rightarrow 2x = 4 \\Rightarrow x = 2$. $y = 2 + 2 = 4$. Point $(2, 4)$. <span class="tr">Cari $x$ lalu substitusi untuk cari $y$.</span></p>`
+        },
+        { type:'task', pageTitle:'T6: Match Intersections', pageTitleEn:'Pasangkan Perpotongan', taskType:'pairing',
+          question:'Match the pair of lines to their intersection point.', questionEn:'Pasangkan pasangan garis dengan titik perpotongannya.',
+          pairs:[{left:'$y=x, y=-x$ <span class="tr">dan</span>', right:'$(0,0)$'},{left:'$y=2x, y=x+1$ <span class="tr">dan</span>', right:'$(1,2)$'},{left:'$y=x+1, y=-x+3$ <span class="tr">dan</span>', right:'$(1,2)$'},{left:'$y=0, y=x-2$ <span class="tr">dan</span>', right:'$(2,0)$'}],
+          explanation:`<p>Set equations equal to each other to find $x$, then find $y$. <span class="tr">Samakan persamaan untuk mencari $x$.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E3: Distance from Point to Line', pageTitleEn:'Jarak Titik ke Garis',
+          body:`<p>The shortest distance from a point $P(x_0, y_0)$ to a line $Ax + By + C = 0$ is given by a specific formula. <span class="tr">Jarak terpendek dari titik $P$ ke garis $Ax + By + C = 0$ diberikan oleh rumus khusus.</span></p>
+          <div class="math-block">$d = \\dfrac{|Ax_0 + By_0 + C|}{\\sqrt{A^2 + B^2}}$</div>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>Distance from $(0,0)$ to line $3x + 4y - 10 = 0$. <span class="tr">Jarak dari $(0,0)$ ke garis $3x + 4y - 10 = 0$.</span>
+          <p>$d = \\dfrac{|3(0) + 4(0) - 10|}{\\sqrt{3^2 + 4^2}} = \\dfrac{|-10|}{\\sqrt{25}} = \\dfrac{10}{5} = 2$.</p></div>`
+        },
+        { type:'task', pageTitle:'T7: Calculate Distance to Line', pageTitleEn:'Hitung Jarak ke Garis', taskType:'fill',
+          question:'Distance from $(0,0)$ to $3x + 4y - 25 = 0$. $d = \\dots$', questionEn:'Jarak dari $(0,0)$ ke $3x + 4y - 25 = 0$. $d = \\dots$',
+          correctAnswer:'5', acceptableAnswers:['5'],
+          explanation:`<p>$d = \\dfrac{|3(0) + 4(0) - 25|}{\\sqrt{3^2 + 4^2}} = \\dfrac{25}{5} = 5$. <span class="tr">Substitusi langsung ke rumus jarak titik ke garis.</span></p>`
+        },
+        { type:'task', pageTitle:'T8: Shortest Distance', pageTitleEn:'Jarak Terpendek', taskType:'truefalse',
+          question:'True or false: The shortest distance from a point to a line is always along the perpendicular line.', questionEn:'Benar atau salah: Jarak terpendek dari titik ke garis selalu sepanjang garis tegak lurus.',
+          correctAnswer:'true',
+          explanation:`<p>Yes, the perpendicular distance is the shortest. <span class="tr">Ya, jarak tegak lurus adalah yang terpendek.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: Distance Formula Steps', pageTitleEn:'Langkah Rumus Jarak', taskType:'sorting',
+          question:'Order the steps to find distance from point to line.', questionEn:'Urutkan langkah mencari jarak titik ke garis.',
+          items:['Identify $A, B, C$ from line equation <span class="tr">Identifikasi $A, B, C$</span>','Identify $x_0, y_0$ from point <span class="tr">Identifikasi $x_0, y_0$</span>','Substitute into formula $d = \\dfrac{|Ax_0 + By_0 + C|}{\\sqrt{A^2 + B^2}}$ <span class="tr">Substitusi ke rumus</span>','Simplify to find $d$ <span class="tr">Sederhanakan untuk dapat $d$</span>'], correctOrder:[0,1,2,3],
+          explanation:`<p>Follow the algebraic procedure for point-to-line distance. <span class="tr">Ikuti prosedur aljabar jarak titik ke garis.</span></p>`
+        },
+        { type:'task', pageTitle:'T10: Apply Point to Line', pageTitleEn:'Terapkan Titik ke Garis', taskType:'fill',
+          question:'Distance from $(0,0)$ to $x - 2 = 0$. $d = \\dots$', questionEn:'Jarak dari $(0,0)$ ke $x - 2 = 0$. $d = \\dots$',
+          correctAnswer:'2', acceptableAnswers:['2'],
+          explanation:`<p>Line is $1x + 0y - 2 = 0$. $d = \\dfrac{|1(0) + 0(0) - 2|}{\\sqrt{1^2 + 0^2}} = \\dfrac{|-2|}{1} = 2$. <span class="tr">Ini adalah jarak horizontal dari origin ke garis vertikal $x=2$.</span></p>`
+        }
+      ]
+    },
+    g: {
+      title: 'Consolidation & Reflection', titleEn: 'Consolidation & Reflection', time: '00:55 - 01:00',
+      pages: [
+        { type:'explanation', pageTitle:'E1: Key Takeaways', pageTitleEn:'Poin Penting',
+          body:`<div class="illustration"><svg width="240" height="80" viewBox="0 0 240 80"><circle cx="40" cy="40" r="28" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/><text x="40" y="48" text-anchor="middle" font-size="22" fill="#2563eb">△</text><text x="85" y="35" font-size="13" fill="#1e40af" font-weight="bold">Coordinates & Shapes</text><text x="85" y="52" font-size="10" fill="#64748b">d, M, m</text></svg><div style="font-size:.82em;color:var(--muted);margin-top:4px">Formulas & Rules <span class="tr">Rumus & Aturan</span></div></div>
+          <p>Today we learned about Coordinate Geometry. Here are the key formulas: <span class="tr">Hari ini kita belajar tentang Geometri Koordinat. Berikut rumus utamanya:</span></p>
+          <div class="math-block"><ol><li><strong>Distance:</strong> $d = \\sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$ <span class="tr">Rumus Jarak</span></li><li><strong>Midpoint:</strong> $M = \\left( \\dfrac{x_1 + x_2}{2}, \\dfrac{y_1 + y_2}{2} \\right)$ <span class="tr">Rumus Titik Tengah</span></li><li><strong>Gradient:</strong> $m = \\dfrac{y_2 - y_1}{x_2 - x_1}$ <span class="tr">Rumus Gradien</span></li><li><strong>Circle:</strong> $(x-a)^2 + (y-b)^2 = r^2$ <span class="tr">Persamaan Lingkaran</span></li></ol></div>`
+        },
+        { type:'task', pageTitle:'T1: Reflection Question', pageTitleEn:'Pertanyaan Refleksi', taskType:'truefalse',
+          question:'True or false: I understand that to find the distance between two points, I am essentially using the Pythagorean theorem.', questionEn:'Benar atau salah: Saya mengerti bahwa untuk mencari jarak antara dua titik, saya pada dasarnya menggunakan teorema Pythagoras.',
+          correctAnswer:'true',
+          explanation:`<p>Yes, the distance formula is directly derived from $a^2 + b^2 = c^2$. <span class="tr">Ya, rumus jarak diturunkan langsung dari teorema Pythagoras.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: Exit Ticket', pageTitleEn:'Exit Ticket', taskType:'fill',
+          question:'Calculate the distance of point $A(3, 4)$ from the origin $O(0, 0)$. $d = \\dots$', questionEn:'Hitung jarak titik $A(3, 4)$ dari origin $O(0, 0)$. $d = \\dots$',
+          correctAnswer:'5', acceptableAnswers:['5'],
+          explanation:`<p>$d = \\sqrt{(3-0)^2 + (4-0)^2} = \\sqrt{9 + 16} = \\sqrt{25} = 5$. <span class="tr">Gunakan rumus jarak ke origin.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E2: Follow-up Practice', pageTitleEn:'Latihan Lanjutan',
+          body:`<p>Additional practice is available in <strong>Sections H–L (Tasks 1–5)</strong>. Each section contains 10 questions of various types. <span class="tr">Latihan tambahan tersedia di Bagian H–L. Setiap bagian berisi 10 soal dengan berbagai tipe.</span></p>
+          <div class="math-block"><ul><li><strong>Task 1 (H):</strong> Distance & Midpoint Basics <span class="tr">Dasar Jarak & Titik Tengah</span></li><li><strong>Task 2 (I):</strong> Gradient & Equation of Lines <span class="tr">Gradien & Persamaan Garis</span></li><li><strong>Task 3 (J):</strong> Ratio Division & Shapes <span class="tr">Pembagian Rasio & Bangun</span></li><li><strong>Task 4 (K):</strong> Perpendicular Bisectors <span class="tr">Pembagi Dua Tegak Lurus</span></li><li><strong>Task 5 (L):</strong> Exam-style Mixed Questions <span class="tr">Soal Campuran Tipe Ujian</span></li></ul></div>`
+        }
+      ]
+    },
+    h: {
+      title: 'Task 1', titleEn: 'Task 1', time: 'Printable',
+      pages: [
+        { type:'task', pageTitle:'T1: Distance from Origin', pageTitleEn:'Jarak dari Origin', taskType:'fill',
+          question:'Find the distance from $O(0,0)$ to $P(6, 8)$. $d = \\dots$', questionEn:'Cari jarak dari $O(0,0)$ ke $P(6, 8)$. $d = \\dots$',
+          correctAnswer:'10', acceptableAnswers:['10'],
+          explanation:`<p>$d = \\sqrt{(6-0)^2 + (8-0)^2} = \\sqrt{36 + 64} = \\sqrt{100} = 10$. <span class="tr">Aplikasi rumus jarak dari origin.</span></p>`},
+        { type:'task', pageTitle:'T2: Find Midpoint', pageTitleEn:'Cari Titik Tengah', taskType:'radio',
+          question:'What is the midpoint of $A(2, 4)$ and $B(6, 8)$?', questionEn:'Berapa titik tengah dari $A(2, 4)$ dan $B(6, 8)$?',
+          options:[{text:'$(4, 6)$', correct:true},{text:'$(8, 12)$', correct:false},{text:'$(2, 2)$', correct:false},{text:'$(3, 5)$', correct:false}],
+          explanation:`<p>$x_m = \\dfrac{2+6}{2} = 4$. $y_m = \\dfrac{4+8}{2} = 6$. <span class="tr">Rata-rata koordinat.</span></p>`},
+        { type:'task', pageTitle:'T3: Distance Check', pageTitleEn:'Cek Jarak', taskType:'truefalse',
+          question:'True or false: The distance between $(1,1)$ and $(4,5)$ is $4$.', questionEn:'Benar atau salah: Jarak antara $(1,1)$ dan $(4,5)$ adalah $4$.',
+          correctAnswer:'false',
+          explanation:`<p>$d = \\sqrt{3^2 + 4^2} = \\sqrt{9+16} = \\sqrt{25} = 5$, not $4$. <span class="tr">Jaraknya adalah 5, bukan 4.</span></p>`},
+        { type:'task', pageTitle:'T4: Midpoint Steps', pageTitleEn:'Langkah Titik Tengah', taskType:'sorting',
+          question:'Order the steps to find the midpoint of $(x_1, y_1)$ and $(x_2, y_2)$.', questionEn:'Urutkan langkah mencari titik tengah $(x_1, y_1)$ dan $(x_2, y_2)$.',
+          items:['Sum $x_1$ and $x_2$ <span class="tr">Jumlahkan $x$</span>','Divide by 2 to get $x_m$ <span class="tr">Bagi 2 untuk $x_m$</span>','Sum $y_1$ and $y_2$ <span class="tr">Jumlahkan $y$</span>','Divide by 2 to get $y_m$ <span class="tr">Bagi 2 untuk $y_m$</span>'], correctOrder:[0,1,2,3],
+          explanation:`<p>Standard midpoint calculation process. <span class="tr">Proses perhitungan titik tengah standar.</span></p>`},
+        { type:'task', pageTitle:'T5: Points 10 Units Away', pageTitleEn:'Titik 10 Unit Jauhnya', taskType:'checkbox',
+          question:'Select all points that are exactly 10 units from the origin.', questionEn:'Pilih semua titik yang berjarak tepat 10 unit dari origin.',
+          options:[{text:'$(6, 8)$', correct:true},{text:'$(0, 10)$', correct:true},{text:'$(-6, -8)$', correct:true},{text:'$(5, 5)$', correct:false}],
+          explanation:`<p>Check $\\sqrt{x^2 + y^2} = 10$. $6^2+8^2=100$. $0^2+10^2=100$. $5^2+5^2=50 \\neq 100$. <span class="tr">Cari yang memenuhi $x^2+y^2 = 100$.</span></p>`},
+        { type:'task', pageTitle:'T6: Match Distances', pageTitleEn:'Pasangkan Jarak', taskType:'pairing',
+          question:'Match the point pairs to their distance.', questionEn:'Pasangkan pasangan titik dengan jaraknya.',
+          pairs:[{left:'$(0,0)$ to $(0,5)$ <span class="tr">ke</span>', right:'$5$'},{left:'$(1,1)$ to $(4,5)$ <span class="tr">ke</span>', right:'$5$'},{left:'$(-3,0)$ to $(0,4)$ <span class="tr">ke</span>', right:'$5$'},{left:'$(2,3)$ to $(2,6)$ <span class="tr">ke</span>', right:'$3$'}],
+          explanation:`<p>Apply distance formula to all. <span class="tr">Terapkan rumus jarak ke semua pasangan.</span></p>`},
+        { type:'task', pageTitle:'T7: Find Midpoint x', pageTitleEn:'Cari Titik Tengah x', taskType:'fill',
+          question:'Midpoint of $(-3, 5)$ and $(7, 9)$ has $x_m = \\dots$', questionEn:'Titik tengah dari $(-3, 5)$ dan $(7, 9)$ memiliki $x_m = \\dots$',
+          correctAnswer:'2', acceptableAnswers:['2'],
+          explanation:`<p>$x_m = \\dfrac{-3 + 7}{2} = \\dfrac{4}{2} = 2$. <span class="tr">Jumlahkan $x$ lalu bagi 2.</span></p>`},
+        { type:'task', pageTitle:'T8: Missing Endpoint', pageTitleEn:'Titik Ujung Hilang', taskType:'radio',
+          question:'$M(3,3)$ is the midpoint of $A(1,2)$ and $B(x,y)$. Find $B$.', questionEn:'$M(3,3)$ adalah titik tengah $A(1,2)$ dan $B(x,y)$. Cari $B$.',
+          options:[{text:'$(5, 4)$', correct:true},{text:'$(4, 5)$', correct:false},{text:'$(2, 1)$', correct:false},{text:'$(6, 6)$', correct:false}],
+          explanation:`<p>$x_B = 2(3) - 1 = 5$. $y_B = 2(3) - 2 = 4$. <span class="tr">Gunakan rumus $B = 2M - A$.</span></p>`},
+        { type:'task', pageTitle:'T9: Midpoint on Axes', pageTitleEn:'Titik Tengah pada Sumbu', taskType:'truefalse',
+          question:'True or false: The midpoint of $(0,0)$ and $(4,0)$ is $(0,2)$.', questionEn:'Benar atau salah: Titik tengah $(0,0)$ dan $(4,0)$ adalah $(0,2)$.',
+          correctAnswer:'false',
+          explanation:`<p>Midpoint is $\\left( \\dfrac{0+4}{2}, \\dfrac{0+0}{2} \\right) = (2, 0)$. <span class="tr">Titik tengahnya adalah $(2,0)$.</span></p>`},
+        { type:'task', pageTitle:'T10: Distance Calculation', pageTitleEn:'Perhitungan Jarak', taskType:'fill',
+          question:'Find distance between $(-2, -1)$ and $(1, 3)$. $d = \\dots$', questionEn:'Cari jarak antara $(-2, -1)$ dan $(1, 3)$. $d = \\dots$',
+          correctAnswer:'5', acceptableAnswers:['5'],
+          explanation:`<p>$\\Delta x = 1 - (-2) = 3$. $\\Delta y = 3 - (-1) = 4$. $d = \\sqrt{3^2 + 4^2} = 5$. <span class="tr">Hati-hati dengan tanda negatif.</span></p>`}
+      ]
+    },
+    i: {
+      title: 'Task 2', titleEn: 'Task 2', time: 'Printable',
+      pages: [
+        { type:'task', pageTitle:'T1: Calculate Gradient', pageTitleEn:'Hitung Gradien', taskType:'fill',
+          question:'Find gradient of line connecting $(1, 2)$ and $(3, 8)$. $m = \\dots$', questionEn:'Cari gradien garis yang menghubungkan $(1, 2)$ dan $(3, 8)$. $m = \\dots$',
+          correctAnswer:'3', acceptableAnswers:['3'],
+          explanation:`<p>$m = \\dfrac{8 - 2}{3 - 1} = \\dfrac{6}{2} = 3$. <span class="tr">Selisih $y$ dibagi selisih $x$.</span></p>`},
+        { type:'task', pageTitle:'T2: Form Equation', pageTitleEn:'Susun Persamaan', taskType:'radio',
+          question:'A line has gradient $2$ and passes through $(0, -3)$. What is its equation?', questionEn:'Garis memiliki gradien $2$ dan melalui $(0, -3)$. Berapa persamaannya?',
+          options:[{text:'$y = 2x - 3$', correct:true},{text:'$y = -3x + 2$', correct:false},{text:'$y = 2x + 3$', correct:false},{text:'$y = -2x - 3$', correct:false}],
+          explanation:`<p>Using $y = mx + c$. $m=2$, $c=-3$. So $y = 2x - 3$. <span class="tr">Substitusi $m$ dan $c$.</span></p>`},
+        { type:'task', pageTitle:'T3: Parallel Lines Rule', pageTitleEn:'Aturan Garis Sejajar', taskType:'truefalse',
+          question:'True or false: Parallel lines have gradients that multiply to $-1$.', questionEn:'Benar atau salah: Garis sejajar memiliki gradien yang jika dikalikan menghasilkan $-1$.',
+          correctAnswer:'false',
+          explanation:`<p>Parallel lines have the SAME gradient. Perpendicular lines multiply to $-1$. <span class="tr">Garis sejajar memiliki gradien SAMA. Tegak lurus yang perkaliannya $-1$.</span></p>`},
+        { type:'task', pageTitle:'T4: Match Gradients', pageTitleEn:'Pasangkan Gradien', taskType:'pairing',
+          question:'Match the point pairs to their gradient.', questionEn:'Pasangkan pasangan titik dengan gradiennya.',
+          pairs:[{left:'$(1,1)$ to $(2,4)$ <span class="tr">ke</span>', right:'$3$'},{left:'$(2,4)$ to $(4,4)$ <span class="tr">ke</span>', right:'$0$'},{left:'$(-1,2)$ to $(1,6)$ <span class="tr">ke</span>', right:'$2$'},{left:'$(0,5)$ to $(1,2)$ <span class="tr">ke</span>', right:'$-3$'}],
+          explanation:`<p>Use $m = \\dfrac{y_2 - y_1}{x_2 - x_1}$. <span class="tr">Gunakan rumus gradien.</span></p>`},
+        { type:'task', pageTitle:'T5: Parallel Lines', pageTitleEn:'Garis Sejajar', taskType:'checkbox',
+          question:'Select all lines parallel to $y = -0.5x + 4$.', questionEn:'Pilih semua garis yang sejajar dengan $y = -0.5x + 4$.',
+          options:[{text:'$y = -0.5x + 1$', correct:true},{text:'$y = 2x - 4$', correct:false},{text:'$2y + x = 6$', correct:true},{text:'$y = 0.5x + 4$', correct:false}],
+          explanation:`<p>Parallel lines must have $m = -0.5$. $2y + x = 6 \\Rightarrow y = -0.5x + 3$. <span class="tr">Garis sejajar harus memiliki gradien yang sama.</span></p>`},
+        { type:'task', pageTitle:'T6: Perpendicular Gradient', pageTitleEn:'Gradien Tegak Lurus', taskType:'fill',
+          question:'Gradient of line $A$ is $5$. The gradient of a line perpendicular to $A$ is $\\dots$', questionEn:'Gradien garis $A$ adalah $5$. Gradien garis tegak lurus $A$ adalah $\\dots$',
+          correctAnswer:'-1/5', acceptableAnswers:['-1/5','-0.2','- 1/5'],
+          explanation:`<p>Perpendicular gradient is $-1/m = -1/5$. <span class="tr">Gradien tegak lurus adalah negatif kebalikannya.</span></p>`},
+        { type:'task', pageTitle:'T7: Equation Steps', pageTitleEn:'Langkah Persamaan', taskType:'sorting',
+          question:'Order the steps to find the equation of a line from two points.', questionEn:'Urutkan langkah mencari persamaan garis dari dua titik.',
+          items:['Find gradient $m = \\dfrac{y_2 - y_1}{x_2 - x_1}$ <span class="tr">Cari gradien</span>','Substitute $m$ and one point into $y - y_1 = m(x - x_1)$ <span class="tr">Substitusi $m$ dan titik</span>','Simplify to find the $y$-intercept $c$ <span class="tr">Sederhanakan untuk cari $c$</span>','Write final equation $y = mx + c$ <span class="tr">Tulis persamaan akhir</span>'], correctOrder:[0,1,2,3],
+          explanation:`<p>Standard procedure for finding line equations. <span class="tr">Prosedur standar mencari persamaan garis.</span></p>`},
+        { type:'task', pageTitle:'T8: Perpendicular Equation', pageTitleEn:'Persamaan Tegak Lurus', taskType:'radio',
+          question:'What is the gradient of a line perpendicular to $y = 3x + 1$?', questionEn:'Berapa gradien garis yang tegak lurus dengan $y = 3x + 1$?',
+          options:[{text:'$-\\dfrac{1}{3}$', correct:true},{text:'$3$', correct:false},{text:'$-3$', correct:false},{text:'$\\dfrac{1}{3}$', correct:false}],
+          explanation:`<p>$m_1 = 3$. $m_2 = -1/3$. <span class="tr">Gradien tegak lurus adalah negatif kebalikannya.</span></p>`},
+        { type:'task', pageTitle:'T9: Horizontal Line', pageTitleEn:'Garis Horizontal', taskType:'truefalse',
+          question:'True or false: The gradient of a horizontal line is undefined.', questionEn:'Benar atau salah: Gradien garis horizontal tidak terdefinisi.',
+          correctAnswer:'false',
+          explanation:`<p>Horizontal lines have $m=0$. Vertical lines have undefined gradient. <span class="tr">Garis horizontal $m=0$. Garis vertikal tidak terdefinisi.</span></p>`},
+        { type:'task', pageTitle:'T10: Find Missing y', pageTitleEn:'Cari y yang Hilang', taskType:'fill',
+          question:'Points $(-2, y)$ and $(4, 2)$ have gradient $0.5$. $y = \\dots$', questionEn:'Titik $(-2, y)$ dan $(4, 2)$ memiliki gradien $0.5$. $y = \\dots$',
+          correctAnswer:'-1', acceptableAnswers:['-1'],
+          explanation:`<p>$0.5 = \\dfrac{2 - y}{4 - (-2)} \\Rightarrow 0.5 = \\dfrac{2 - y}{6} \\Rightarrow 3 = 2 - y \\Rightarrow y = -1$. <span class="tr">Substitusi ke rumus gradien lalu selesaikan persamaan linear.</span></p>`}
+      ]
+    },
+    j: {
+      title: 'Task 3', titleEn: 'Task 3', time: 'Printable',
+      pages: [
+        { type:'task', pageTitle:'T1: Ratio x-coordinate', pageTitleEn:'Koordinat-x Rasio', taskType:'fill',
+          question:'$P$ divides $A(0,0)$ and $B(10,0)$ in ratio $3:2$. Find $x_p$.', questionEn:'$P$ membagi $A(0,0)$ dan $B(10,0)$ dengan rasio $3:2$. Cari $x_p$.',
+          correctAnswer:'6', acceptableAnswers:['6'],
+          explanation:`<p>$x_p = \\dfrac{3(10) + 2(0)}{3+2} = \\dfrac{30}{5} = 6$. <span class="tr">Gunakan rumus pembagian rasio internal.</span></p>`},
+        { type:'task', pageTitle:'T2: Apply Ratio', pageTitleEn:'Terapkan Rasio', taskType:'radio',
+          question:'$P$ divides $A(1,1)$ and $B(4,7)$ in ratio $1:2$. What is $P$?', questionEn:'$P$ membagi $A(1,1)$ dan $B(4,7)$ dengan rasio $1:2$. Berapa $P$?',
+          options:[{text:'$(2, 3)$', correct:true},{text:'$(3, 5)$', correct:false},{text:'$(2.5, 4)$', correct:false},{text:'$(1.5, 2)$', correct:false}],
+          explanation:`<p>$x_p = \\dfrac{1(4)+2(1)}{3} = 2$. $y_p = \\dfrac{1(7)+2(1)}{3} = 3$. So $P(2,3)$. <span class="tr">Jadi $P(2,3)$.</span></p>`},
+        { type:'task', pageTitle:'T3: Midpoint Ratio', pageTitleEn:'Rasio Titik Tengah', taskType:'truefalse',
+          question:'True or false: A point that divides a segment in the ratio $1:1$ is the midpoint.', questionEn:'Benar atau salah: Titik yang membagi ruas garis dengan rasio $1:1$ adalah titik tengah.',
+          correctAnswer:'true',
+          explanation:`<p>Ratio $1:1$ means equal parts, which is the definition of a midpoint. <span class="tr">Rasio $1:1$ berarti bagian sama, yang merupakan titik tengah.</span></p>`},
+        { type:'task', pageTitle:'T4: Match Ratios', pageTitleEn:'Pasangkan Rasio', taskType:'pairing',
+          question:'Match the ratio division to the correct coordinate outcome.', questionEn:'Pasangkan pembagian rasio dengan hasil koordinat yang benar.',
+          pairs:[{left:'$A(0,0), B(4,8)$ ratio $1:1$ <span class="tr">rasio</span>', right:'$(2,4)$'},{left:'$A(0,0), B(6,3)$ ratio $1:2$ <span class="tr">rasio</span>', right:'$(2,1)$'},{left:'$A(2,2), B(5,8)$ ratio $1:2$ <span class="tr">rasio</span>', right:'$(3,4)$'},{left:'$A(1,1), B(4,10)$ ratio $1:1$ <span class="tr">rasio</span>', right:'$(2.5, 5.5)$'}],
+          explanation:`<p>Apply $P = \\left( \\dfrac{mx_2+nx_1}{m+n}, \\dfrac{my_2+ny_1}{m+n} \\right)$. <span class="tr">Aplikasi rumus pembagian rasio.</span></p>`},
+        { type:'task', pageTitle:'T5: Parallelogram Properties', pageTitleEn:'Sifat Jajar Genjang', taskType:'checkbox',
+          question:'Select all properties of a parallelogram in coordinate geometry.', questionEn:'Pilih semua sifat jajaran genjang pada geometri koordinat.',
+          options:[{text:'Opposite sides are parallel <span class="tr">Sisi berhadapan sejajar</span>', correct:true},{text:'Diagonals bisect each other <span class="tr">Diagonal saling membagi dua</span>', correct:true},{text:'Diagonals are perpendicular <span class="tr">Diagonal tegak lurus</span>', correct:false},{text:'All angles are 90 degrees <span class="tr">Semua sudut 90 derajat</span>', correct:false}],
+          explanation:`<p>Parallelogram has parallel opposite sides and bisecting diagonals. Perpendicular diagonals belong to a rhombus. <span class="tr">Diagonal jajaran genjang saling membagi dua sama panjang.</span></p>`},
+        { type:'task', pageTitle:'T6: Triangle Area', pageTitleEn:'Luas Segitiga', taskType:'fill',
+          question:'Triangle vertices: $(0,0), (8,0), (0,5)$. Area = $\\dots$', questionEn:'Titik sudut segitiga: $(0,0), (8,0), (0,5)$. Luas = $\\dots$',
+          correctAnswer:'20', acceptableAnswers:['20'],
+          explanation:`<p>Base $= 8$, Height $= 5$. <span class="tr">Alas $= 8$, Tinggi $= 5$.</span> Area $= \\dfrac{1}{2} \\times 8 \\times 5 = 20$. <span class="tr">Setengah alas kali tinggi.</span></p>`},
+        { type:'task', pageTitle:'T7: Collinearity Steps', pageTitleEn:'Langkah Kolinearitas', taskType:'sorting',
+          question:'Order the steps to check if points $A, B, C$ are collinear.', questionEn:'Urutkan langkah cek apakah titik $A, B, C$ kolinear.',
+          items:['Calculate gradient $m_{AB}$ <span class="tr">Hitung gradien $m_{AB}$</span>','Calculate gradient $m_{BC}$ <span class="tr">Hitung gradien $m_{BC}$</span>','Check if $m_{AB} = m_{BC}$ <span class="tr">Cek apakah sama</span>','If equal, points are collinear <span class="tr">Jika sama, kolinear</span>'], correctOrder:[0,1,2,3],
+          explanation:`<p>Standard procedure for collinearity. <span class="tr">Prosedur standar kolinearitas.</span></p>`},
+        { type:'task', pageTitle:'T8: Rectangle Area', pageTitleEn:'Luas Persegi Panjang', taskType:'radio',
+          question:'Rectangle vertices: $(2,2), (6,2), (6,5), (2,5)$. What is the area?', questionEn:'Titik sudut persegi panjang: $(2,2), (6,2), (6,5), (2,5)$. Berapa luasnya?',
+          options:[{text:'$12$', correct:true},{text:'$16$', correct:false},{text:'$20$', correct:false},{text:'$9$', correct:false}],
+          explanation:`<p>Width $= |6-2| = 4$. Height $= |5-2| = 3$. <span class="tr">Lebar $= 4$, Tinggi $= 3$.</span> Area $= 4 \\times 3 = 12$. <span class="tr">Lebar kali tinggi.</span></p>`},
+        { type:'task', pageTitle:'T9: Rhombus Diagonals', pageTitleEn:'Diagonal Belah Ketupat', taskType:'truefalse',
+          question:'True or false: In a rhombus, the diagonals are equal in length.', questionEn:'Benar atau salah: Pada belah ketupat, diagonal sama panjang.',
+          correctAnswer:'false',
+          explanation:`<p>In a rhombus, diagonals are perpendicular but NOT equal in length. (Equal diagonals are for rectangles/squares). <span class="tr">Diagonal belah ketupat tegak lurus tapi TIDAK sama panjang.</span></p>`},
+        { type:'task', pageTitle:'T10: Ratio y-coordinate', pageTitleEn:'Koordinat-y Rasio', taskType:'fill',
+          question:'$P$ divides $A(0,2)$ and $B(0,8)$ in ratio $1:2$. Find $y_p$.', questionEn:'$P$ membagi $A(0,2)$ and $B(0,8)$ dengan rasio $1:2$. Cari $y_p$.',
+          correctAnswer:'4', acceptableAnswers:['4'],
+          explanation:`<p>$y_p = \\dfrac{1(8) + 2(2)}{1+2} = \\dfrac{12}{3} = 4$. <span class="tr">Substitusi $y$ ke rumus rasio.</span></p>`}
+      ]
+    },
+    k: {
+      title: 'Task 4', titleEn: 'Task 4', time: 'Printable',
+      pages: [
+        { type:'task', pageTitle:'T1: Perp Gradient', pageTitleEn:'Gradien Tegak Lurus', taskType:'fill',
+          question:'Gradient of $AB$ is $1/3$. The gradient of its perpendicular bisector is $\\dots$', questionEn:'Gradien $AB$ adalah $1/3$. Gradien pembagi dua tegak lurusnya adalah $\\dots$',
+          correctAnswer:'-3', acceptableAnswers:['-3'],
+          explanation:`<p>Perpendicular gradient $= -1 / (1/3) = -3$. <span class="tr">Negatif kebalikan dari $1/3$.</span></p>`},
+        { type:'task', pageTitle:'T2: Find Midpoint', pageTitleEn:'Cari Titik Tengah', taskType:'radio',
+          question:'What is the midpoint of $A(2,4)$ and $B(6,8)$?', questionEn:'Berapa titik tengah $A(2,4)$ dan $B(6,8)$?',
+          options:[{text:'$(4, 6)$', correct:true},{text:'$(8, 12)$', correct:false},{text:'$(2, 2)$', correct:false},{text:'$(3, 5)$', correct:false}],
+          explanation:`<p>$x_m = \\dfrac{2+6}{2} = 4$. $y_m = \\dfrac{4+8}{2} = 6$. <span class="tr">Rata-rata koordinat.</span></p>`},
+        { type:'task', pageTitle:'T3: Perp Bisector Rule', pageTitleEn:'Aturan Pembagi Tegak Lurus', taskType:'truefalse',
+          question:'True or false: The perpendicular bisector passes through the midpoint of the segment.', questionEn:'Benar atau salah: Pembagi dua tegak lurus melalui titik tengah ruas garis.',
+          correctAnswer:'true',
+          explanation:`<p>By definition, it bisects the segment at $90^\\circ$, so it must pass through the midpoint. <span class="tr">Berdasarkan definisi, ia membagi dua di titik tengah.</span></p>`},
+        { type:'task', pageTitle:'T4: Perp Bisector Steps', pageTitleEn:'Langkah Pembagi Tegak Lurus', taskType:'sorting',
+          question:'Order the steps to find the perpendicular bisector of $AB$.', questionEn:'Urutkan langkah mencari pembagi dua tegak lurus $AB$.',
+          items:['Find the midpoint of $AB$ <span class="tr">Cari titik tengah</span>','Calculate gradient $m_{AB}$ <span class="tr">Hitung gradien</span>','Find perpendicular gradient $m_{\\perp}$ <span class="tr">Cari gradien tegak lurus</span>','Substitute into $y - y_m = m_{\\perp}(x - x_m)$ <span class="tr">Substitusi ke persamaan</span>'], correctOrder:[0,1,2,3],
+          explanation:`<p>Standard geometric procedure for perpendicular bisectors. <span class="tr">Prosedur standar mencari pembagi dua tegak lurus.</span></p>`},
+        { type:'task', pageTitle:'T5: Perpendicular Lines', pageTitleEn:'Garis Tegak Lurus', taskType:'checkbox',
+          question:'Select all lines perpendicular to $y = 4x + 2$.', questionEn:'Pilih semua garis yang tegak lurus dengan $y = 4x + 2$.',
+          options:[{text:'$y = -0.25x + 1$', correct:true},{text:'$y = -4x + 2$', correct:false},{text:'$x + 4y = 0$', correct:true},{text:'$y = \\dfrac{1}{4}x - 3$', correct:false}],
+          explanation:`<p>Perp gradient must be $-1/4 = -0.25$. $x + 4y = 0 \\Rightarrow y = -0.25x$. <span class="tr">Gradien tegak lurus harus $-1/4$.</span></p>`},
+        { type:'task', pageTitle:'T6: Find y-intercept', pageTitleEn:'Cari Perpotongan-y', taskType:'fill',
+          question:'A perp bisector passes through $(0, 5)$. Its $y$-intercept ($c$) is $\\dots$', questionEn:'Pembagi tegak lurus melalui $(0, 5)$. Perpotongan-$y$-nya ($c$) adalah $\\dots$',
+          correctAnswer:'5', acceptableAnswers:['5'],
+          explanation:`<p>The line crosses the $y$-axis at $x=0$. If it passes through $(0, y)$, then $c = y$. Here $c=5$. <span class="tr">Titik potong dengan sumbu-$y$ ada saat $x=0$.</span></p>`},
+        { type:'task', pageTitle:'T7: Match Perp Gradients', pageTitleEn:'Pasangkan Gradien Tegak Lurus', taskType:'pairing',
+          question:'Match the line gradient to its perpendicular gradient.', questionEn:'Pasangkan gradien garis dengan gradien tegak lurusnya.',
+          pairs:[{left:'$m = 5$', right:'$m = -1/5$'},{left:'$m = -3$', right:'$m = 1/3$'},{left:'$m = 2/3$', right:'$m = -3/2$'},{left:'$m = -1/4$', right:'$m = 4$'}],
+          explanation:`<p>Perpendicular gradient is $-1/m$. <span class="tr">Gradien tegak lurus adalah $-1/m$.</span></p>`},
+        { type:'task', pageTitle:'T8: Equation of Perp Bisector', pageTitleEn:'Persamaan Pembagi Tegak Lurus', taskType:'radio',
+          question:'$A(0,1), B(2,5)$. Midpoint is $M(1,3)$, gradient $m_{AB}=2$. What is the equation of the perp bisector?', questionEn:'$A(0,1), B(2,5)$. Titik tengah $M(1,3)$, gradien $m_{AB}=2$. Berapa persamaan pembagi dua tegak lurusnya?',
+          options:[{text:'$y = -0.5x + 3.5$', correct:true},{text:'$y = 2x + 3.5$', correct:false},{text:'$y = -0.5x + 1$', correct:false},{text:'$y = -2x + 5$', correct:false}],
+          explanation:`<p>$m_{\\perp} = -1/2 = -0.5$. Passes through $M(1,3)$. <span class="tr">Melalui $M(1,3)$.</span> $y - 3 = -0.5(x - 1) \\Rightarrow y = -0.5x + 3.5$. <span class="tr">Gunakan rumus gradien dan titik untuk mencari persamaan.</span></p>`},
+        { type:'task', pageTitle:'T9: Horizontal Bisector', pageTitleEn:'Pembagi Horizontal', taskType:'truefalse',
+          question:'True or false: The perpendicular bisector of a horizontal line is a vertical line.', questionEn:'Benar atau salah: Pembagi dua tegak lurus dari garis horizontal adalah garis vertikal.',
+          correctAnswer:'true',
+          explanation:`<p>Horizontal has $m=0$. Perpendicular is undefined, which is a vertical line. <span class="tr">Garis horizontal $m=0$. Tegak lurusnya tidak terdefinisi (vertikal).</span></p>`},
+        { type:'task', pageTitle:'T10: Find Midpoint x', pageTitleEn:'Cari Titik Tengah x', taskType:'fill',
+          question:'Find the $x$-coordinate of the midpoint of $(-5, 0)$ and $(1, 0)$.', questionEn:'Cari koordinat-$x$ titik tengah dari $(-5, 0)$ dan $(1, 0)$.',
+          correctAnswer:'-2', acceptableAnswers:['-2'],
+          explanation:`<p>$x_m = \\dfrac{-5 + 1}{2} = \\dfrac{-4}{2} = -2$. <span class="tr">Jumlahkan $x$ lalu bagi 2.</span></p>`}
+      ]
+    },
+    l: {
+      title: 'Task 5', titleEn: 'Task 5', time: 'Printable',
+      pages: [
+        { type:'task', pageTitle:'T1: Calculate Distance', pageTitleEn:'Hitung Jarak', taskType:'fill',
+          question:'Find the distance between $A(-2, 1)$ and $B(3, 13)$. $d = \\dots$', questionEn:'Cari jarak antara $A(-2, 1)$ dan $B(3, 13)$. $d = \\dots$',
+          correctAnswer:'13', acceptableAnswers:['13'],
+          explanation:`<p>$\\Delta x = 3 - (-2) = 5$. $\\Delta y = 13 - 1 = 12$. $d = \\sqrt{5^2 + 12^2} = \\sqrt{25 + 144} = \\sqrt{169} = 13$. <span class="tr">Perhatikan pengurangan koordinat negatif.</span></p>`},
+        { type:'task', pageTitle:'T2: Perp to Linear Eq', pageTitleEn:'Tegak Lurus ke Persamaan Linear', taskType:'radio',
+          question:'What is the gradient of a line perpendicular to $2y = 6x + 4$?', questionEn:'Berapa gradien garis yang tegak lurus dengan $2y = 6x + 4$?',
+          options:[{text:'$-\\dfrac{1}{3}$', correct:true},{text:'$\\dfrac{1}{3}$', correct:false},{text:'$-3$', correct:false},{text:'$3$', correct:false}],
+          explanation:`<p>$2y = 6x + 4 \\Rightarrow y = 3x + 2$. Gradient is $3$. <span class="tr">Gradiennya $3$.</span> Perpendicular gradient is $-1/3$. <span class="tr">Gradien tegak lurusnya $-1/3$.</span></p>`},
+        { type:'task', pageTitle:'T3: Collinearity Check', pageTitleEn:'Cek Kolinearitas', taskType:'truefalse',
+          question:'True or false: Points $A(1,2), B(3,6), C(4,8)$ are collinear.', questionEn:'Benar atau salah: Titik $A(1,2), B(3,6), C(4,8)$ kolinear.',
+          correctAnswer:'true',
+          explanation:`<p>$m_{AB} = \\dfrac{6-2}{3-1} = 2$. $m_{BC} = \\dfrac{8-6}{4-3} = 2$. Equal gradients mean collinear. <span class="tr">Gradien sama berarti kolinear.</span></p>`},
+        { type:'task', pageTitle:'T4: Area of Triangle Steps', pageTitleEn:'Langkah Luas Segitiga', taskType:'sorting',
+          question:'Order the steps to find the area of a right-angled triangle on the axes.', questionEn:'Urutkan langkah mencari luas segitiga siku-siku pada sumbu.',
+          items:['Identify base length on $x$-axis ($\\Delta x$) <span class="tr">Identifikasi panjang alas</span>','Identify height length on $y$-axis ($\\Delta y$) <span class="tr">Identifikasi tinggi</span>','Multiply base and height <span class="tr">Kali alas dan tinggi</span>','Multiply by $\\dfrac{1}{2}$ <span class="tr">Kali setengah</span>'], correctOrder:[0,1,2,3],
+          explanation:`<p>Standard procedure for right-angled triangles on axes. <span class="tr">Prosedur standar segitiga siku-siku pada sumbu.</span></p>`},
+        { type:'task', pageTitle:'T5: Formulas in Coord Geo', pageTitleEn:'Rumus Geometri Koordinat', taskType:'checkbox',
+          question:'Select all formulas used in Coordinate Geometry.', questionEn:'Pilih semua rumus yang digunakan di Geometri Koordinat.',
+          options:[{text:'$d = \\sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}$', correct:true},{text:'$m = \\dfrac{y_2-y_1}{x_2-x_1}$', correct:true},{text:'$M = \\left( \\dfrac{x_1+x_2}{2}, \\dfrac{y_1+y_2}{2} \\right)$', correct:true},{text:'$A = \\pi r^2$', correct:false}],
+          explanation:`<p>$A = \\pi r^2$ is for circles, not coordinate geometry basics. <span class="tr">$A = \\pi r^2$ adalah rumus luas lingkaran.</span></p>`},
+        { type:'task', pageTitle:'T6: Find Missing Endpoint', pageTitleEn:'Cari Titik Ujung Hilang', taskType:'fill',
+          question:'If $A(2,3)$ and midpoint $M(5,7)$, find $x_B$.', questionEn:'Jika $A(2,3)$ dan titik tengah $M(5,7)$, cari $x_B$.',
+          correctAnswer:'8', acceptableAnswers:['8'],
+          explanation:`<p>$x_B = 2(x_M) - x_A = 2(5) - 2 = 8$. <span class="tr">Gunakan rumus titik ujung yang hilang.</span></p>`},
+        { type:'task', pageTitle:'T7: Match Problems to Answers', pageTitleEn:'Pasangkan Soal ke Jawaban', taskType:'pairing',
+          question:'Match the problem to its correct final answer.', questionEn:'Pasangkan soal dengan jawaban akhir yang benar.',
+          pairs:[{left:'Midpoint of $(0,0)$ and $(6,4)$ <span class="tr">Titik tengah dari</span>', right:'$(3, 2)$'},{left:'Gradient of $(1,2)$ and $(3,8)$ <span class="tr">Gradien dari</span>', right:'$3$'},{left:'Distance from $(0,0)$ to $(3,4)$ <span class="tr">Jarak dari ke</span>', right:'$5$'},{left:'Perp gradient to $m=2$ <span class="tr">Gradien tegak lurus ke</span>', right:'$-0.5$'}],
+          explanation:`<p>Apply coordinate geometry formulas correctly. <span class="tr">Terapkan rumus geometri koordinat dengan tepat.</span></p>`},
+        { type:'task', pageTitle:'T8: Equation from Points', pageTitleEn:'Persamaan dari Titik', taskType:'radio',
+          question:'A line has gradient $-1$ and passes through $(2, 5)$. What is its equation?', questionEn:'Garis memiliki gradien $-1$ dan melalui $(2, 5)$. Berapa persamaannya?',
+          options:[{text:'$y = -x + 7$', correct:true},{text:'$y = -x + 5$', correct:false},{text:'$y = x + 3$', correct:false},{text:'$y = -2x + 9$', correct:false}],
+          explanation:`<p>Use $y - y_1 = m(x - x_1)$. $y - 5 = -1(x - 2) \\Rightarrow y = -x + 2 + 5 \\Rightarrow y = -x + 7$. <span class="tr">Gunakan bentuk titik-gradien.</span></p>`},
+        { type:'task', pageTitle:'T9: Vertical Gradient', pageTitleEn:'Gradien Vertikal', taskType:'truefalse',
+          question:'True or false: The gradient between $(1,1)$ and $(1,5)$ is $0$.', questionEn:'Benar atau salah: Gradien antara $(1,1)$ dan $(1,5)$ adalah $0$.',
+          correctAnswer:'false',
+          explanation:`<p>$x$-coordinates are the same. This is a vertical line, so the gradient is UNDEFINED, not $0$. <span class="tr">Garis vertikal memiliki gradien tak terdefinisi, bukan $0$.</span></p>`},
+        { type:'task', pageTitle:'T10: Apply Midpoint', pageTitleEn:'Terapkan Titik Tengah', taskType:'fill',
+          question:'Find the $x$-coordinate of the point dividing $(0,0)$ and $(6,3)$ in ratio $1:1$.', questionEn:'Cari koordinat-$x$ titik yang membagi $(0,0)$ dan $(6,3)$ dengan rasio $1:1$.',
+          correctAnswer:'3', acceptableAnswers:['3'],
+          explanation:`<p>Ratio $1:1$ is a midpoint. $x_m = \\dfrac{0+6}{2} = 3$. <span class="tr">Rasio $1:1$ sama dengan titik tengah.</span></p>`}
+      ]
+    }
+  };
+
+  // ================= STATE =================
+  let currentSection = 'a';
+  let currentPage = 0;
+  let userAnswers = {};
+
+  // ================= UTILITIES =================
+  function shuffle(arr){
+    const a = arr.slice();
+    for(let i = a.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+  function renderMath(el){
+    if(window.renderMathInElement){
+      renderMathInElement(el, {
+        delimiters: [
+          {left:'$$', right:'$$', display:true},
+          {left:'$', right:'$', display:false}
+        ],
+        throwOnError: false
+      });
+    }
+  }
+
+  // ================= SIDEBAR =================
+  function renderSidebar(){
+    const sidebar = document.getElementById('sidebar');
+    const sectionKeys = ['a','b','c','d','e','f','g','h','i','j','k','l'];
+    const meta = {
+      a:{t:'Spiral Review', e:'Spiral Review', time:'00:00-00:10'},
+      b:{t:'Intro & Real-World', e:'Pengantar & Dunia Nyata', time:'00:10-00:15'},
+      c:{t:'Prior Knowledge', e:'Pengetahuan Awal', time:'00:15-00:20'},
+      d:{t:'Problem Intro', e:'Pengantar Masalah', time:'00:20-00:30'},
+      e:{t:'Guided Practice', e:'Latihan Terbimbing', time:'00:30-00:45'},
+      f:{t:'Independent Prac', e:'Latihan Mandiri', time:'00:45-00:55'},
+      g:{t:'Consolidation', e:'Konsolidasi', time:'00:55-01:00'},
+      h:{t:'Task 1', e:'Tugas 1', time:'Printable'},
+      i:{t:'Task 2', e:'Tugas 2', time:'Printable'},
+      j:{t:'Task 3', e:'Tugas 3', time:'Printable'},
+      k:{t:'Task 4', e:'Tugas 4', time:'Printable'},
+      l:{t:'Task 5', e:'Tugas 5', time:'Printable'}
+    };
+    let html = '<h3>Sections <span class="tr">Bagian</span></h3>';
+    sectionKeys.forEach(key => {
+      const section = sectionsData[key];
+      const isActive = currentSection === key;
+      if(section){
+        html += `<div class="nav-link ${isActive?'active':''}" data-section="${key}">
+          <span class="nl-title">${key.toUpperCase()}. ${meta[key].t}</span>
+          <span class="tr">${meta[key].e}</span>
+          <span class="time">${meta[key].time}</span>
+        </div>`;
+      } else {
+        html += `<div class="nav-link disabled">${key.toUpperCase()}. ${meta[key].t}<br><span class="tr">${meta[key].e}</span><br><span class="time">${meta[key].time} (segera)</span></div>`;
+      }
+    });
+    sidebar.innerHTML = html;
+    sidebar.querySelectorAll('.nav-link[data-section]').forEach(el => {
+      el.addEventListener('click', () => {
+        currentSection = el.dataset.section;
+        currentPage = 0;
+        renderSidebar();
+        renderPage();
+      });
+    });
+  }
+
+  // ================= PAGE RENDER =================
+  function renderPage(){
+    const section = sectionsData[currentSection];
+    if(!section) return;
+    const page = section.pages[currentPage];
+    const contentEl = document.getElementById('pageContent');
+
+    let printBtnHtml = '';
+    if(['h','i','j','k','l'].includes(currentSection)){
+      printBtnHtml = '<button id="printBtnTop" style="background:var(--success);color:#fff;border:none;padding:7px 14px;border-radius:6px;cursor:pointer;font-size:.8em;font-weight:600;white-space:nowrap">🖨 Print to PDF <span class="tr">Cetak ke PDF</span></button>';
+    }
+
+    let html = '<div class="page-header"><h2>' + section.title + ' <span class="tr">' + section.titleEn + '</span></h2><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">' + printBtnHtml + '<span class="badge">' + page.pageTitle.split(':')[0] + '</span></div></div>';
+
+    if(page.type === 'explanation'){
+      html += '<div class="card explain"><h3>' + page.pageTitle + ' <span class="tr">' + page.pageTitleEn + '</span></h3>' + page.body + '</div>';
+    } else if(page.type === 'task'){
+      html += renderTask(page);
+    }
+    contentEl.innerHTML = html;
+    renderMath(contentEl);
+
+    const total = section.pages.length;
+    const pageNumsEl = document.getElementById('pageNums');
+    let pageNumHtml = '';
+    section.pages.forEach(function(p, i){
+      var raw = p.pageTitle.split(':')[0].trim();
+      var type = raw.charAt(0);
+      var num = parseInt(raw.substring(1));
+      var label = type + '-' + String(num).padStart(2, '0');
+      var typeClass = (type === 'E') ? 'page-num-e' : 'page-num-t';
+      var isActive = (i === currentPage);
+      pageNumHtml += '<button class="page-num ' + typeClass + ' ' + (isActive ? 'active' : '') + '" data-page="' + i + '"' + (isActive ? ' disabled' : '') + '>' + label + '</button>';
+    });
+    pageNumsEl.innerHTML = pageNumHtml;
+
+    pageNumsEl.querySelectorAll('.page-num').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        currentPage = parseInt(btn.dataset.page);
+        renderPage();
+      });
+    });
+
+    document.getElementById('prevBtn').disabled = (currentPage === 0);
+    document.getElementById('nextBtn').disabled = (currentPage === total - 1);
+
+    var printBtnTop = document.getElementById('printBtnTop');
+    if(printBtnTop){
+      printBtnTop.addEventListener('click', function(){ printTask(currentSection); });
+    }
+
+    if(page.type === 'task'){
+      attachTaskHandlers(page);
+    }
+  }
+
+  function renderTask(page){
+    let html = `<div class="card task"><h3>${page.pageTitle} <span class="tr">${page.pageTitleEn}</span></h3>`;
+    html += `<div class="q-text">${page.question} <span class="tr">${page.questionEn || ''}</span></div>`;
+
+    if(page.taskType === 'radio' || page.taskType === 'checkbox'){
+      const options = shuffle(page.options);
+      page._shuffledOptions = options;
+      html += '<div class="options">';
+      options.forEach((opt, i) => {
+        const cls = page.taskType === 'checkbox' ? 'option checkbox' : 'option radio';
+        html += `<div class="${cls}" data-idx="${i}">
+          <div class="marker"></div>
+          <div class="opt-text">${opt.text}</div>
+        </div>`;
+      });
+      html += '</div>';
+    } else if(page.taskType === 'fill'){
+      html += `<input type="text" class="fill-input" id="fillInput" placeholder="...">`;
+    } else if(page.taskType === 'truefalse'){
+      const opts = shuffle([
+        {text:'True <span class="tr">Benar</span>', val:'true'},
+        {text:'False <span class="tr">Salah</span>', val:'false'}
+      ]);
+      page._shuffledTF = opts;
+      html += '<div class="options">';
+      opts.forEach((o, i) => {
+        html += `<div class="option radio" data-val="${o.val}" data-idx="${i}"><div class="marker"></div><div class="opt-text">${o.text}</div></div>`;
+      });
+      html += '</div>';
+    } else if(page.taskType === 'sorting'){
+      const shuffled = shuffle(page.items.map((item, idx) => ({text:item, originalIdx:idx})));
+      page._shuffledItems = shuffled;
+      html += '<div class="sort-list">';
+      shuffled.forEach((it, i) => {
+        html += `<div class="sort-item" data-pos="${i}" data-orig="${it.originalIdx}">
+          <span class="pos">${i+1}</span>
+          <span class="sort-text">${it.text}</span>
+        </div>`;
+      });
+      html += '</div>';
+      html += '<p style="font-size:.82em;color:var(--muted);margin-top:6px">Click two items to swap. <span class="tr">Klik dua item untuk menukar.</span></p>';
+    } else if(page.taskType === 'pairing'){
+      const lefts = shuffle(page.pairs.map((p, idx) => ({text:p.left, originalIdx:idx})));
+      const rights = shuffle(page.pairs.map((p, idx) => ({text:p.right, originalIdx:idx})));
+      page._shuffledPairs = {lefts, rights};
+      html += '<div class="pair-grid">';
+      html += '<div class="pair-col"><h4>Left <span class="tr">Kiri</span></h4>';
+      lefts.forEach((l, i) => {
+        html += `<div class="pair-item" data-side="left" data-idx="${i}">${l.text}</div>`;
+      });
+      html += '</div>';
+      html += '<div class="pair-col"><h4>Right <span class="tr">Kanan</span></h4>';
+      rights.forEach((r, i) => {
+        html += `<div class="pair-item" data-side="right" data-idx="${i}">${r.text}</div>`;
+      });
+      html += '</div></div>';
+      html += '<div class="pairs-list" id="pairsList"></div>';
+      html += '<p style="font-size:.82em;color:var(--muted);margin-top:6px">Click left then right to pair. <span class="tr">Klik kiri lalu kanan untuk memasangkan.</span></p>';
+    }
+    html += `<button class="btn-submit" id="submitBtn">Check Answer <span class="tr">Periksa Jawaban</span></button>`;
+    html += `<div class="feedback" id="feedback"></div></div>`;
+    return html;
+  }
+
+  function attachTaskHandlers(page){
+    const taskType = page.taskType;
+
+    if(taskType === 'radio' || taskType === 'truefalse'){
+      document.querySelectorAll('.option').forEach(opt => {
+        opt.addEventListener('click', () => {
+          document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+          opt.classList.add('selected');
+        });
+      });
+    } else if(taskType === 'checkbox'){
+      document.querySelectorAll('.option').forEach(opt => {
+        opt.addEventListener('click', () => opt.classList.toggle('selected'));
+      });
+    } else if(taskType === 'sorting'){
+      let firstClick = null;
+      document.querySelectorAll('.sort-item').forEach(item => {
+        item.addEventListener('click', () => {
+          if(firstClick === null){
+            firstClick = item;
+            item.classList.add('selected');
+          } else if(firstClick === item){
+            item.classList.remove('selected');
+            firstClick = null;
+          } else {
+            const fText = firstClick.querySelector('.sort-text').innerHTML;
+            const sText = item.querySelector('.sort-text').innerHTML;
+            firstClick.querySelector('.sort-text').innerHTML = sText;
+            item.querySelector('.sort-text').innerHTML = fText;
+            const fOrig = firstClick.dataset.orig;
+            firstClick.dataset.orig = item.dataset.orig;
+            item.dataset.orig = fOrig;
+            firstClick.classList.remove('selected');
+            firstClick = null;
+          }
+        });
+      });
+    } else if(taskType === 'pairing'){
+      let selectedLeft = null;
+      document.querySelectorAll('.pair-item[data-side="left"]').forEach(item => {
+        item.addEventListener('click', () => {
+          if(item.classList.contains('paired')) return;
+          document.querySelectorAll('.pair-item[data-side="left"]').forEach(i => i.classList.remove('selected'));
+          item.classList.add('selected');
+          selectedLeft = item;
+        });
+      });
+      document.querySelectorAll('.pair-item[data-side="right"]').forEach(item => {
+        item.addEventListener('click', () => {
+          if(item.classList.contains('paired') || !selectedLeft) return;
+          const leftIdx = selectedLeft.dataset.idx;
+          const rightIdx = item.dataset.idx;
+          const pairList = document.getElementById('pairsList');
+          const pairRow = document.createElement('div');
+          pairRow.className = 'pair-row';
+          pairRow.dataset.leftIdx = leftIdx;
+          pairRow.dataset.rightIdx = rightIdx;
+          pairRow.innerHTML = `<span>${selectedLeft.innerHTML}</span> <span>↔</span> <span>${item.innerHTML}</span> <span class="remove" title="Remove">×</span>`;
+          pairRow.querySelector('.remove').addEventListener('click', function() {
+            const lIdx = pairRow.dataset.leftIdx;
+            const rIdx = pairRow.dataset.rightIdx;
+            const lItem = document.querySelector(`.pair-item[data-side="left"][data-idx="${lIdx}"]`);
+            const rItem = document.querySelector(`.pair-item[data-side="right"][data-idx="${rIdx}"]`);
+            if(lItem) lItem.classList.remove('paired');
+            if(rItem) rItem.classList.remove('paired');
+            pairRow.remove();
+          });
+          pairList.appendChild(pairRow);
+          selectedLeft.classList.remove('selected');
+          selectedLeft.classList.add('paired');
+          item.classList.add('paired');
+          selectedLeft = null;
+        });
+      });
+    }
+
+    document.getElementById('submitBtn').addEventListener('click', () => checkAnswer(page));
+  }
+
+  function checkAnswer(page){
+    const taskType = page.taskType;
+    let isCorrect = false;
+    let userAnswerStr = '';
+
+    if(taskType === 'radio'){
+      let selected = null, selectedIdx = -1;
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        if(opt.classList.contains('selected')){
+          selected = page._shuffledOptions[i];
+          selectedIdx = i;
+        }
+      });
+      if(!selected){
+        showFeedback(false, 'Please select an answer. <span class="tr">Silakan pilih jawaban.</span>', false);
+        return;
+      }
+      isCorrect = selected.correct;
+      userAnswerStr = selected.text;
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        opt.classList.remove('selected');
+        if(page._shuffledOptions[i].correct) opt.classList.add('correct');
+        else if(i === selectedIdx && !selected.correct) opt.classList.add('incorrect');
+      });
+    } else if(taskType === 'checkbox'){
+      const selectedIdxs = [];
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        if(opt.classList.contains('selected')) selectedIdxs.push(i);
+      });
+      if(selectedIdxs.length === 0){
+        showFeedback(false, 'Please select an answer. <span class="tr">Silakan pilih jawaban.</span>', false);
+        return;
+      }
+      const correctSet = new Set();
+      page._shuffledOptions.forEach((opt, i) => { if(opt.correct) correctSet.add(i); });
+      const selectedSet = new Set(selectedIdxs);
+      isCorrect = correctSet.size === selectedSet.size && [...correctSet].every(i => selectedSet.has(i));
+      userAnswerStr = selectedIdxs.map(i => page._shuffledOptions[i].text).join(', ');
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        opt.classList.remove('selected');
+        if(page._shuffledOptions[i].correct) opt.classList.add('correct');
+        else if(selectedSet.has(i)) opt.classList.add('incorrect');
+      });
+    } else if(taskType === 'fill'){
+      const val = document.getElementById('fillInput').value.trim();
+      const acceptable = page.acceptableAnswers || [page.correctAnswer];
+      const norm = s => s.toLowerCase().replace(/\s+/g, '').trim();
+      isCorrect = acceptable.some(a => norm(a) === norm(val));
+      userAnswerStr = val;
+    } else if(taskType === 'truefalse'){
+      let selectedVal = null, selectedIdx = -1;
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        if(opt.classList.contains('selected')){
+          selectedVal = opt.dataset.val;
+          selectedIdx = i;
+        }
+      });
+      if(!selectedVal){
+        showFeedback(false, 'Please select an answer. <span class="tr">Silakan pilih jawaban.</span>', false);
+        return;
+      }
+      isCorrect = selectedVal === page.correctAnswer;
+      userAnswerStr = selectedVal === 'true' ? 'True' : 'False';
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        opt.classList.remove('selected');
+        if(opt.dataset.val === page.correctAnswer) opt.classList.add('correct');
+        else if(i === selectedIdx) opt.classList.add('incorrect');
+      });
+    } else if(taskType === 'sorting'){
+      const currentOrder = [];
+      document.querySelectorAll('.sort-item').forEach(item => {
+        currentOrder.push(parseInt(item.dataset.orig));
+      });
+      isCorrect = currentOrder.every((idx, i) => idx === page.correctOrder[i]);
+      userAnswerStr = currentOrder.map((idx, i) => `${i+1}. ${page.items[idx] || '?'}`).join('  |  ');
+      document.querySelectorAll('.sort-item').forEach((item, i) => {
+        if(currentOrder[i] === page.correctOrder[i]) item.style.borderColor = 'var(--success)';
+        else item.style.borderColor = 'var(--danger)';
+      });
+    } else if(taskType === 'pairing'){
+      const pairRows = document.querySelectorAll('.pair-row');
+      if(pairRows.length === 0){
+        showFeedback(false, 'Please make pairs. <span class="tr">Silakan buat pasangan.</span>', false);
+        return;
+      }
+      const userPairs = [];
+      pairRows.forEach(row => {
+        const lIdx = parseInt(row.dataset.leftIdx);
+        const rIdx = parseInt(row.dataset.rightIdx);
+        userPairs.push({
+          leftText: page._shuffledPairs.lefts[lIdx].text,
+          rightText: page._shuffledPairs.rights[rIdx].text
+        });
+      });
+      const correctPairs = page.pairs.map(p => ({left:p.left, right:p.right}));
+      const correctCount = userPairs.filter(up =>
+        correctPairs.some(cp => cp.left === up.leftText && cp.right === up.rightText)
+      ).length;
+      isCorrect = correctCount === correctPairs.length && userPairs.length === correctPairs.length;
+      userAnswerStr = userPairs.map(p => `${p.leftText}↔${p.rightText}`).join('  |  ');
+      pairRows.forEach(row => {
+        const lIdx = parseInt(row.dataset.leftIdx);
+        const rIdx = parseInt(row.dataset.rightIdx);
+        const lText = page._shuffledPairs.lefts[lIdx].text;
+        const rText = page._shuffledPairs.rights[rIdx].text;
+        const ok = correctPairs.some(cp => cp.left === lText && cp.right === rText);
+        row.style.background = ok ? '#d1fae5' : '#fee2e2';
+      });
+    }
+
+    const pageKey = `${currentSection}-${currentPage}`;
+    userAnswers[pageKey] = {userAnswer:userAnswerStr, correct:isCorrect, pageTitle:page.pageTitle};
+    showFeedback(isCorrect, page.explanation, true);
+  }
+
+  function showFeedback(isCorrect, explanation, showAnswer){
+    const feedback = document.getElementById('feedback');
+    feedback.className = `feedback show ${isCorrect?'correct':'incorrect'}`;
+    if(showAnswer){
+      feedback.innerHTML = `<h4>${isCorrect?'✓ Correct!':'✗ Incorrect'} <span class="tr">${isCorrect?'Benar!':'Salah'}</span></h4>${explanation}`;
+    } else {
+      feedback.innerHTML = `<h4>${isCorrect?'✓ Correct!':'✗ Incorrect'}</h4>`;
+    }
+    renderMath(feedback);
+  }
+
+  // ================= EVENT LISTENERS =================
+  document.getElementById('prevBtn').addEventListener('click', () => {
+    if(currentPage > 0){ currentPage--; renderPage(); }
+  });
+  document.getElementById('nextBtn').addEventListener('click', () => {
+    const total = sectionsData[currentSection].pages.length;
+    if(currentPage < total - 1){ currentPage++; renderPage(); }
+  });
+
+  const modal = document.getElementById('classRulesModal');
+  document.getElementById('classRulesBtn').addEventListener('click', () => modal.classList.add('active'));
+  document.querySelector('.modal-close').addEventListener('click', () => modal.classList.remove('active'));
+  modal.addEventListener('click', (e) => { if(e.target === modal) modal.classList.remove('active'); });
+
+  // ================= PRINT TO PDF =================
+  function getCorrectAnswer(task){
+    if(task.taskType === 'radio'){
+      const c = task.options.find(o => o.correct);
+      return c ? c.text : '';
+    }
+    if(task.taskType === 'checkbox'){
+      return task.options.filter(o => o.correct).map(o => o.text).join(', ');
+    }
+    if(task.taskType === 'fill'){
+      return task.correctAnswer || '';
+    }
+    if(task.taskType === 'truefalse'){
+      return task.correctAnswer === 'true' ? 'True' : 'False';
+    }
+    if(task.taskType === 'sorting'){
+      return task.correctOrder.map(i => task.items[i]).join(' → ');
+    }
+    if(task.taskType === 'pairing'){
+      return task.pairs.map(p => p.left + ' ↔ ' + p.right).join('; ');
+    }
+    return '';
+  }
+
+  function stripHtml(html){
+    let tmp = document.createElement("DIV");
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || "";
+  }
+
+  function printTask(sectionKey){
+    const section = sectionsData[sectionKey];
+    if(!section) return;
+    const tasks = section.pages;
+    let correctCount = 0;
+
+    const rows = tasks.map((task, idx) => {
+      const pageKey = sectionKey + '-' + idx;
+      const ua = userAnswers[pageKey];
+      const isCorrect = ua ? ua.correct : false;
+      const userAns = ua ? stripHtml(ua.userAnswer) : '(not answered)';
+      const correctAns = stripHtml(getCorrectAnswer(task));
+      if(ua && ua.correct) correctCount++;
+      return '<tr><td>' + (idx+1) + '</td><td>' + task.question + '<br><span class="tr">' + (task.questionEn || '') + '</span></td><td>' + userAns + '</td><td>' + correctAns + '</td><td style="text-align:center;font-size:1.1em">' + (isCorrect ? '✓' : '✗') + '</td></tr>';
+    }).join('');
+
+    const score = correctCount + ' / ' + tasks.length;
+    const today = new Date().toLocaleDateString('en-US', {day:'numeric',month:'long',year:'numeric'});
+
+    const html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Print - ' + section.title + '</title>' +
+      '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">' +
+      '<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"><\/script>' +
+      '<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:\'$$\',right:\'$$\',display:true},{left:\'$\',right:\'$\',display:false}],throwOnError:false});setTimeout(function(){window.print();},300);"><\/script>' +
+      '<style>' +
+      'body{font-family:Segoe UI,sans-serif;padding:30px;color:#1e293b;line-height:1.5}' +
+      'h1{font-size:1.2em;margin-bottom:5px}' +
+      '.info{margin-bottom:15px;font-size:.88em}' +
+      '.info div{margin:3px 0}' +
+      'table{width:100%;border-collapse:collapse;margin:15px 0;font-size:.82em}' +
+      'th,td{border:1px solid #cbd5e1;padding:6px 8px;text-align:left;vertical-align:top}' +
+      'th{background:#f1f5f9;font-weight:600}' +
+      '.checked-by{margin-top:30px;text-align:right;font-style:italic}' +
+      '.tr{font-style:italic;font-size:.85em;color:#64748b}' +
+      '@media print{body{padding:15px}}' +
+      '</style></head><body>' +
+      '<h1>Math Tutoring by Deni</h1>' +
+      '<div class="info">' +
+      '<div>Name: ____________________________ <span class="tr">Nama</span></div>' +
+      '<div>Date: ' + today + ' <span class="tr">Tanggal</span></div>' +
+      '<div>Topic: Coordinate Geometry <span class="tr">Topik: Geometri Koordinat</span></div>' +
+      '<div>Task Group: ' + section.title + ' <span class="tr">Grup Task</span></div>' +
+      '<div>Score: <strong>' + score + '</strong> <span class="tr">Skor</span></div>' +
+      '</div>' +
+      '<table><thead><tr>' +
+      '<th style="width:30px">No.</th>' +
+      '<th>Question <span class="tr">Pertanyaan</span></th>' +
+      '<th>Student Answer <span class="tr">Jawaban Siswa</span></th>' +
+      '<th>Correct Answer <span class="tr">Jawaban Benar</span></th>' +
+      '<th style="width:50px">Note <span class="tr">Ket.</span></th>' +
+      '</tr></thead><tbody>' + rows + '</tbody></table>' +
+      '<div class="checked-by">Checked by, <span class="tr">Diperiksa oleh,</span><br>Deni</div>' +
+      '</body></html>';
+
+    const w = window.open('', '_blank');
+    if(w){
+      w.document.write(html);
+      w.document.close();
+    } else {
+      alert('Please allow pop-ups to print. <span class="tr">Mohon izinkan pop-up untuk mencetak.</span>');
+    }
+  }
+
+  // ================= INIT =================
+  renderSidebar();
+  renderPage();
+});
+</script>
+</body>
+</html>
