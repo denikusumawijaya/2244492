@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Functions: Definition of a Function | Math Tutoring by Deni</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+:root{
+  --ink:#1d2740; --muted:#5b6785; --bg:#f4f6fb; --card:#ffffff; --line:#e2e7f2;
+  --pri:#2f4dd8; --pri2:#e9edff; --teal:#0d8a8f; --teal2:#e2f6f6; --org:#f08a24; --org2:#fff2e4;
+  --red:#d9433b; --red2:#fde9e8; --grn:#1f9d55; --grn2:#e5f7ec; --pur:#7a4cd9; --pur2:#f1eaff;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;font-size:16px}
+.tr{display:block;font-style:italic;font-size:.86em;color:var(--muted);margin-top:2px;font-weight:400}
+h1,h2,h3,h4{line-height:1.3;margin:.2em 0 .4em}
+h2 .tr,h3 .tr,h4 .tr{font-size:.62em}
+/* header */
+header{position:sticky;top:0;z-index:50;background:linear-gradient(100deg,#1c2f8f,#2f4dd8 55%,#0d8a8f);color:#fff;padding:12px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;box-shadow:0 3px 14px rgba(0,0,0,.18)}
+.brand{display:flex;align-items:center;gap:14px}
+.logo{width:46px;height:46px;border-radius:12px;background:#fff;display:grid;place-items:center;font-weight:800;color:var(--pri);font-size:22px;flex:none}
+.brand .name{font-weight:800;font-size:1.1rem;letter-spacing:.3px}
+.brand .topic{font-size:.88rem;opacity:.95}
+.brand .topic i{opacity:.85}
+.hright{display:flex;align-items:center;gap:12px}
+.score{background:rgba(255,255,255,.16);padding:6px 12px;border-radius:999px;font-size:.82rem;text-align:center;line-height:1.25}
+.btn{border:none;cursor:pointer;font-family:inherit;font-weight:700;border-radius:10px;padding:9px 16px;font-size:.92rem;transition:.15s;background:var(--pri);color:#fff}
+.btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.btn small{font-weight:500;opacity:.85}
+.btn.ghost{background:#eef1f8;color:var(--ink)}
+.btn.light{background:#fff;color:var(--pri)}
+.btn.org{background:var(--org)}
+/* layout */
+.wrap{display:grid;grid-template-columns:1fr 3fr;gap:22px;padding:22px;max-width:1500px;margin:auto}
+nav{position:sticky;top:96px;align-self:start;background:var(--card);border-radius:16px;padding:14px;box-shadow:0 2px 10px rgba(30,40,80,.06)}
+nav .navtitle{font-weight:800;font-size:.85rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin:4px 8px 10px}
+nav button{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;border:none;background:none;padding:10px;border-radius:12px;cursor:pointer;font-family:inherit;color:var(--ink);font-size:.93rem;font-weight:700;margin-bottom:4px}
+nav button .ic{flex:none;width:32px;height:32px;border-radius:9px;display:grid;place-items:center;background:var(--pri2);font-size:16px}
+nav button .tr{font-size:.78rem}
+nav button:hover{background:#f3f5fb}
+nav button.active{background:var(--pri);color:#fff}
+nav button.active .tr{color:#dfe5ff}
+nav button.active .ic{background:rgba(255,255,255,.2)}
+main{min-width:0}
+section{display:none;animation:fade .35s}
+section.show{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.hero{border-radius:18px;padding:22px 26px;color:#fff;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.hero h2{margin:0;font-size:1.6rem}
+.hero .tr{color:rgba(255,255,255,.85)}
+.hero .big{font-size:56px;line-height:1}
+.card{background:var(--card);border-radius:16px;padding:20px 24px;margin-bottom:18px;box-shadow:0 2px 10px rgba(30,40,80,.06)}
+.card h3{color:var(--pri)}
+.box{border-radius:12px;padding:14px 18px;margin:12px 0;border-left:5px solid}
+.box.def{background:var(--pri2);border-color:var(--pri)}
+.box.tip{background:var(--org2);border-color:var(--org)}
+.box.key{background:var(--teal2);border-color:var(--teal)}
+.box.warn{background:var(--red2);border-color:var(--red)}
+.box.pur{background:var(--pur2);border-color:var(--pur)}
+.box b.lbl{display:block;margin-bottom:4px}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.mini{background:#fafbff;border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center}
+.mini .cap{font-size:.88rem;font-weight:700}
+.emoji{font-size:40px}
+table{border-collapse:collapse;width:100%;margin:10px 0;font-size:.95rem}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:#f1f4fb}
+svg.graph{width:100%;max-width:420px;height:auto;display:block;margin:auto}
+svg.graph .grid{stroke:#e8ecf5;stroke-width:1}
+svg.graph .axis{stroke:#46506b;stroke-width:1.4}
+svg.graph text{font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;fill:#46506b}
+svg.graph text.pl{font-size:11px;font-weight:700;fill:#1d2740}
+.gbox{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px;margin:10px auto;max-width:440px}
+.gbox .cap{text-align:center;font-size:.85rem;color:var(--muted)}
+/* quiz */
+.quiz{border:2px solid var(--line);border-radius:14px;padding:16px 18px;margin:14px 0;background:#fff}
+.quiz.ok{border-color:var(--grn)}
+.qtype{display:inline-block;font-size:.75rem;font-weight:800;background:var(--pur2);color:var(--pur);padding:3px 10px;border-radius:999px;margin-bottom:8px}
+.qno{font-weight:800;color:var(--pri);margin-right:6px}
+.qtext{font-weight:600;margin-bottom:10px}
+.opts label{display:flex;gap:10px;align-items:center;padding:9px 12px;border:1.5px solid var(--line);border-radius:10px;margin:6px 0;cursor:pointer;background:#fbfcff}
+.opts label:hover{border-color:var(--pri)}
+.opts label.good{border-color:var(--grn);background:var(--grn2)}
+.opts label.bad{border-color:var(--red);background:var(--red2)}
+.tfrow{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:9px 12px;border:1.5px solid var(--line);border-radius:10px;margin:6px 0;flex-wrap:wrap}
+.tfrow.good{border-color:var(--grn);background:var(--grn2)}
+.tfrow.bad{border-color:var(--red);background:var(--red2)}
+.tfrow .ch{display:flex;gap:12px;flex:none}
+input.blank{width:78px;padding:6px 8px;border:2px solid #c9d1e6;border-radius:8px;font-family:inherit;font-size:1rem;text-align:center;margin:0 3px}
+input.blank.good{border-color:var(--grn);background:var(--grn2)}
+input.blank.bad{border-color:var(--red);background:var(--red2)}
+.fillline{margin:8px 0;line-height:2.4}
+ul.sort{list-style:none;padding:0;margin:8px 0}
+ul.sort li{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1.5px dashed #b9c3de;border-radius:10px;margin:6px 0;background:#fbfcff;cursor:grab}
+ul.sort li.dragging{opacity:.4}
+ul.sort li.good{border-style:solid;border-color:var(--grn);background:var(--grn2)}
+ul.sort li.bad{border-style:solid;border-color:var(--red);background:var(--red2)}
+ul.sort li .hand{font-size:18px;color:var(--muted)}
+ul.sort li .mv{margin-left:auto;display:flex;gap:4px}
+ul.sort li .mv button{border:none;background:#e9edf7;border-radius:6px;cursor:pointer;width:28px;height:28px}
+.pairs{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pitem{padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;margin:6px 0;cursor:pointer;background:#fbfcff;position:relative;min-height:46px}
+.pitem.sel{border-color:var(--pri);box-shadow:0 0 0 3px var(--pri2)}
+.pitem .badge{position:absolute;right:8px;top:8px;width:24px;height:24px;border-radius:50%;color:#fff;font-size:.8rem;font-weight:800;display:grid;place-items:center}
+.pitem.good{border-color:var(--grn);background:var(--grn2)}
+.pitem.bad{border-color:var(--red);background:var(--red2)}
+.pool{min-height:60px;border:2px dashed #c9d1e6;border-radius:12px;padding:8px;display:flex;flex-wrap:wrap;gap:8px;margin:8px 0;background:#fafbff}
+.bins{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.bin{border:2px dashed #9fb0e0;border-radius:12px;padding:8px;min-height:140px;background:#f6f8ff}
+.bin .bh{font-weight:800;font-size:.9rem;text-align:center;margin-bottom:6px}
+.bin.over,.pool.over{background:#e5ebff}
+.chip{padding:7px 11px;border-radius:9px;background:#fff;border:1.5px solid #c9d1e6;cursor:grab;display:inline-block;margin:3px}
+.chip.sel{border-color:var(--org);box-shadow:0 0 0 3px var(--org2)}
+.chip.good{border-color:var(--grn);background:var(--grn2)}
+.chip.bad{border-color:var(--red);background:var(--red2)}
+.qbtns{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.fb{margin-top:8px;font-weight:700}
+.fb.good{color:var(--grn)} .fb.bad{color:var(--red)}
+details{border:1.5px solid var(--line);border-radius:12px;margin:10px 0;background:#fcfdff}
+details>summary{cursor:pointer;padding:10px 14px;font-weight:700;color:var(--teal);list-style:none}
+details>summary::before{content:"▸ ";}
+details[open]>summary::before{content:"▾ ";}
+details>div{padding:4px 16px 14px}
+details.sol{border-color:#cfd8f3}
+details.sol>summary{color:var(--pri);background:#f5f7ff;border-radius:12px}
+.exq{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:14px 18px;margin:14px 0}
+.exq .num{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--pri);color:#fff;font-weight:800;margin-right:8px}
+.step{padding:8px 12px;border-left:3px solid var(--teal);margin:8px 0;background:#f7fcfc;border-radius:0 8px 8px 0}
+.step b.sn{color:var(--teal)}
+.reveal .step{display:none}
+.reveal .step.on{display:block;animation:fade .3s}
+.ans{display:inline-block;background:var(--grn2);border:1.5px solid var(--grn);padding:4px 12px;border-radius:8px;font-weight:700;margin-top:4px}
+.navbtns{display:flex;justify-content:space-between;margin:10px 0 30px}
+.objs li{margin:6px 0}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:.78rem;font-weight:700}
+.pill.y{background:var(--grn2);color:var(--grn)} .pill.n{background:var(--red2);color:var(--red)}
+.conf{display:flex;gap:10px;flex-wrap:wrap}
+.conf button{font-size:28px;background:#fff;border:2px solid var(--line);border-radius:12px;padding:6px 12px;cursor:pointer}
+.conf button.on{border-color:var(--pri);background:var(--pri2)}
+textarea{width:100%;min-height:80px;border:1.5px solid var(--line);border-radius:10px;padding:10px;font-family:inherit;font-size:1rem}
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(15,20,40,.55);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
+.modal.open{display:flex}
+.mbox{background:#fff;border-radius:18px;max-width:520px;width:100%;padding:24px 26px;box-shadow:0 20px 50px rgba(0,0,0,.3);animation:fade .25s}
+.mbox h3{margin-top:0;color:var(--pri)}
+.rule{display:flex;gap:14px;align-items:flex-start;padding:12px;border-radius:12px;background:#f6f8ff;margin:10px 0}
+.rule .ri{font-size:28px;flex:none}
+.katex{font-size:1.06em}
+@media (max-width:900px){.wrap{grid-template-columns:1fr}nav{position:static}.grid3,.grid4{grid-template-columns:repeat(2,1fr)}.bins{grid-template-columns:1fr}header{flex-wrap:wrap}}
+@media (max-width:560px){.grid2,.grid3,.grid4,.pairs{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="logo">Σ</div>
+    <div>
+      <div class="name">Math Tutoring by Deni</div>
+      <div class="topic">Topic: Functions — Definition of a Function</div>
+      <div class="topic"><i>Topik: Fungsi — Definisi Fungsi</i></div>
+    </div>
+  </div>
+  <div class="hright">
+    <div class="score" id="score">Score: 0 / 0<br><i>Skor</i></div>
+    <button class="btn light" id="rulesBtn">📋 Class rules<br><small>Aturan kelas</small></button>
+  </div>
+</header>
+
+<div class="modal" id="rulesModal">
+  <div class="mbox">
+    <h3>📋 Class Rules <span class="tr">Aturan Kelas</span></h3>
+    <div class="rule"><div class="ri">🗣️</div><div><b>Speak in turns.</b><span class="tr">Berbicara secara bergantian.</span></div></div>
+    <div class="rule"><div class="ri">🙋</div><div><b>Ask for permission if you want to leave the class.</b><span class="tr">Meminta izin jika ingin meninggalkan kelas.</span></div></div>
+    <div class="rule"><div class="ri">🎥</div><div><b>Turn on your microphone and camera when needed.</b><span class="tr">Menyalakan mikrofon dan kamera jika diperlukan.</span></div></div>
+    <div style="text-align:right;margin-top:14px"><button class="btn" id="closeRules">Got it! <small>/ Mengerti!</small></button></div>
+  </div>
+</div>
+
+<div class="wrap">
+<nav id="nav">
+  <div class="navtitle">Lesson Flow <span class="tr" style="text-transform:none;letter-spacing:0">Alur Pelajaran</span></div>
+  <button data-s="s1" class="active"><span class="ic">🔁</span><span>1. Spiral Review Warm-up<span class="tr">Pemanasan: Ulasan Spiral</span></span></button>
+  <button data-s="s2"><span class="ic">🌍</span><span>2. Introduction &amp; Real-World Connection<span class="tr">Pengantar &amp; Kaitan Dunia Nyata</span></span></button>
+  <button data-s="s3"><span class="ic">🧠</span><span>3. Review of Prior Knowledge<span class="tr">Ulasan Pengetahuan Prasyarat</span></span></button>
+  <button data-s="s4"><span class="ic">🧩</span><span>4. Problem Introduction<span class="tr">Pengenalan Masalah</span></span></button>
+  <button data-s="s5"><span class="ic">🧭</span><span>5. Guided Practice<span class="tr">Latihan Terbimbing</span></span></button>
+  <button data-s="s6"><span class="ic">✍️</span><span>6. Independent Practice<span class="tr">Latihan Mandiri</span></span></button>
+  <button data-s="s7"><span class="ic">🏁</span><span>7. Consolidation &amp; Reflection<span class="tr">Penguatan &amp; Refleksi</span></span></button>
+</nav>
+
+<main>
+
+<!-- ============ 1 WARM-UP ============ -->
+<section id="s1" class="show">
+  <div class="hero" style="background:linear-gradient(120deg,#f08a24,#e2574c)">
+    <div><h2>1. Spiral Review Warm-up<span class="tr">Pemanasan: Ulasan Spiral</span></h2>
+    <p style="margin:6px 0 0">Let's wake up the skills we need today: substituting values, solving quadratics, completing the square and reading inequalities.<span class="tr">Mari bangunkan keterampilan yang kita perlukan hari ini: substitusi nilai, menyelesaikan persamaan kuadrat, melengkapkan kuadrat, dan membaca pertidaksamaan.</span></p></div>
+    <div class="big">🔥</div>
+  </div>
+  <div class="card">
+    <h3>Why these four skills? <span class="tr">Mengapa empat keterampilan ini?</span></h3>
+    <div class="grid4">
+      <div class="mini"><div class="emoji">🔢</div><div class="cap">Substitution<span class="tr">Substitusi</span></div><small>Find the output \(f(x)\) for an input \(x\).<span class="tr">Mencari keluaran \(f(x)\) dari masukan \(x\).</span></small></div>
+      <div class="mini"><div class="emoji">🧮</div><div class="cap">Solving quadratics<span class="tr">Persamaan kuadrat</span></div><small>Find which inputs give a certain output.<span class="tr">Mencari masukan yang menghasilkan keluaran tertentu.</span></small></div>
+      <div class="mini"><div class="emoji">🟦</div><div class="cap">Completing the square<span class="tr">Melengkapkan kuadrat</span></div><small>Find the minimum/maximum value.<span class="tr">Mencari nilai minimum/maksimum.</span></small></div>
+      <div class="mini"><div class="emoji">↔️</div><div class="cap">Inequalities<span class="tr">Pertidaksamaan</span></div><small>Describe domains and ranges.<span class="tr">Menyatakan domain dan range (daerah hasil).</span></small></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Warm-up Questions <span class="tr">Soal Pemanasan</span></h3>
+    <p>Answer each question, press <b>Check</b>, then open the explanation to compare your working.<span class="tr">Jawab setiap soal, tekan <b>Periksa</b>, lalu buka pembahasan untuk membandingkan cara kerjamu.</span></p>
+    <div class="quiz" data-q="w1"></div>
+    <div class="quiz" data-q="w2"></div>
+    <div class="quiz" data-q="w3"></div>
+    <div class="quiz" data-q="w4"></div>
+  </div>
+  <div class="navbtns"><span></span><button class="btn" onclick="go('s2')">Next ▸ <small>/ Berikutnya</small></button></div>
+</section>
+
+<!-- ============ 2 INTRODUCTION ============ -->
+<section id="s2">
+  <div class="hero" style="background:linear-gradient(120deg,#2f4dd8,#0d8a8f)">
+    <div><h2>2. Introduction &amp; Real-World Connection<span class="tr">Pengantar &amp; Kaitan Dunia Nyata</span></h2>
+    <p style="margin:6px 0 0">A function is a rule that gives exactly <b>one</b> output for every input. You use functions every day without noticing!<span class="tr">Fungsi adalah aturan yang memberikan tepat <b>satu</b> keluaran untuk setiap masukan. Kamu menggunakan fungsi setiap hari tanpa menyadarinya!</span></p></div>
+    <div class="big">⚙️</div>
+  </div>
+
+  <div class="card">
+    <h3>🎯 Learning Objectives <span class="tr">Tujuan Pembelajaran</span></h3>
+    <p>By the end of this lesson you will be able to:<span class="tr">Di akhir pelajaran ini kamu akan mampu:</span></p>
+    <ol class="objs">
+      <li>Understand the terms <b>mapping, function, domain, range, one-one, many-one</b>.<span class="tr">Memahami istilah <b>pemetaan, fungsi, domain, range (daerah hasil), satu-satu, banyak-satu</b>.</span></li>
+      <li>Decide whether a graph or relation represents a function.<span class="tr">Menentukan apakah suatu grafik atau relasi merupakan fungsi.</span></li>
+      <li>Find the range of a function on a given domain (including piecewise functions).<span class="tr">Menentukan range suatu fungsi pada domain tertentu (termasuk fungsi sepotong-sepotong).</span></li>
+      <li>Use completing the square to find the range of a quadratic function.<span class="tr">Menggunakan metode melengkapkan kuadrat untuk mencari range fungsi kuadrat.</span></li>
+      <li>Find the largest possible domain of a function.<span class="tr">Menentukan domain terbesar yang mungkin dari suatu fungsi.</span></li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h3>🌍 Functions in Real Life <span class="tr">Fungsi dalam Kehidupan Nyata</span></h3>
+    <div class="grid2">
+      <div class="box key"><b class="lbl">🥤 Vending machine → One-one<span class="tr">Mesin penjual otomatis → Satu-satu</span></b>
+      Each button gives exactly one drink, and different buttons give different drinks.<span class="tr">Setiap tombol memberikan tepat satu minuman, dan tombol berbeda memberikan minuman berbeda.</span></div>
+      <div class="box tip"><b class="lbl">🎂 Student → birthday month → Many-one<span class="tr">Siswa → bulan lahir → Banyak-satu</span></b>
+      Each student has exactly one birthday month, but many students can share the same month.<span class="tr">Setiap siswa punya tepat satu bulan lahir, tetapi banyak siswa bisa memiliki bulan yang sama.</span></div>
+      <div class="box warn"><b class="lbl">📅 Month → students born in it → One-many (NOT a function)<span class="tr">Bulan → siswa yang lahir di bulan itu → Satu-banyak (BUKAN fungsi)</span></b>
+      One month can point to several students, so one input has many outputs.<span class="tr">Satu bulan bisa menunjuk ke beberapa siswa, sehingga satu masukan punya banyak keluaran.</span></div>
+      <div class="box pur"><b class="lbl">👩‍🏫 Teacher ↔ subjects taught → Many-many (NOT a function)<span class="tr">Guru ↔ mata pelajaran yang diajar → Banyak-banyak (BUKAN fungsi)</span></b>
+      A teacher may teach several subjects and a subject may be taught by several teachers.<span class="tr">Seorang guru bisa mengajar beberapa mata pelajaran dan satu mata pelajaran bisa diajar beberapa guru.</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>📘 Key Vocabulary <span class="tr">Kosakata Kunci</span></h3>
+    <div class="box def"><b class="lbl">Mapping <span class="tr">Pemetaan</span></b>A <b>mapping</b> is a rule that changes one number (input) into another number (output).<span class="tr"><b>Pemetaan</b> adalah aturan yang mengubah satu bilangan (masukan) menjadi bilangan lain (keluaran).</span></div>
+    <div class="box def"><b class="lbl">Domain &amp; Range <span class="tr">Domain &amp; Range (Daerah Hasil)</span></b>The <b>domain</b> is the set of all inputs \(x\). The <b>range</b> is the set of all outputs \(f(x)\). The output of \(x\) is called the <b>image</b> of \(x\).<span class="tr"><b>Domain</b> adalah himpunan semua masukan \(x\). <b>Range</b> adalah himpunan semua keluaran \(f(x)\). Keluaran dari \(x\) disebut <b>peta (image)</b> dari \(x\).</span></div>
+    <div class="box key"><b class="lbl">Definition of a function <span class="tr">Definisi fungsi</span></b>A <b>function</b> is a mapping in which <b>every</b> input in the domain has <b>exactly one</b> output.<span class="tr"><b>Fungsi</b> adalah pemetaan di mana <b>setiap</b> masukan di domain memiliki <b>tepat satu</b> keluaran.</span>
+    \[\text{one-one mapping } \checkmark \qquad \text{many-one mapping } \checkmark \qquad \text{one-many } \times \qquad \text{many-many } \times\]
+    Only one-one and many-one mappings are functions.<span class="tr">Hanya pemetaan satu-satu dan banyak-satu yang merupakan fungsi.</span></div>
+    <div class="grid4" id="mapdiags"></div>
+  </div>
+
+  <div class="card">
+    <h3>✒️ Function Notation <span class="tr">Notasi Fungsi</span></h3>
+    <p>The function "multiply by 2 then add 1" can be written in two ways:<span class="tr">Fungsi "kalikan 2 lalu tambah 1" dapat ditulis dengan dua cara:</span></p>
+    \[f(x) = 2x+1 \qquad \text{or} \qquad f : x \mapsto 2x+1\]
+    <p>We read \(f : x \mapsto 2x+1\) as "\(f\) maps \(x\) to \(2x+1\)". We also state the domain, for example \(\text{for } x\in\mathbb{R}\) (all real numbers).<span class="tr">Kita membaca \(f : x \mapsto 2x+1\) sebagai "\(f\) memetakan \(x\) ke \(2x+1\)". Kita juga menyatakan domainnya, misalnya \(\text{untuk } x\in\mathbb{R}\) (semua bilangan real).</span></p>
+    <table>
+      <tr><th>Symbol <span class="tr">Simbol</span></th><th>Meaning <span class="tr">Arti</span></th></tr>
+      <tr><td>\(x\in\mathbb{R}\)</td><td>\(x\) is a real number<span class="tr">\(x\) adalah bilangan real</span></td></tr>
+      <tr><td>\(x\in\mathbb{R},\ x\ge 0\)</td><td>\(x\) is real and not negative (often shortened to just \(x\ge 0\))<span class="tr">\(x\) real dan tidak negatif (sering disingkat menjadi \(x\ge 0\) saja)</span></td></tr>
+      <tr><td>\(-3\le x\le 2\)</td><td>\(x\) is between \(-3\) and \(2\), both included<span class="tr">\(x\) di antara \(-3\) dan \(2\), keduanya termasuk</span></td></tr>
+      <tr><td>\(x\gt 8\)</td><td>\(x\) is greater than 8 (8 itself is NOT included)<span class="tr">\(x\) lebih dari 8 (8 sendiri TIDAK termasuk)</span></td></tr>
+      <tr><td>\(x\ne 0\)</td><td>\(x\) cannot be 0<span class="tr">\(x\) tidak boleh 0</span></td></tr>
+    </table>
+    <div class="quiz" data-q="i1"></div>
+  </div>
+  <div class="navbtns"><button class="btn ghost" onclick="go('s1')">◂ Back <small>/ Kembali</small></button><button class="btn" onclick="go('s3')">Next ▸ <small>/ Berikutnya</small></button></div>
+</section>
+
+<!-- ============ 3 PRIOR KNOWLEDGE ============ -->
+<section id="s3">
+  <div class="hero" style="background:linear-gradient(120deg,#7a4cd9,#2f4dd8)">
+    <div><h2>3. Review of Prior Knowledge<span class="tr">Ulasan Pengetahuan Prasyarat</span></h2>
+    <p style="margin:6px 0 0">To find ranges we need: graph shapes, completing the square, and the meaning of end points.<span class="tr">Untuk mencari range kita perlu: bentuk grafik, melengkapkan kuadrat, dan arti titik ujung.</span></p></div>
+    <div class="big">🧠</div>
+  </div>
+
+  <div class="card">
+    <h3>📈 Basic Graph Shapes <span class="tr">Bentuk Dasar Grafik</span></h3>
+    <p>Knowing the shape tells you immediately where the smallest and largest outputs are.<span class="tr">Mengetahui bentuk grafik langsung memberi tahu di mana keluaran terkecil dan terbesar.</span></p>
+    <div class="grid3" id="shapes"></div>
+  </div>
+
+  <div class="card">
+    <h3>🟦 Completing the Square <span class="tr">Melengkapkan Kuadrat</span></h3>
+    <p>Main formula (for \(a=1\)):<span class="tr">Rumus utama (untuk \(a=1\)):</span></p>
+    \[x^2+bx+c=\left(x+\frac{b}{2}\right)^2-\left(\frac{b}{2}\right)^2+c\]
+    <p>General formula:<span class="tr">Rumus umum:</span></p>
+    \[ax^2+bx+c=a\left(x+\frac{b}{2a}\right)^2+c-\frac{b^2}{4a}\]
+    <div class="box key"><b class="lbl">Turning point (vertex) <span class="tr">Titik balik (puncak)</span></b>
+    For \(y=a(x+p)^2+q\): the vertex is \((-p,\ q)\).<span class="tr">Untuk \(y=a(x+p)^2+q\): titik puncaknya \((-p,\ q)\).</span>
+    <ul>
+      <li>If \(a\gt 0\): the graph is ∪-shaped, minimum value \(q\), so \(y\ge q\).<span class="tr">Jika \(a\gt 0\): grafik terbuka ke atas (∪), nilai minimum \(q\), jadi \(y\ge q\).</span></li>
+      <li>If \(a\lt 0\): the graph is ∩-shaped, maximum value \(q\), so \(y\le q\).<span class="tr">Jika \(a\lt 0\): grafik terbuka ke bawah (∩), nilai maksimum \(q\), jadi \(y\le q\).</span></li>
+    </ul>
+    Reason: \((x+p)^2\ge 0\) for every \(x\), and it equals \(0\) when \(x=-p\).<span class="tr">Alasan: \((x+p)^2\ge 0\) untuk setiap \(x\), dan bernilai \(0\) ketika \(x=-p\).</span></div>
+    <p><b>Example:</b> \(x^2-4x+1\)<span class="tr"><b>Contoh:</b> \(x^2-4x+1\)</span></p>
+    \[x^2-4x+1=(x-2)^2-4+1=(x-2)^2-3 \;\Rightarrow\; \text{vertex } (2,-3),\ \text{minimum } -3\]
+  </div>
+
+  <div class="card">
+    <h3>⚫⚪ Closed and Open End Points <span class="tr">Titik Ujung Tertutup dan Terbuka</span></h3>
+    <div class="grid2">
+      <div class="box def"><b class="lbl">⚫ Closed dot: \(\le\) or \(\ge\)</b>The end value IS included. Example: \(-3\le x\le 2\).<span class="tr">Nilai ujung TERMASUK. Contoh: \(-3\le x\le 2\).</span></div>
+      <div class="box warn"><b class="lbl">⚪ Open dot: \(\lt\) or \(\gt\)</b>The end value is NOT included. Example: \(x\gt 8\Rightarrow f(x)\gt 12\).<span class="tr">Nilai ujung TIDAK termasuk. Contoh: \(x\gt 8\Rightarrow f(x)\gt 12\).</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Quick Check <span class="tr">Cek Cepat</span></h3>
+    <div class="quiz" data-q="p1"></div>
+    <div class="quiz" data-q="p2"></div>
+  </div>
+  <div class="navbtns"><button class="btn ghost" onclick="go('s2')">◂ Back <small>/ Kembali</small></button><button class="btn" onclick="go('s4')">Next ▸ <small>/ Berikutnya</small></button></div>
+</section>
+
+<!-- ============ 4 PROBLEM INTRO ============ -->
+<section id="s4">
+  <div class="hero" style="background:linear-gradient(120deg,#0d8a8f,#1f9d55)">
+    <div><h2>4. Problem Introduction<span class="tr">Pengenalan Masalah</span></h2>
+    <p style="margin:6px 0 0">Two big questions: <b>Is it a function?</b> and <b>What is its range?</b><span class="tr">Dua pertanyaan besar: <b>Apakah ini fungsi?</b> dan <b>Berapa range-nya?</b></span></p></div>
+    <div class="big">🧩</div>
+  </div>
+
+  <div class="card">
+    <h3>❓ Question 1: Is the graph a function? <span class="tr">Pertanyaan 1: Apakah grafik ini fungsi?</span></h3>
+    <div class="box key"><b class="lbl">📏 Vertical line test <span class="tr">Uji garis vertikal</span></b>
+    If <b>every</b> vertical line cuts the graph <b>at most once</b>, the graph is a function. If one vertical line cuts it twice or more, one input has two outputs → NOT a function.<span class="tr">Jika <b>setiap</b> garis vertikal memotong grafik <b>paling banyak sekali</b>, grafik itu fungsi. Jika ada garis vertikal yang memotong dua kali atau lebih, satu masukan punya dua keluaran → BUKAN fungsi.</span></div>
+    <div class="box tip"><b class="lbl">📐 Horizontal line test (for functions only) <span class="tr">Uji garis horizontal (khusus fungsi)</span></b>
+    If every horizontal line cuts the graph at most once → <b>one-one</b>. If some horizontal line cuts it twice or more → <b>many-one</b>.<span class="tr">Jika setiap garis horizontal memotong grafik paling banyak sekali → <b>satu-satu</b>. Jika ada garis horizontal yang memotong dua kali atau lebih → <b>banyak-satu</b>.</span></div>
+    <div class="grid3">
+      <div class="gbox"><div data-g="vt1"></div><div class="cap">\(y=x^2\): vertical line cuts once ✓ function; horizontal line cuts twice → many-one<span class="tr">garis vertikal memotong sekali ✓ fungsi; garis horizontal memotong dua kali → banyak-satu</span></div></div>
+      <div class="gbox"><div data-g="vt2"></div><div class="cap">\(y=x^3\): both lines cut once → one-one function<span class="tr">kedua garis memotong sekali → fungsi satu-satu</span></div></div>
+      <div class="gbox"><div data-g="vt3"></div><div class="cap">\(y^2=4x\): vertical line cuts twice → NOT a function<span class="tr">garis vertikal memotong dua kali → BUKAN fungsi</span></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>❓ Question 2: What is the range? <span class="tr">Pertanyaan 2: Berapa range-nya?</span></h3>
+    <p><b>Problem:</b> Find the range of \(f(x)=x^2-4x+1\) for \(0\le x\le 5\).<span class="tr"><b>Masalah:</b> Tentukan range dari \(f(x)=x^2-4x+1\) untuk \(0\le x\le 5\).</span></p>
+    <div class="box warn"><b class="lbl">⚠️ A common trap <span class="tr">Jebakan umum</span></b>
+    Many students only substitute the end points: \(f(0)=1\) and \(f(5)=6\), then write \(1\le f(x)\le 6\). This is WRONG, because the graph dips down to \(-3\) at \(x=2\)!<span class="tr">Banyak siswa hanya mensubstitusi titik ujung: \(f(0)=1\) dan \(f(5)=6\), lalu menulis \(1\le f(x)\le 6\). Ini SALAH, karena grafik turun sampai \(-3\) di \(x=2\)!</span></div>
+    <div class="gbox"><div data-g="pi"></div><div class="cap">The lowest point is the vertex \((2,-3)\), not an end point.<span class="tr">Titik terendah adalah puncak \((2,-3)\), bukan titik ujung.</span></div></div>
+    <div class="box key"><b class="lbl">🗝️ 4-Step Method for the Range <span class="tr">Metode 4 Langkah Mencari Range</span></b>
+      <ol>
+        <li><b>Sketch / complete the square</b> to know the shape.<span class="tr"><b>Sketsa / lengkapkan kuadrat</b> untuk mengetahui bentuk grafik.</span></li>
+        <li><b>Find the turning point</b> and check whether its \(x\)-value lies inside the domain.<span class="tr"><b>Cari titik balik</b> dan periksa apakah nilai \(x\)-nya berada di dalam domain.</span></li>
+        <li><b>Evaluate the end points</b> of the domain.<span class="tr"><b>Hitung nilai di titik ujung</b> domain.</span></li>
+        <li><b>Choose the smallest and largest outputs</b> and use \(\le\) / \(\lt\) correctly.<span class="tr"><b>Pilih keluaran terkecil dan terbesar</b> lalu gunakan \(\le\) / \(\lt\) dengan tepat.</span></li>
+      </ol>
+    </div>
+    <div class="quiz" data-q="pi1"></div>
+  </div>
+
+  <div class="card">
+    <h3>🧱 Piecewise functions <span class="tr">Fungsi sepotong-sepotong</span></h3>
+    <p>A function can be defined by different rules on different parts of the domain. Where two parts meet, check the shared \(x\)-value:<span class="tr">Sebuah fungsi dapat didefinisikan dengan aturan berbeda di bagian domain yang berbeda. Di tempat dua bagian bertemu, periksa nilai \(x\) yang sama:</span></p>
+    <ul>
+      <li>Both rules give the <b>same</b> output → still a function ✓<span class="tr">Kedua aturan memberi keluaran yang <b>sama</b> → tetap fungsi ✓</span></li>
+      <li>The rules give <b>different</b> outputs → one input has two outputs → NOT a function ✗<span class="tr">Aturan memberi keluaran <b>berbeda</b> → satu masukan punya dua keluaran → BUKAN fungsi ✗</span></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>🚫 Largest possible domain <span class="tr">Domain terbesar yang mungkin</span></h3>
+    <p>Start with all real numbers and remove the values that are not allowed:<span class="tr">Mulai dari semua bilangan real, lalu buang nilai yang tidak diperbolehkan:</span></p>
+    <div class="grid2">
+      <div class="box warn"><b class="lbl">➗ Division by zero <span class="tr">Pembagian dengan nol</span></b>\(\dfrac{1}{x-2}\): need \(x-2\ne 0\Rightarrow x\ne 2\).<span class="tr">Syarat \(x-2\ne 0\Rightarrow x\ne 2\).</span></div>
+      <div class="box warn"><b class="lbl">√ Square root of a negative <span class="tr">Akar dari bilangan negatif</span></b>\(\sqrt{x-3}\): need \(x-3\ge 0\Rightarrow x\ge 3\).<span class="tr">Syarat \(x-3\ge 0\Rightarrow x\ge 3\).</span></div>
+    </div>
+  </div>
+  <div class="navbtns"><button class="btn ghost" onclick="go('s3')">◂ Back <small>/ Kembali</small></button><button class="btn" onclick="go('s5')">Next ▸ <small>/ Berikutnya</small></button></div>
+</section>
+
+<!-- ============ 5 GUIDED PRACTICE ============ -->
+<section id="s5">
+  <div class="hero" style="background:linear-gradient(120deg,#1c2f8f,#7a4cd9)">
+    <div><h2>5. Guided Practice<span class="tr">Latihan Terbimbing</span></h2>
+    <p style="margin:6px 0 0">We work through examples step by step together, then solve Exercise 2A Questions 1–7.<span class="tr">Kita mengerjakan contoh langkah demi langkah bersama, lalu menyelesaikan Latihan 2A Soal 1–7.</span></p></div>
+    <div class="big">🧭</div>
+  </div>
+
+  <div class="card">
+    <h3>Worked Example 1 <span class="tr">Contoh Soal 1</span></h3>
+    <p>Is \(f(x)=x^2+1\) for \(x\in\mathbb{R}\) a one-one or a many-one function? What if the domain is \(x\ge 0\)?<span class="tr">Apakah \(f(x)=x^2+1\) untuk \(x\in\mathbb{R}\) fungsi satu-satu atau banyak-satu? Bagaimana jika domainnya \(x\ge 0\)?</span></p>
+    <div class="reveal">
+      <div class="step"><b class="sn">Step 1:</b> Try two different inputs: \(f(2)=2^2+1=5\) and \(f(-2)=(-2)^2+1=5\).<span class="tr"><b>Langkah 1:</b> Coba dua masukan berbeda: \(f(2)=5\) dan \(f(-2)=5\).</span></div>
+      <div class="step"><b class="sn">Step 2:</b> Two different inputs give the same output, so the horizontal line \(y=5\) cuts the graph twice.<span class="tr"><b>Langkah 2:</b> Dua masukan berbeda memberi keluaran sama, jadi garis horizontal \(y=5\) memotong grafik dua kali.</span></div>
+      <div class="step"><b class="sn">Step 3:</b> Each \(x\) still has only one output, so it is a function → <span class="ans">many-one function</span><span class="tr"><b>Langkah 3:</b> Setiap \(x\) tetap punya satu keluaran, jadi ini fungsi → fungsi banyak-satu.</span></div>
+      <div class="step"><b class="sn">Step 4:</b> If \(x\ge 0\), only the right half of the parabola remains; it is always increasing, so every horizontal line cuts at most once → <span class="ans">one-one function</span><span class="tr"><b>Langkah 4:</b> Jika \(x\ge 0\), hanya setengah kanan parabola yang tersisa; grafik selalu naik, sehingga setiap garis horizontal memotong paling banyak sekali → fungsi satu-satu.</span></div>
+      <div class="qbtns"><button class="btn org nextstep">Next step ▸ <small>/ Langkah berikutnya</small></button><button class="btn ghost allstep">Show all <small>/ Tampilkan semua</small></button></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Worked Example 2 <span class="tr">Contoh Soal 2</span></h3>
+    <p>Find the range of \(f(x)=x^2-4x+1\) for \(0\le x\le 5\).<span class="tr">Tentukan range dari \(f(x)=x^2-4x+1\) untuk \(0\le x\le 5\).</span></p>
+    <div class="reveal">
+      <div class="step"><b class="sn">Step 1 — Complete the square:</b> \(x^2-4x+1=(x-2)^2-4+1=(x-2)^2-3\).<span class="tr"><b>Langkah 1 — Lengkapkan kuadrat.</b></span></div>
+      <div class="step"><b class="sn">Step 2 — Turning point:</b> vertex \((2,-3)\), a minimum (\(a=1\gt 0\)). Is \(x=2\) inside \(0\le x\le 5\)? Yes ✓, so the minimum value is \(-3\).<span class="tr"><b>Langkah 2 — Titik balik:</b> puncak \((2,-3)\), minimum. Apakah \(x=2\) di dalam \(0\le x\le 5\)? Ya ✓, jadi nilai minimumnya \(-3\).</span></div>
+      <div class="step"><b class="sn">Step 3 — End points:</b> \(f(0)=0-0+1=1\), \(f(5)=25-20+1=6\).<span class="tr"><b>Langkah 3 — Titik ujung:</b> \(f(0)=1\), \(f(5)=6\).</span></div>
+      <div class="step"><b class="sn">Step 4 — Compare:</b> smallest \(-3\), largest \(6\) → <span class="ans">\(-3\le f(x)\le 6\)</span><span class="tr"><b>Langkah 4 — Bandingkan:</b> terkecil \(-3\), terbesar \(6\).</span></div>
+      <div class="qbtns"><button class="btn org nextstep">Next step ▸ <small>/ Langkah berikutnya</small></button><button class="btn ghost allstep">Show all <small>/ Tampilkan semua</small></button></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Worked Example 3 <span class="tr">Contoh Soal 3</span></h3>
+    <p>Express \(f(x)=2x^2+12x+7\) in the form \(a(x+b)^2+c\) and state the range for \(x\in\mathbb{R}\).<span class="tr">Nyatakan \(f(x)=2x^2+12x+7\) dalam bentuk \(a(x+b)^2+c\) dan tentukan range-nya untuk \(x\in\mathbb{R}\).</span></p>
+    <div class="reveal">
+      <div class="step"><b class="sn">Step 1 — Factor out \(a=2\) from the \(x\)-terms:</b> \(2(x^2+6x)+7\).<span class="tr"><b>Langkah 1 — Keluarkan \(a=2\) dari suku-suku \(x\).</b></span></div>
+      <div class="step"><b class="sn">Step 2 — Complete the square inside:</b> \(x^2+6x=(x+3)^2-9\).<span class="tr"><b>Langkah 2 — Lengkapkan kuadrat di dalam kurung.</b></span></div>
+      <div class="step"><b class="sn">Step 3 — Expand back:</b> \(2\left[(x+3)^2-9\right]+7=2(x+3)^2-18+7=2(x+3)^2-11\).<span class="tr"><b>Langkah 3 — Kalikan kembali.</b></span></div>
+      <div class="step"><b class="sn">Step 4 — Range:</b> \(2(x+3)^2\ge 0\), so \(f(x)\ge -11\) → <span class="ans">\(a=2,\ b=3,\ c=-11;\ f(x)\ge -11\)</span><span class="tr"><b>Langkah 4 — Range:</b> \(2(x+3)^2\ge 0\), jadi \(f(x)\ge -11\).</span></div>
+      <div class="qbtns"><button class="btn org nextstep">Next step ▸ <small>/ Langkah berikutnya</small></button><button class="btn ghost allstep">Show all <small>/ Tampilkan semua</small></button></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Worked Example 4 (piecewise) <span class="tr">Contoh Soal 4 (sepotong-sepotong)</span></h3>
+    <p>\(f(x)=\begin{cases}x+1 & 0\le x\le 2\\ 7-x^2 & 2\le x\le 3\end{cases}\). Is it a function? Find its range.<span class="tr">Apakah ini fungsi? Tentukan range-nya.</span></p>
+    <div class="reveal">
+      <div class="step"><b class="sn">Step 1 — Check the meeting point \(x=2\):</b> \(2+1=3\) and \(7-2^2=3\). Same output ✓ → it is a function.<span class="tr"><b>Langkah 1 — Periksa titik pertemuan \(x=2\):</b> keluarannya sama ✓ → ini fungsi.</span></div>
+      <div class="step"><b class="sn">Step 2 — Piece 1:</b> \(x+1\) increases from \(f(0)=1\) to \(f(2)=3\).<span class="tr"><b>Langkah 2 — Bagian 1:</b> \(x+1\) naik dari 1 ke 3.</span></div>
+      <div class="step"><b class="sn">Step 3 — Piece 2:</b> \(7-x^2\) decreases for \(x\ge 2\): from \(f(2)=3\) to \(f(3)=7-9=-2\).<span class="tr"><b>Langkah 3 — Bagian 2:</b> \(7-x^2\) turun untuk \(x\ge 2\): dari 3 ke \(-2\).</span></div>
+      <div class="step"><b class="sn">Step 4 — Combine:</b> lowest \(-2\), highest \(3\) → <span class="ans">\(-2\le f(x)\le 3\)</span><div data-g="ge4" style="max-width:360px;margin:auto"></div><span class="tr"><b>Langkah 4 — Gabungkan:</b> terendah \(-2\), tertinggi \(3\).</span></div>
+      <div class="qbtns"><button class="btn org nextstep">Next step ▸ <small>/ Langkah berikutnya</small></button><button class="btn ghost allstep">Show all <small>/ Tampilkan semua</small></button></div>
+    </div>
+    <div class="quiz" data-q="g1"></div>
+  </div>
+
+  <div class="card">
+    <h3>📗 Exercise 2A — Questions 1 to 7 <span class="tr">Latihan 2A — Soal 1 sampai 7</span></h3>
+    <p>Try each question first in your book, then open the solution.<span class="tr">Coba kerjakan setiap soal terlebih dahulu di bukumu, lalu buka pembahasannya.</span></p>
+
+    <!-- Q1 -->
+    <div class="exq"><span class="num">1</span><b>Which of these graphs represent functions? If it is a function, state whether it is one-one or many-one.</b><span class="tr">Grafik mana yang merupakan fungsi? Jika fungsi, nyatakan apakah satu-satu atau banyak-satu.</span>
+      <p>a \(y=2x-3,\ x\in\mathbb{R}\) &nbsp; b \(y=x^2-3,\ x\in\mathbb{R}\) &nbsp; c \(y=2x^3-1,\ x\in\mathbb{R}\) &nbsp; d \(y=2^x,\ x\in\mathbb{R}\) &nbsp; e \(y=\frac{10}{x},\ x\gt 0\) &nbsp; f \(y=3x^2+4,\ x\ge 0\) &nbsp; g \(y=\sqrt{x},\ x\ge 0\) &nbsp; h \(y^2=4x,\ x\in\mathbb{R}\)</p>
+      <details class="sol"><summary>Solution / Pembahasan</summary><div>
+        <p><b>Method:</b> Sketch each graph. Vertical line test → function or not. Horizontal line test → one-one or many-one.<span class="tr"><b>Metode:</b> Sketsa setiap grafik. Uji garis vertikal → fungsi atau bukan. Uji garis horizontal → satu-satu atau banyak-satu.</span></p>
+        <div class="grid4" id="q1graphs"></div>
+        <table>
+          <tr><th>Part</th><th>Reason <span class="tr">Alasan</span></th><th>Answer <span class="tr">Jawaban</span></th></tr>
+          <tr><td>a</td><td>Straight line with gradient 2: each \(x\) gives one \(y\), and different \(x\) give different \(y\).<span class="tr">Garis lurus bergradien 2: setiap \(x\) memberi satu \(y\), dan \(x\) berbeda memberi \(y\) berbeda.</span></td><td><span class="pill y">one-one function</span></td></tr>
+          <tr><td>b</td><td>Parabola: \(x=2\) and \(x=-2\) both give \(y=1\).<span class="tr">Parabola: \(x=2\) dan \(x=-2\) sama-sama memberi \(y=1\).</span></td><td><span class="pill y">many-one function</span></td></tr>
+          <tr><td>c</td><td>\(2x^3-1\) always increases, so each output comes from only one input.<span class="tr">\(2x^3-1\) selalu naik, jadi setiap keluaran berasal dari satu masukan saja.</span></td><td><span class="pill y">one-one function</span></td></tr>
+          <tr><td>d</td><td>\(2^x\) always increases.<span class="tr">\(2^x\) selalu naik.</span></td><td><span class="pill y">one-one function</span></td></tr>
+          <tr><td>e</td><td>For \(x\gt 0\), \(\frac{10}{x}\) always decreases.<span class="tr">Untuk \(x\gt 0\), \(\frac{10}{x}\) selalu turun.</span></td><td><span class="pill y">one-one function</span></td></tr>
+          <tr><td>f</td><td>Only the right half of the parabola (\(x\ge 0\)), which always increases.<span class="tr">Hanya setengah kanan parabola (\(x\ge 0\)) yang selalu naik.</span></td><td><span class="pill y">one-one function</span></td></tr>
+          <tr><td>g</td><td>\(\sqrt{x}\) always increases.<span class="tr">\(\sqrt{x}\) selalu naik.</span></td><td><span class="pill y">one-one function</span></td></tr>
+          <tr><td>h</td><td>\(y=\pm 2\sqrt{x}\): \(x=1\) gives \(y=2\) and \(y=-2\) (one input, two outputs). Also, negative \(x\) has no output.<span class="tr">\(y=\pm 2\sqrt{x}\): \(x=1\) memberi \(y=2\) dan \(y=-2\) (satu masukan, dua keluaran). Selain itu, \(x\) negatif tidak punya keluaran.</span></td><td><span class="pill n">not a function</span></td></tr>
+        </table>
+      </div></details>
+    </div>
+
+    <!-- Q2 -->
+    <div class="exq"><span class="num">2</span><b>a</b> Represent on a graph the function \(x\mapsto\begin{cases}9-x^2 & -3\le x\le 2\\ 2x+1 & 2\le x\le 4\end{cases}\) &nbsp; <b>b</b> State the nature of the function.<span class="tr">a Gambarkan grafik fungsi tersebut. b Nyatakan jenis fungsinya.</span>
+      <details class="sol"><summary>Solution / Pembahasan</summary><div>
+        <div class="step"><b class="sn">Step 1 — Piece 1 \(9-x^2\):</b> ∩-shaped, vertex \((0,9)\). \(f(-3)=9-9=0\), \(f(2)=9-4=5\).<span class="tr"><b>Langkah 1 — Bagian 1:</b> parabola terbuka ke bawah, puncak \((0,9)\).</span></div>
+        <div class="step"><b class="sn">Step 2 — Piece 2 \(2x+1\):</b> straight line, \(f(2)=5\), \(f(4)=9\).<span class="tr"><b>Langkah 2 — Bagian 2:</b> garis lurus dari \((2,5)\) ke \((4,9)\).</span></div>
+        <div class="step"><b class="sn">Step 3 — Check \(x=2\):</b> both rules give 5, so the graph joins smoothly and each \(x\) has one output ✓.<span class="tr"><b>Langkah 3 — Periksa \(x=2\):</b> kedua aturan memberi 5, jadi grafik tersambung dan setiap \(x\) punya satu keluaran ✓.</span></div>
+        <div class="gbox"><div data-g="q2"></div></div>
+        <div class="step"><b class="sn">b:</b> The horizontal line \(y=9\) cuts the graph at \(x=0\) and \(x=4\) (also \(y=5\) at \(x=-2\) and \(x=2\)). So: <span class="ans">many-one function</span><span class="tr">Garis horizontal \(y=9\) memotong grafik di \(x=0\) dan \(x=4\). Jadi: fungsi banyak-satu.</span></div>
+      </div></details>
+    </div>
+
+    <!-- Q3 -->
+    <div class="exq"><span class="num">3</span><b>a</b> Represent on a graph the relation \(y=\begin{cases}x^2+1 & 0\le x\le 2\\ 2x-3 & 2\le x\le 4\end{cases}\) &nbsp; <b>b</b> Explain why this relation is not a function.<span class="tr">a Gambarkan grafik relasi tersebut. b Jelaskan mengapa relasi ini bukan fungsi.</span>
+      <details class="sol"><summary>Solution / Pembahasan</summary><div>
+        <div class="step"><b class="sn">Step 1 — Piece 1:</b> \(x^2+1\): from \((0,1)\) up to \((2,5)\).<span class="tr"><b>Langkah 1 — Bagian 1:</b> dari \((0,1)\) naik ke \((2,5)\).</span></div>
+        <div class="step"><b class="sn">Step 2 — Piece 2:</b> \(2x-3\): from \((2,1)\) to \((4,5)\).<span class="tr"><b>Langkah 2 — Bagian 2:</b> dari \((2,1)\) ke \((4,5)\).</span></div>
+        <div class="gbox"><div data-g="q3"></div><div class="cap">The red line \(x=2\) cuts the graph twice.<span class="tr">Garis merah \(x=2\) memotong grafik dua kali.</span></div></div>
+        <div class="step"><b class="sn">b:</b> At \(x=2\): \(2^2+1=5\) but \(2(2)-3=1\). The input \(x=2\) has <b>two</b> outputs (5 and 1), so it fails the vertical line test. <span class="ans">Not a function</span><span class="tr">Di \(x=2\) terdapat <b>dua</b> keluaran (5 dan 1), sehingga gagal uji garis vertikal. Bukan fungsi.</span></div>
+      </div></details>
+    </div>
+
+    <!-- Q4 -->
+    <div class="exq"><span class="num">4</span><b>State the domain and range for the functions represented by these two graphs.</b><span class="tr">Nyatakan domain dan range dari fungsi yang diwakili kedua grafik ini.</span>
+      <div class="grid2"><div class="gbox"><div data-g="q4a"></div><div class="cap">a \(y=7+2x-x^2\)</div></div><div class="gbox"><div data-g="q4b"></div><div class="cap">b \(y=2x^3+3x^2-12x\)</div></div></div>
+      <details class="sol"><summary>Solution / Pembahasan</summary><div>
+        <p><b>Rule:</b> Domain = \(x\)-values from the leftmost to the rightmost point. Range = \(y\)-values from the lowest to the highest point.<span class="tr"><b>Aturan:</b> Domain = nilai \(x\) dari titik paling kiri ke paling kanan. Range = nilai \(y\) dari titik terendah ke tertinggi.</span></p>
+        <div class="step"><b class="sn">a:</b> Leftmost \(x=-1\), rightmost \(x=5\). Highest point is the vertex \((1,8)\); lowest is the end point \((5,-8)\) (lower than \((-1,4)\)).<br><span class="ans">Domain: \(-1\le x\le 5\); Range: \(-8\le f(x)\le 8\)</span><span class="tr">Paling kiri \(x=-1\), paling kanan \(x=5\). Titik tertinggi adalah puncak \((1,8)\); terendah adalah titik ujung \((5,-8)\).</span></div>
+        <div class="step"><b class="sn">b:</b> Leftmost \(x=-3\), rightmost \(x=2\). Highest is the maximum point \((-2,20)\); lowest is the minimum point \((1,-7)\). The end values 9 and 4 lie between them.<br><span class="ans">Domain: \(-3\le x\le 2\); Range: \(-7\le f(x)\le 20\)</span><span class="tr">Paling kiri \(x=-3\), paling kanan \(x=2\). Tertinggi \((-2,20)\), terendah \((1,-7)\). Nilai ujung 9 dan 4 berada di antaranya.</span></div>
+      </div></details>
+    </div>
+
+    <!-- Q5 -->
+    <div class="exq"><span class="num">5</span><b>Find the range for each of these functions.</b><span class="tr">Tentukan range dari setiap fungsi berikut.</span>
+      <p>a \(f(x)=x+4,\ x\gt 8\) &nbsp; b \(f(x)=2x-7,\ -3\le x\le 2\) &nbsp; c \(f(x)=7-2x,\ -1\le x\le 4\) &nbsp; d \(f:x\mapsto 2x^2,\ 1\le x\le 4\) &nbsp; e \(f(x)=2^x,\ -5\le x\le 4\) &nbsp; f \(f(x)=\frac{12}{x},\ 1\le x\le 8\)</p>
+      <details class="sol"><summary>Solution / Pembahasan</summary><div>
+        <p>All six functions are either always increasing or always decreasing on their domains, so the range comes from the end points.<span class="tr">Keenam fungsi selalu naik atau selalu turun pada domainnya, sehingga range diperoleh dari titik ujung.</span></p>
+        <div class="step"><b class="sn">a:</b> Increasing. At \(x=8\): \(8+4=12\), but 8 is not included. <span class="ans">\(f(x)\gt 12\)</span><span class="tr">Naik. Di \(x=8\) nilainya 12, tetapi 8 tidak termasuk.</span></div>
+        <div class="step"><b class="sn">b:</b> Increasing. \(f(-3)=-6-7=-13\), \(f(2)=4-7=-3\). <span class="ans">\(-13\le f(x)\le -3\)</span><span class="tr">Naik.</span></div>
+        <div class="step"><b class="sn">c:</b> Decreasing (gradient \(-2\)). \(f(-1)=7+2=9\), \(f(4)=7-8=-1\). <span class="ans">\(-1\le f(x)\le 9\)</span><span class="tr">Turun (gradien \(-2\)), jadi nilai terbesar di kiri.</span></div>
+        <div class="step"><b class="sn">d:</b> \(2x^2\) increases for \(x\gt 0\). \(f(1)=2\), \(f(4)=2(16)=32\). <span class="ans">\(2\le f(x)\le 32\)</span><span class="tr">\(2x^2\) naik untuk \(x\gt 0\).</span></div>
+        <div class="step"><b class="sn">e:</b> Increasing. \(2^{-5}=\frac{1}{32}\), \(2^4=16\). <span class="ans">\(\frac{1}{32}\le f(x)\le 16\)</span><span class="tr">Naik.</span></div>
+        <div class="step"><b class="sn">f:</b> Decreasing for \(x\gt 0\). \(f(1)=12\), \(f(8)=\frac{12}{8}=1.5\). <span class="ans">\(1.5\le f(x)\le 12\)</span><span class="tr">Turun untuk \(x\gt 0\).</span></div>
+      </div></details>
+    </div>
+
+    <!-- Q6 -->
+    <div class="exq"><span class="num">6</span><b>Find the range for each of these functions.</b><span class="tr">Tentukan range dari setiap fungsi berikut.</span>
+      <p>a \(f(x)=x^2-2,\ x\in\mathbb{R}\) &nbsp; b \(f:x\mapsto x^2+3,\ -2\le x\le 5\) &nbsp; c \(f(x)=3-2x^2,\ x\le 2\) &nbsp; d \(f(x)=7-3x^2,\ -1\le x\le 2\)</p>
+      <details class="sol"><summary>Solution / Pembahasan</summary><div>
+        <div class="step"><b class="sn">a:</b> \(x^2\ge 0\Rightarrow x^2-2\ge -2\) (equal when \(x=0\)). <span class="ans">\(f(x)\ge -2\)</span><span class="tr">\(x^2\ge 0\), jadi \(x^2-2\ge -2\).</span></div>
+        <div class="step"><b class="sn">b:</b> Vertex \((0,3)\) is a minimum and \(x=0\) is inside the domain. End points: \(f(-2)=4+3=7\), \(f(5)=25+3=28\). Smallest 3, largest 28. <span class="ans">\(3\le f(x)\le 28\)</span><span class="tr">Puncak \((0,3)\) minimum dan \(x=0\) ada di domain. Terkecil 3, terbesar 28.</span></div>
+        <div class="step"><b class="sn">c:</b> ∩-shaped, vertex \((0,3)\) is a maximum, \(x=0\) is inside \(x\le 2\). As \(x\to-\infty\), \(f(x)\to-\infty\), so there is no lower limit. <span class="ans">\(f(x)\le 3\)</span><span class="tr">Parabola terbuka ke bawah, maksimum 3 di \(x=0\). Untuk \(x\) semakin negatif, \(f(x)\) turun tanpa batas.</span></div>
+        <div class="step"><b class="sn">d:</b> ∩-shaped, maximum \(7\) at \(x=0\) (inside). End points: \(f(-1)=7-3=4\), \(f(2)=7-12=-5\). Smallest \(-5\). <span class="ans">\(-5\le f(x)\le 7\)</span><span class="tr">Maksimum 7 di \(x=0\). Titik ujung: 4 dan \(-5\). Terkecil \(-5\).</span></div>
+      </div></details>
+    </div>
+
+    <!-- Q7 -->
+    <div class="exq"><span class="num">7</span><b>Find the range for each of these functions.</b><span class="tr">Tentukan range dari setiap fungsi berikut.</span>
+      <p>a \(f(x)=(x-2)^2+5,\ x\ge 2\) &nbsp; b \(f(x)=(2x-1)^2-7,\ x\ge\frac12\) &nbsp; c \(f:x\mapsto 8-(x-5)^2,\ 4\le x\le 10\) &nbsp; d \(f(x)=1+\sqrt{x-4},\ x\ge 4\)</p>
+      <details class="sol"><summary>Solution / Pembahasan</summary><div>
+        <div class="step"><b class="sn">a:</b> Vertex \((2,5)\), minimum, at the start of the domain. For \(x\ge 2\), \((x-2)^2\ge 0\). <span class="ans">\(f(x)\ge 5\)</span><span class="tr">Puncak \((2,5)\) minimum, tepat di awal domain.</span></div>
+        <div class="step"><b class="sn">b:</b> For \(x\ge\frac12\): \(2x-1\ge 0\Rightarrow (2x-1)^2\ge 0\), equal to 0 at \(x=\frac12\). So \(f(x)\ge 0-7\). <span class="ans">\(f(x)\ge -7\)</span><span class="tr">Untuk \(x\ge\frac12\): \((2x-1)^2\ge 0\), sama dengan 0 di \(x=\frac12\).</span></div>
+        <div class="step"><b class="sn">c:</b> ∩-shaped, maximum \(8\) at \(x=5\) (inside \(4\le x\le 10\)). End points: \(f(4)=8-1=7\), \(f(10)=8-25=-17\). <span class="ans">\(-17\le f(x)\le 8\)</span><span class="tr">Maksimum 8 di \(x=5\). Titik ujung: 7 dan \(-17\).</span></div>
+        <div class="step"><b class="sn">d:</b> \(\sqrt{x-4}\ge 0\), equal to 0 at \(x=4\), and it increases without limit. <span class="ans">\(f(x)\ge 1\)</span><span class="tr">\(\sqrt{x-4}\ge 0\), bernilai 0 di \(x=4\), lalu naik tanpa batas.</span></div>
+      </div></details>
+    </div>
+  </div>
+  <div class="navbtns"><button class="btn ghost" onclick="go('s4')">◂ Back <small>/ Kembali</small></button><button class="btn" onclick="go('s6')">Next ▸ <small>/ Berikutnya</small></button></div>
+</section>
+
+<!-- ============ 6 INDEPENDENT PRACTICE ============ -->
+<section id="s6">
+  <div class="hero" style="background:linear-gradient(120deg,#1f9d55,#0d8a8f)">
+    <div><h2>6. Independent Practice<span class="tr">Latihan Mandiri</span></h2>
+    <p style="margin:6px 0 0">Now it's your turn! Complete the interactive tasks, then solve Exercise 2A Questions 8–16.<span class="tr">Sekarang giliranmu! Kerjakan tugas interaktif, lalu selesaikan Latihan 2A Soal 8–16.</span></p></div>
+    <div class="big">✍️</div>
+  </div>
+  <div class="card">
+    <h3>🎮 Interactive Tasks <span class="tr">Tugas Interaktif</span></h3>
+    <div class="quiz" data-q="ip1"></div>
+    <div class="quiz" data-q="ip2"></div>
+    <div class="quiz" data-q="ip3"></div>
+    <div class="quiz" data-q="ip4"></div>
+    <div class="quiz" data-q="ip5"></div>
+    <div class="quiz" data-q="ip6"></div>
+    <div class="quiz" data-q="ip7"></div>
+    <div class="quiz" data-q="ip8"></div>
+    <div class="quiz" data-q="ip9"></div>
+    <div class="quiz" data-q="ip10"></div>
+    <div class="quiz" data-q="ip11"></div>
+    <div class="quiz" data-q="ip12"></div>
+  </div>
+
+  <div class="card">
+    <h3>📗 Exercise 2A — Questions 8 to 16 <span class="tr">Latihan 2A — Soal 8 sampai 16</span></h3>
+
+    <!-- Q8 -->
+    <div class="exq"><span class="num">8</span><b>Express each function in the form \(a(x+b)^2+c\) and hence state the range.</b><span class="tr">Nyatakan setiap fungsi dalam bentuk \(a(x+b)^2+c\), lalu tentukan range-nya.</span>
+      <p>a \(f(x)=x^2+6x-11,\ x\in\mathbb{R}\) &nbsp; b \(f(x)=3x^2-10x+2,\ x\in\mathbb{R}\)</p>
+      <details class="sol"><summary>Solution / Pembahasan</summary><div>
+        <p><b>a</b></p>
+        \[x^2+6x-11=(x+3)^2-9-11=(x+3)^2-20\]
+        <p>\((x+3)^2\ge 0\), so the smallest value is \(-20\) (at \(x=-3\)).<span class="tr">\((x+3)^2\ge 0\), jadi nilai terkecil \(-20\) (di \(x=-3\)).</span></p>
+        <span class="ans">\(f(x)=(x+3)^2-20;\ \ f(x)\ge -20\)</span>
+        <p style="margin-top:12px"><b>b</b> Factor out 3 first:<span class="tr">Keluarkan 3 terlebih dahulu:</span></p>
+        \[3x^2-10x+2=3\left(x^2-\tfrac{10}{3}x\right)+2\]
+        \[=3\left[\left(x-\tfrac{5}{3}\right)^2-\tfrac{25}{9}\right]+2=3\left(x-\tfrac53\right)^2-\tfrac{25}{3}+\tfrac{6}{3}=3\left(x-\tfrac53\right)^2-\tfrac{19}{3}\]
+        <p>Half of \(-\frac{10}{3}\) is \(-\frac{5}{3}\), and \(\left(\frac53\right)^2=\frac{25}{9}\).<span class="tr">Setengah dari \(-\frac{10}{3}\) adalah \(-\frac{5}{3}\), dan \(\left(\frac53\right)^2=\frac{25}{9}\).</span></p>
+        <span class="ans">\(f(x)=3\left(x-\frac53\right)^2-\frac{19}{3};\ \ f(x)\ge -\frac{19}{3}\)</span>
+      </div></details>
+    </div>
+
+    <!-- Q9 -->
+    <div class="exq"><span class="num">9</span><b>Express each function in the form \(a-b(x+c)^2\) and hence state the range.</b><span class="tr">Nyatakan setiap fungsi dalam bentuk \(a-b(x+c)^2\), lalu tentukan range-nya.</span>
+      <p>a \(f(x)=7-8x-x^2,\ x\in\mathbb{R}\) &nbsp; b \(f(x)=2-6x-3x^2,\ x\in\mathbb{R}\)</p>
+      <details class="sol"><summary>Solution / Pembahasan</summary><div>
+        <p><b>a</b> Take out the minus sign from the \(x\)-terms:<span class="tr">Keluarkan tanda minus dari suku-suku \(x\):</span></p>
+        \[7-8x-x^2=7-(x^2+8x)=7-\left[(x+4)^2-16\right]=23-(x+4)^2\]
+        <p>\((x+4)^2\ge 0\), so we subtract something \(\ge 0\) from 23; the largest value is 23.<span class="tr">\((x+4)^2\ge 0\), jadi 23 dikurangi sesuatu yang \(\ge 0\); nilai terbesar 23.</span></p>
+        <span class="ans">\(f(x)=23-(x+4)^2;\ \ f(x)\le 23\)</span>
+        <p style="margin-top:12px"><b>b</b></p>
+        \[2-6x-3x^2=2-3(x^2+2x)=2-3\left[(x+1)^2-1\right]=2+3-3(x+1)^2=5-3(x+1)^2\]
+        <span class="ans">\(f(x)=5-3(x+1)^2;\ \ f(x)\le 5\)</span>
+      </div></details>
+    </div>
+
+    <!-- Q10 -->
+    <div class="exq"><span class="num">10</span><b>a</b> Represent on a graph \(f(x)=\begin{cases}3-x^2 & 0\le x\le 2\\ 3x-7 & 2\le x\le 4\end{cases}\) &nbsp; <b>b</b> Find the range.<span class="tr">a Gambarkan grafiknya. b Tentukan range-nya.</span>
+      <details class="sol"><summary>Solution / Pembahasan</summary><div>
+        <div class="step"><b class="sn">Piece 1:</b> \(3-x^2\) decreases on \(0\le x\le 2\): \(f(0)=3\), \(f(2)=3-4=-1\).<span class="tr"><b>Bagian 1:</b> turun dari 3 ke \(-1\).</span></div>
+        <div class="step"><b class="sn">Piece 2:</b> \(3x-7\): \(f(2)=6-7=-1\) (matches ✓), \(f(4)=12-7=5\).<span class="tr"><b>Bagian 2:</b> dari \(-1\) (cocok ✓) naik ke 5.</span></div>
+        <div class="gbox"><div data-g="q10"></div></div>
+        <div class="step"><b class="sn">b:</b> Lowest point \((2,-1)\), highest point \((4,5)\). <span class="ans">\(-1\le f(x)\le 5\)</span><span class="tr">Titik terendah \((2,-1)\), tertinggi \((4,5)\).</span></div>
+      </div></details>
+    </div>
+
+    <!-- Q11 -->
+    <div class="exq"><span class="num">11</span><b>\(f:x\mapsto x^2+6x+k\), where \(k\) is a constant, \(x\in\mathbb{R}\). Find the range of \(f\) in terms of \(k\).</b><span class="tr">\(k\) konstanta. Tentukan range \(f\) dalam \(k\).</span>
+      <details class="sol"><summary>Solution / Pembahasan</summary><div>
+        \[x^2+6x+k=(x+3)^2-9+k=(x+3)^2+k-9\]
+        <p>Minimum value \(k-9\) at \(x=-3\).<span class="tr">Nilai minimum \(k-9\) di \(x=-3\).</span></p>
+        <span class="ans">\(f(x)\ge k-9\)</span>
+      </div></details>
+    </div>
+
+    <!-- Q12 -->
+    <div class="exq"><span class="num">12</span><b>\(g:x\mapsto 5-ax-2x^2\), where \(a\) is a constant, \(x\in\mathbb{R}\). Find the range of \(g\) in terms of \(a\).</b><span class="tr">\(a\) konstanta. Tentukan range \(g\) dalam \(a\).</span>
+      <details class="sol"><summary>Solution / Pembahasan</summary><div>
+        <div class="step"><b class="sn">Step 1:</b> Factor out \(-2\) from the \(x\)-terms: \(5-2\left(x^2+\frac{a}{2}x\right)\).<span class="tr"><b>Langkah 1:</b> Keluarkan \(-2\) dari suku-suku \(x\).</span></div>
+        <div class="step"><b class="sn">Step 2:</b> Half of \(\frac a2\) is \(\frac a4\): \(x^2+\frac a2 x=\left(x+\frac a4\right)^2-\frac{a^2}{16}\).<span class="tr"><b>Langkah 2:</b> Setengah dari \(\frac a2\) adalah \(\frac a4\).</span></div>
+        <div class="step"><b class="sn">Step 3:</b> \(5-2\left[\left(x+\frac a4\right)^2-\frac{a^2}{16}\right]=5+\frac{a^2}{8}-2\left(x+\frac a4\right)^2\).<span class="tr"><b>Langkah 3:</b> Kalikan kembali: \(-2\times\left(-\frac{a^2}{16}\right)=+\frac{a^2}{8}\).</span></div>
+        <div class="step"><b class="sn">Step 4:</b> \(2\left(x+\frac a4\right)^2\ge 0\), so the maximum is \(5+\frac{a^2}{8}\). <span class="ans">\(g(x)\le 5+\frac{a^2}{8}\)</span><span class="tr"><b>Langkah 4:</b> nilai maksimumnya \(5+\frac{a^2}{8}\).</span></div>
+      </div></details>
+    </div>
+
+    <!-- Q13 -->
+    <div class="exq"><span class="num">13</span><b>\(f(x)=x^2-2x-3\) for \(x\in\mathbb{R},\ -a\le x\le a\). If the range is \(-4\le f(x)\le 5\), find \(a\).</b><span class="tr">Jika range-nya \(-4\le f(x)\le 5\), tentukan nilai \(a\).</span>
+      <details class="sol"><summary>Solution / Pembahasan</summary><div>
+        <div class="step"><b class="sn">Step 1:</b> \(f(x)=(x-1)^2-4\), vertex \((1,-4)\). The minimum \(-4\) appears in the range, so \(x=1\) must be in the domain (\(a\ge 1\)).<span class="tr"><b>Langkah 1:</b> Minimum \(-4\) muncul di range, jadi \(x=1\) harus ada di domain (\(a\ge 1\)).</span></div>
+        <div class="step"><b class="sn">Step 2:</b> The maximum 5 must occur at an end point. Compare: \(f(-a)=a^2+2a-3\) and \(f(a)=a^2-2a-3\). Since \(a\gt 0\), \(f(-a)\gt f(a)\), so the maximum is \(f(-a)\).<span class="tr"><b>Langkah 2:</b> Maksimum 5 terjadi di titik ujung. Karena \(a\gt 0\), \(f(-a)\gt f(a)\), jadi maksimumnya \(f(-a)\).</span></div>
+        <div class="step"><b class="sn">Step 3:</b> \(a^2+2a-3=5\Rightarrow a^2+2a-8=0\Rightarrow (a+4)(a-2)=0\Rightarrow a=2\) or \(a=-4\). Reject \(a=-4\) (need \(a\gt 0\)).<span class="tr"><b>Langkah 3:</b> Tolak \(a=-4\) karena harus \(a\gt 0\).</span></div>
+        <div class="step"><b class="sn">Check:</b> domain \(-2\le x\le 2\): \(f(-2)=4+4-3=5\), \(f(1)=-4\), \(f(2)=4-4-3=-3\). Range \(-4\le f(x)\le 5\) ✓<div data-g="q13" style="max-width:340px;margin:auto"></div><span class="tr"><b>Cek:</b> range sesuai ✓</span></div>
+        <span class="ans">\(a=2\)</span>
+      </div></details>
+    </div>
+
+    <!-- Q14 -->
+    <div class="exq"><span class="num">14</span><b>\(f(x)=x^2+x-4\) for \(x\in\mathbb{R},\ a\le x\le a+3\). If the range is \(-2\le f(x)\le 16\), find the possible values of \(a\).</b><span class="tr">Jika range-nya \(-2\le f(x)\le 16\), tentukan nilai-nilai \(a\) yang mungkin.</span>
+      <details class="sol"><summary>Solution / Pembahasan</summary><div>
+        <div class="step"><b class="sn">Step 1:</b> \(f(x)=\left(x+\frac12\right)^2-\frac{17}{4}\). The vertex value \(-\frac{17}{4}=-4.25\) is NOT in the range, so the vertex \(x=-\frac12\) is outside the domain. So \(f\) is only increasing or only decreasing on the domain: the end points give \(-2\) and \(16\).<span class="tr"><b>Langkah 1:</b> Nilai puncak \(-4.25\) TIDAK ada di range, jadi \(x=-\frac12\) di luar domain. Fungsi hanya naik atau hanya turun, sehingga titik ujung memberi \(-2\) dan \(16\).</span></div>
+        <div class="step"><b class="sn">Step 2:</b> \(f(x)=-2\): \(x^2+x-2=0\Rightarrow(x+2)(x-1)=0\Rightarrow x=-2\) or \(x=1\).<br>\(f(x)=16\): \(x^2+x-20=0\Rightarrow(x+5)(x-4)=0\Rightarrow x=-5\) or \(x=4\).<span class="tr"><b>Langkah 2:</b> Selesaikan \(f(x)=-2\) dan \(f(x)=16\).</span></div>
+        <div class="step"><b class="sn">Step 3:</b> The domain has length 3, so the end points differ by 3: \(1\to 4\) ✓ (right of vertex) and \(-5\to -2\) ✓ (left of vertex).<span class="tr"><b>Langkah 3:</b> Panjang domain 3, jadi selisih titik ujung 3: \(1\to4\) ✓ dan \(-5\to-2\) ✓.</span></div>
+        <div class="gbox"><div data-g="q14"></div><div class="cap">Both highlighted pieces have range \(-2\le f(x)\le 16\).<span class="tr">Kedua bagian yang ditebalkan memiliki range \(-2\le f(x)\le 16\).</span></div></div>
+        <span class="ans">\(a=1\) or \(a=-5\)</span>
+      </div></details>
+    </div>
+
+    <!-- Q15 -->
+    <div class="exq"><span class="num">15</span>\(f(x)=2x^2-8x+5\) for \(x\in\mathbb{R},\ 0\le x\le k\). <b>a</b> Express \(f(x)\) in the form \(a(x+b)^2+c\). <b>b</b> State the value of \(k\) for which the graph of \(y=f(x)\) has a line of symmetry. <b>c</b> For this \(k\), find the range of \(f\).<span class="tr">a Nyatakan dalam bentuk \(a(x+b)^2+c\). b Tentukan \(k\) agar grafik memiliki sumbu simetri. c Untuk \(k\) tersebut, tentukan range \(f\).</span>
+      <details class="sol"><summary>Solution / Pembahasan</summary><div>
+        <div class="step"><b class="sn">a:</b> \(2(x^2-4x)+5=2\left[(x-2)^2-4\right]+5=2(x-2)^2-3\). <span class="ans">\(2(x-2)^2-3\)</span></div>
+        <div class="step"><b class="sn">b:</b> The axis of symmetry is \(x=2\). For the graph to be symmetric, the domain must be balanced around \(x=2\): \(0\) is 2 units to the left, so \(k\) is 2 units to the right. <span class="ans">\(k=4\)</span><span class="tr">Sumbu simetri \(x=2\). Agar simetris, domain harus seimbang di sekitar \(x=2\): 0 berjarak 2 ke kiri, jadi \(k\) berjarak 2 ke kanan.</span></div>
+        <div class="step"><b class="sn">c:</b> Minimum \(-3\) at \(x=2\). End points: \(f(0)=5\), \(f(4)=32-32+5=5\). <span class="ans">\(-3\le f(x)\le 5\)</span><div data-g="q15" style="max-width:340px;margin:auto"></div><span class="tr">Minimum \(-3\) di \(x=2\); titik ujung sama-sama 5.</span></div>
+      </div></details>
+    </div>
+
+    <!-- Q16 -->
+    <div class="exq"><span class="num">16</span><b>Find the largest possible domain for each function and state the corresponding range.</b><span class="tr">Tentukan domain terbesar yang mungkin untuk setiap fungsi dan range-nya.</span>
+      <p>a \(3x-1\) &nbsp; b \(x^2+2\) &nbsp; c \(2^x\) &nbsp; d \(\frac1x\) &nbsp; e \(\frac{1}{x-2}\) &nbsp; f \(\sqrt{x-3}-2\)</p>
+      <details class="sol"><summary>Solution / Pembahasan</summary><div>
+        <table>
+          <tr><th></th><th>Domain</th><th>Range</th><th>Reason <span class="tr">Alasan</span></th></tr>
+          <tr><td>a</td><td>\(x\in\mathbb{R}\)</td><td>\(f(x)\in\mathbb{R}\)</td><td>Any \(x\) works; a straight line takes every value.<span class="tr">Semua \(x\) boleh; garis lurus mencapai semua nilai.</span></td></tr>
+          <tr><td>b</td><td>\(x\in\mathbb{R}\)</td><td>\(f(x)\ge 2\)</td><td>\(x^2\ge 0\Rightarrow x^2+2\ge 2\).</td></tr>
+          <tr><td>c</td><td>\(x\in\mathbb{R}\)</td><td>\(f(x)\gt 0\)</td><td>\(2^x\) is always positive, never 0.<span class="tr">\(2^x\) selalu positif, tidak pernah 0.</span></td></tr>
+          <tr><td>d</td><td>\(x\in\mathbb{R},\ x\ne 0\)</td><td>\(f(x)\in\mathbb{R},\ f(x)\ne 0\)</td><td>Cannot divide by 0; \(\frac1x\) is never 0.<span class="tr">Tidak boleh dibagi 0; \(\frac1x\) tidak pernah 0.</span></td></tr>
+          <tr><td>e</td><td>\(x\in\mathbb{R},\ x\ne 2\)</td><td>\(f(x)\in\mathbb{R},\ f(x)\ne 0\)</td><td>\(x-2\ne 0\); numerator 1 is never 0.<span class="tr">\(x-2\ne 0\); pembilang 1 tidak pernah 0.</span></td></tr>
+          <tr><td>f</td><td>\(x\ge 3\)</td><td>\(f(x)\ge -2\)</td><td>\(x-3\ge 0\); \(\sqrt{x-3}\ge 0\Rightarrow\sqrt{x-3}-2\ge -2\).</td></tr>
+        </table>
+      </div></details>
+    </div>
+  </div>
+  <div class="navbtns"><button class="btn ghost" onclick="go('s5')">◂ Back <small>/ Kembali</small></button><button class="btn" onclick="go('s7')">Next ▸ <small>/ Berikutnya</small></button></div>
+</section>
+
+<!-- ============ 7 CONSOLIDATION ============ -->
+<section id="s7">
+  <div class="hero" style="background:linear-gradient(120deg,#e2574c,#7a4cd9)">
+    <div><h2>7. Consolidation &amp; Reflection<span class="tr">Penguatan &amp; Refleksi</span></h2>
+    <p style="margin:6px 0 0">Let's summarise the key ideas, check understanding with an exit ticket, and reflect.<span class="tr">Mari rangkum ide-ide utama, cek pemahaman dengan tiket keluar, dan berefleksi.</span></p></div>
+    <div class="big">🏁</div>
+  </div>
+  <div class="card">
+    <h3>📌 Summary <span class="tr">Rangkuman</span></h3>
+    <div class="grid2">
+      <div class="box def"><b class="lbl">1. Function <span class="tr">Fungsi</span></b>Every input has exactly one output. One-one ✓, many-one ✓, one-many ✗, many-many ✗.<span class="tr">Setiap masukan punya tepat satu keluaran. Satu-satu ✓, banyak-satu ✓, satu-banyak ✗, banyak-banyak ✗.</span></div>
+      <div class="box key"><b class="lbl">2. Line tests <span class="tr">Uji garis</span></b>Vertical line → function? Horizontal line → one-one or many-one?<span class="tr">Garis vertikal → fungsi? Garis horizontal → satu-satu atau banyak-satu?</span></div>
+      <div class="box tip"><b class="lbl">3. Range method <span class="tr">Metode range</span></b>Shape → turning point (inside domain?) → end points → smallest &amp; largest.<span class="tr">Bentuk → titik balik (di dalam domain?) → titik ujung → terkecil &amp; terbesar.</span></div>
+      <div class="box pur"><b class="lbl">4. Completing the square <span class="tr">Melengkapkan kuadrat</span></b>\(a(x+b)^2+c\): if \(a\gt 0\), \(f(x)\ge c\); if \(a\lt 0\), \(f(x)\le c\).<span class="tr">Jika \(a\gt 0\), \(f(x)\ge c\); jika \(a\lt 0\), \(f(x)\le c\).</span></div>
+      <div class="box warn"><b class="lbl">5. Largest domain <span class="tr">Domain terbesar</span></b>Exclude division by zero and square roots of negatives.<span class="tr">Buang pembagian dengan nol dan akar bilangan negatif.</span></div>
+      <div class="box def"><b class="lbl">6. Piecewise <span class="tr">Sepotong-sepotong</span></b>Same output at the joining \(x\) → function; different outputs → not a function.<span class="tr">Keluaran sama di titik sambung → fungsi; berbeda → bukan fungsi.</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>⚠️ Common Mistakes <span class="tr">Kesalahan Umum</span></h3>
+    <ul>
+      <li>Using only the end points when the turning point is inside the domain.<span class="tr">Hanya memakai titik ujung padahal titik balik ada di dalam domain.</span></li>
+      <li>Writing \(\ge\) when the domain uses \(\gt\) (e.g. \(x\gt 8\Rightarrow f(x)\gt 12\), not \(\ge\)).<span class="tr">Menulis \(\ge\) padahal domain memakai \(\gt\).</span></li>
+      <li>Writing \(2^x\ge 0\) instead of \(2^x\gt 0\).<span class="tr">Menulis \(2^x\ge 0\) padahal seharusnya \(2^x\gt 0\).</span></li>
+      <li>Forgetting to multiply the constant back when \(a\ne 1\) in completing the square.<span class="tr">Lupa mengalikan kembali konstanta saat \(a\ne 1\) dalam melengkapkan kuadrat.</span></li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>🎟️ Exit Ticket <span class="tr">Tiket Keluar</span></h3>
+    <div class="quiz" data-q="e1"></div>
+    <div class="quiz" data-q="e2"></div>
+    <div class="quiz" data-q="e3"></div>
+  </div>
+  <div class="card">
+    <h3>🪞 Reflection <span class="tr">Refleksi</span></h3>
+    <p>Tick what you can do now:<span class="tr">Centang hal yang sudah bisa kamu lakukan:</span></p>
+    <div class="opts" id="cando">
+      <label><input type="checkbox"> I can decide whether a graph is a function.<span class="tr">Saya bisa menentukan apakah grafik merupakan fungsi.</span></label>
+      <label><input type="checkbox"> I can tell one-one from many-one functions.<span class="tr">Saya bisa membedakan fungsi satu-satu dan banyak-satu.</span></label>
+      <label><input type="checkbox"> I can find the range on a restricted domain.<span class="tr">Saya bisa mencari range pada domain terbatas.</span></label>
+      <label><input type="checkbox"> I can complete the square to find a range.<span class="tr">Saya bisa melengkapkan kuadrat untuk mencari range.</span></label>
+      <label><input type="checkbox"> I can find the largest possible domain.<span class="tr">Saya bisa menentukan domain terbesar yang mungkin.</span></label>
+    </div>
+    <p style="margin-top:14px">How confident do you feel?<span class="tr">Seberapa yakin perasaanmu?</span></p>
+    <div class="conf" id="conf">
+      <button data-m="Keep practising — reopen the guided examples!|Terus berlatih — buka lagi contoh terbimbing!">😟</button>
+      <button data-m="Good start — redo the questions you missed.|Awal yang baik — ulangi soal yang salah.">😐</button>
+      <button data-m="Great — try Questions 13 and 14 again without help.|Hebat — coba Soal 13 dan 14 lagi tanpa bantuan.">🙂</button>
+      <button data-m="Excellent! You're ready for the next topic.|Luar biasa! Kamu siap untuk topik berikutnya.">🤩</button>
+    </div>
+    <p id="confmsg" style="font-weight:700;color:var(--pri)"></p>
+    <p>One thing I learned today / one question I still have:<span class="tr">Satu hal yang saya pelajari hari ini / satu pertanyaan yang masih saya punya:</span></p>
+    <textarea placeholder="Write here... / Tulis di sini..."></textarea>
+  </div>
+  <div class="navbtns"><button class="btn ghost" onclick="go('s6')">◂ Back <small>/ Kembali</small></button><span></span></div>
+</section>
+
+</main>
+</div>
+
+<script>
+/* ================= GRAPH HELPER ================= */
+let gid=0;
+function graph(o){
+  gid++;
+  const W=o.w||340,H=o.h||270,P=26;
+  const sx=x=>P+(x-o.xmin)/(o.xmax-o.xmin)*(W-2*P);
+  const sy=y=>H-P-(y-o.ymin)/(o.ymax-o.ymin)*(H-2*P);
+  const gx=o.gx||1,gy=o.gy||1,lx=o.lx||gx,ly=o.ly||gy;
+  let s=`<svg viewBox="0 0 ${W} ${H}" class="graph"><defs><clipPath id="cp${gid}"><rect x="${P}" y="${P}" width="${W-2*P}" height="${H-2*P}"/></clipPath></defs>`;
+  for(let x=Math.ceil(o.xmin/gx)*gx;x<=o.xmax+1e-9;x+=gx)s+=`<line class="grid" x1="${sx(x)}" y1="${sy(o.ymin)}" x2="${sx(x)}" y2="${sy(o.ymax)}"/>`;
+  for(let y=Math.ceil(o.ymin/gy)*gy;y<=o.ymax+1e-9;y+=gy)s+=`<line class="grid" x1="${sx(o.xmin)}" y1="${sy(y)}" x2="${sx(o.xmax)}" y2="${sy(y)}"/>`;
+  const x0=(o.xmin<=0&&o.xmax>=0)?sx(0):sx(o.xmin), y0=(o.ymin<=0&&o.ymax>=0)?sy(0):sy(o.ymin);
+  s+=`<line class="axis" x1="${sx(o.xmin)}" y1="${y0}" x2="${sx(o.xmax)}" y2="${y0}"/><line class="axis" x1="${x0}" y1="${sy(o.ymin)}" x2="${x0}" y2="${sy(o.ymax)}"/>`;
+  s+=`<text x="${sx(o.xmax)-6}" y="${y0-5}" font-style="italic">x</text><text x="${x0+5}" y="${sy(o.ymax)+10}" font-style="italic">y</text>`;
+  for(let x=Math.ceil(o.xmin/lx)*lx;x<=o.xmax+1e-9;x+=lx){if(Math.abs(x)<1e-9)continue;s+=`<text x="${sx(x)}" y="${y0+12}" text-anchor="middle">${+x.toFixed(2)}</text>`;}
+  for(let y=Math.ceil(o.ymin/ly)*ly;y<=o.ymax+1e-9;y+=ly){if(Math.abs(y)<1e-9)continue;s+=`<text x="${x0-4}" y="${sy(y)+3}" text-anchor="end">${+y.toFixed(2)}</text>`;}
+  s+=`<text x="${x0-4}" y="${y0+12}" text-anchor="end">O</text>`;
+  (o.vlines||[]).forEach(v=>s+=`<line x1="${sx(v.x)}" y1="${sy(o.ymin)}" x2="${sx(v.x)}" y2="${sy(o.ymax)}" stroke="${v.c||'#d9433b'}" stroke-width="1.8" stroke-dasharray="6 4"/>`);
+  (o.hlines||[]).forEach(v=>s+=`<line x1="${sx(o.xmin)}" y1="${sy(v.y)}" x2="${sx(o.xmax)}" y2="${sy(v.y)}" stroke="${v.c||'#f08a24'}" stroke-width="1.8" stroke-dasharray="6 4"/>`);
+  (o.pieces||[]).forEach(p=>{
+    const n=240;let pts=[];
+    for(let i=0;i<=n;i++){const x=p.a+(p.b-p.a)*i/n,y=p.f(x);if(isFinite(y))pts.push(`${sx(x).toFixed(1)},${sy(Math.max(Math.min(y,o.ymax+50),o.ymin-50)).toFixed(1)}`);}
+    s+=`<polyline clip-path="url(#cp${gid})" points="${pts.join(' ')}" fill="none" stroke="${p.c||'#2f4dd8'}" stroke-width="${p.w||2.6}" ${p.dash?'stroke-dasharray="5 4"':''}/>`;
+    if(p.ends){[[p.a,p.ends[0]],[p.b,p.ends[1]]].forEach(([x,t])=>{if(!t)return;const y=p.f(x);s+=`<circle cx="${sx(x)}" cy="${sy(y)}" r="4.2" fill="${t==='c'?(p.c||'#2f4dd8'):'#fff'}" stroke="${p.c||'#2f4dd8'}" stroke-width="2"/>`;});}
+  });
+  (o.points||[]).forEach(pt=>{
+    if(pt.dot!==false)s+=`<circle cx="${sx(pt.x)}" cy="${sy(pt.y)}" r="3.6" fill="${pt.c||'#d9433b'}"/>`;
+    if(pt.t)s+=`<text class="pl" x="${sx(pt.x)+(pt.dx||6)}" y="${sy(pt.y)+(pt.dy||-6)}" text-anchor="${pt.anc||'start'}">${pt.t}</text>`;
+  });
+  return s+'</svg>';
+}
+const G={
+  vt1:{xmin:-3,xmax:3,ymin:-1,ymax:9,gy:1,ly:2,pieces:[{f:x=>x*x,a:-3,b:3}],vlines:[{x:1.5}],hlines:[{y:4}],points:[{x:-2,y:4},{x:2,y:4},{x:1.5,y:2.25,c:'#d9433b'}]},
+  vt2:{xmin:-2.5,xmax:2.5,ymin:-8,ymax:8,gy:2,ly:4,pieces:[{f:x=>x*x*x,a:-2.5,b:2.5}],vlines:[{x:1}],hlines:[{y:3}],points:[{x:1,y:1},{x:Math.cbrt(3),y:3,c:'#f08a24'}]},
+  vt3:{xmin:-1,xmax:5,ymin:-5,ymax:5,pieces:[{f:x=>2*Math.sqrt(x),a:0,b:5},{f:x=>-2*Math.sqrt(x),a:0,b:5}],vlines:[{x:1}],points:[{x:1,y:2,t:'(1, 2)'},{x:1,y:-2,t:'(1, −2)',dy:14}]},
+  pi:{xmin:-1,xmax:6,ymin:-4,ymax:7,pieces:[{f:x=>x*x-4*x+1,a:0,b:5,ends:['c','c']}],points:[{x:0,y:1,t:'(0, 1)',dot:false},{x:2,y:-3,t:'(2, −3)',dy:14},{x:5,y:6,t:'(5, 6)',dot:false,dx:-40}]},
+  ge4:{xmin:-1,xmax:4,ymin:-3,ymax:4,pieces:[{f:x=>x+1,a:0,b:2,ends:['c','c']},{f:x=>7-x*x,a:2,b:3,ends:[null,'c'],c:'#0d8a8f'}],points:[{x:0,y:1,t:'(0, 1)',dot:false},{x:2,y:3,t:'(2, 3)',dot:false},{x:3,y:-2,t:'(3, −2)',dot:false,dx:-46}]},
+  q2:{xmin:-4,xmax:5,ymin:-1,ymax:10,ly:2,pieces:[{f:x=>9-x*x,a:-3,b:2,ends:['c',null]},{f:x=>2*x+1,a:2,b:4,ends:['c','c'],c:'#0d8a8f'}],hlines:[{y:9}],points:[{x:-3,y:0,t:'(−3, 0)',dot:false,dy:-8},{x:0,y:9,t:'(0, 9)',dy:-6,dx:-14},{x:2,y:5,t:'(2, 5)',dot:false,dx:8,dy:6},{x:4,y:9,t:'(4, 9)',dot:false,dx:-44,dy:-6}]},
+  q3:{xmin:-1,xmax:5,ymin:-4,ymax:6,pieces:[{f:x=>x*x+1,a:0,b:2,ends:['c','c']},{f:x=>2*x-3,a:2,b:4,ends:['c','c'],c:'#0d8a8f'}],vlines:[{x:2}],points:[{x:2,y:5,t:'(2, 5)',dot:false,dx:-44},{x:2,y:1,t:'(2, 1)',dot:false,dx:6,dy:14},{x:4,y:5,t:'(4, 5)',dot:false,dx:-40}]},
+  q4a:{xmin:-2,xmax:6,ymin:-9,ymax:9,gy:1,ly:2,pieces:[{f:x=>7+2*x-x*x,a:-1,b:5,ends:['c','c']}],points:[{x:-1,y:4,t:'(−1, 4)',dot:false,dx:-4,dy:18},{x:1,y:8,t:'(1, 8)',dot:false,dy:-6},{x:5,y:-8,t:'(5, −8)',dot:false,dx:-50}]},
+  q4b:{xmin:-4,xmax:3,ymin:-9,ymax:21,gy:2,ly:4,pieces:[{f:x=>2*x**3+3*x*x-12*x,a:-3,b:2,ends:['c','c']}],points:[{x:-3,y:9,t:'(−3, 9)',dot:false,dx:-20,dy:16},{x:-2,y:20,t:'(−2, 20)',dot:false,dx:6,dy:4},{x:1,y:-7,t:'(1, −7)',dot:false,dx:-20,dy:16},{x:2,y:4,t:'(2, 4)',dot:false,dx:-38,dy:-6}]},
+  q10:{xmin:-1,xmax:5,ymin:-2,ymax:6,pieces:[{f:x=>3-x*x,a:0,b:2,ends:['c',null]},{f:x=>3*x-7,a:2,b:4,ends:['c','c'],c:'#0d8a8f'}],points:[{x:0,y:3,t:'(0, 3)',dot:false},{x:2,y:-1,t:'(2, −1)',dot:false,dy:16},{x:4,y:5,t:'(4, 5)',dot:false,dx:-42}]},
+  q13:{xmin:-3,xmax:3,ymin:-5,ymax:6,pieces:[{f:x=>x*x-2*x-3,a:-2,b:2,ends:['c','c']}],points:[{x:-2,y:5,t:'(−2, 5)',dot:false},{x:1,y:-4,t:'(1, −4)',dy:14},{x:2,y:-3,t:'(2, −3)',dot:false,dx:-46}]},
+  q14:{xmin:-6,xmax:5,ymin:-5,ymax:18,gy:2,ly:4,lx:2,pieces:[{f:x=>x*x+x-4,a:-6,b:5,c:'#b8c0d6',w:1.5,dash:true},{f:x=>x*x+x-4,a:1,b:4,ends:['c','c']},{f:x=>x*x+x-4,a:-5,b:-2,ends:['c','c'],c:'#0d8a8f'}],hlines:[{y:-2},{y:16}],points:[{x:1,y:-2,t:'(1, −2)',dot:false,dy:16},{x:4,y:16,t:'(4, 16)',dot:false,dx:-46},{x:-5,y:16,t:'(−5, 16)',dot:false},{x:-2,y:-2,t:'(−2, −2)',dot:false,dy:16,dx:-30}]},
+  q15:{xmin:-1,xmax:5,ymin:-4,ymax:6,pieces:[{f:x=>2*x*x-8*x+5,a:0,b:4,ends:['c','c']}],vlines:[{x:2,c:'#7a4cd9'}],points:[{x:0,y:5,t:'(0, 5)',dot:false},{x:2,y:-3,t:'(2, −3)',dy:14},{x:4,y:5,t:'(4, 5)',dot:false,dx:-42}]}
+};
+const Q1G=[
+  ['a: \\(y=2x-3\\)',{xmin:-2,xmax:4,ymin:-7,ymax:5,gy:1,ly:2,lx:2,pieces:[{f:x=>2*x-3,a:-2,b:4}]}],
+  ['b: \\(y=x^2-3\\)',{xmin:-3,xmax:3,ymin:-4,ymax:6,ly:2,lx:2,pieces:[{f:x=>x*x-3,a:-3,b:3}],hlines:[{y:1}]}],
+  ['c: \\(y=2x^3-1\\)',{xmin:-2,xmax:2,ymin:-8,ymax:8,gy:2,ly:4,pieces:[{f:x=>2*x**3-1,a:-2,b:2}]}],
+  ['d: \\(y=2^x\\)',{xmin:-3,xmax:3,ymin:-1,ymax:8,ly:2,lx:2,pieces:[{f:x=>2**x,a:-3,b:3}]}],
+  ['e: \\(y=\\frac{10}{x},\\ x\\gt 0\\)',{xmin:-1,xmax:10,ymin:-1,ymax:10,lx:2,ly:2,pieces:[{f:x=>10/x,a:0.5,b:10}]}],
+  ['f: \\(y=3x^2+4,\\ x\\ge 0\\)',{xmin:-1,xmax:3,ymin:-2,ymax:20,gy:2,ly:4,pieces:[{f:x=>3*x*x+4,a:0,b:3,ends:['c',null]}]}],
+  ['g: \\(y=\\sqrt{x}\\)',{xmin:-1,xmax:9,ymin:-1,ymax:4,lx:2,pieces:[{f:x=>Math.sqrt(x),a:0,b:9,ends:['c',null]}]}],
+  ['h: \\(y^2=4x\\)',{xmin:-1,xmax:5,ymin:-5,ymax:5,lx:2,ly:2,pieces:[{f:x=>2*Math.sqrt(x),a:0,b:5,c:'#d9433b'},{f:x=>-2*Math.sqrt(x),a:0,b:5,c:'#d9433b'}],vlines:[{x:1}],points:[{x:1,y:2},{x:1,y:-2}]}]
+];
+const SHAPES=[
+  ['Linear \\(y=mx+c\\)','Range \\(\\mathbb{R}\\) (if domain is \\(\\mathbb{R}\\))','Range \\(\\mathbb{R}\\) (jika domain \\(\\mathbb{R}\\))',{xmin:-3,xmax:3,ymin:-4,ymax:4,pieces:[{f:x=>x+1,a:-3,b:3}],w:240,h:190,ly:2,lx:2}],
+  ['Quadratic \\(a\\gt 0\\)','Minimum at vertex: \\(y\\ge q\\)','Minimum di puncak: \\(y\\ge q\\)',{xmin:-3,xmax:3,ymin:-2,ymax:6,pieces:[{f:x=>x*x-1,a:-3,b:3}],points:[{x:0,y:-1}],w:240,h:190,ly:2,lx:2}],
+  ['Quadratic \\(a\\lt 0\\)','Maximum at vertex: \\(y\\le q\\)','Maksimum di puncak: \\(y\\le q\\)',{xmin:-3,xmax:3,ymin:-4,ymax:4,pieces:[{f:x=>3-x*x,a:-3,b:3}],points:[{x:0,y:3}],w:240,h:190,ly:2,lx:2}],
+  ['Exponential \\(y=2^x\\)','Always positive: \\(y\\gt 0\\)','Selalu positif: \\(y\\gt 0\\)',{xmin:-3,xmax:3,ymin:-1,ymax:8,pieces:[{f:x=>2**x,a:-3,b:3}],w:240,h:190,ly:2,lx:2}],
+  ['Reciprocal \\(y=\\frac1x\\)','Never 0: \\(y\\ne 0\\)','Tidak pernah 0: \\(y\\ne 0\\)',{xmin:-4,xmax:4,ymin:-4,ymax:4,pieces:[{f:x=>1/x,a:-4,b:-0.2},{f:x=>1/x,a:0.2,b:4}],w:240,h:190,ly:2,lx:2}],
+  ['Square root \\(y=\\sqrt{x}\\)','Never negative: \\(y\\ge 0\\)','Tidak pernah negatif: \\(y\\ge 0\\)',{xmin:-1,xmax:9,ymin:-1,ymax:4,pieces:[{f:x=>Math.sqrt(x),a:0,b:9,ends:['c',null]}],w:240,h:190,lx:2}]
+];
+let mid=0;
+function mapDiag(title,titleId,L,R,arrows,ok){
+  mid++;const W=200,H=170;
+  const ly=i=>40+i*(110/(L.length-1||1)),ry=i=>40+i*(110/(R.length-1||1));
+  let s=`<svg viewBox="0 0 ${W} ${H}" class="graph"><defs><marker id="ar${mid}" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#2f4dd8"/></marker></defs>`;
+  s+=`<ellipse cx="45" cy="95" rx="30" ry="70" fill="#e9edff" stroke="#2f4dd8"/><ellipse cx="155" cy="95" rx="30" ry="70" fill="#e2f6f6" stroke="#0d8a8f"/>`;
+  L.forEach((t,i)=>s+=`<text class="pl" x="45" y="${ly(i)+4}" text-anchor="middle">${t}</text>`);
+  R.forEach((t,i)=>s+=`<text class="pl" x="155" y="${ry(i)+4}" text-anchor="middle">${t}</text>`);
+  arrows.forEach(([a,b])=>s+=`<line x1="58" y1="${ly(a)}" x2="140" y2="${ry(b)}" stroke="#2f4dd8" stroke-width="1.6" marker-end="url(#ar${mid})"/>`);
+  s+='</svg>';
+  return `<div class="mini">${s}<div class="cap">${title} ${ok?'<span class="pill y">function ✓</span>':'<span class="pill n">not a function ✗</span>'}<span class="tr">${titleId}</span></div></div>`;
+}
+
+/* ================= QUESTIONS ================= */
+const Q={
+ w1:{type:'mc',q:String.raw`If \(y=2x-3\), what is the value of \(y\) when \(x=4\)?`,qi:String.raw`Jika \(y=2x-3\), berapakah nilai \(y\) ketika \(x=4\)?`,
+  o:[String.raw`\(5\)`,String.raw`\(11\)`,String.raw`\(8\)`,String.raw`\(-5\)`],a:0,
+  ex:String.raw`<p>Substitute \(x=4\): \(y=2(4)-3=8-3=5\).<span class="tr">Substitusikan \(x=4\): \(y=2(4)-3=8-3=5\).</span></p>`},
+ w2:{type:'fill',q:'Complete the square: fill in the missing number.',qi:'Lengkapkan kuadrat: isi bilangan yang hilang.',
+  t:String.raw`\(x^2+6x-11=(x+3)^2-\) [[0]]`,ans:[['20']],
+  ex:String.raw`<p>\((x+3)^2=x^2+6x+9\), so \(x^2+6x=(x+3)^2-9\).<span class="tr">\((x+3)^2=x^2+6x+9\), jadi \(x^2+6x=(x+3)^2-9\).</span></p>\[x^2+6x-11=(x+3)^2-9-11=(x+3)^2-20\]`},
+ w3:{type:'tf',q:'Decide whether each statement is True or False.',qi:'Tentukan apakah setiap pernyataan Benar atau Salah.',
+  s:[[String.raw`\(-3\le x\le 2\) includes \(x=-3\).`,String.raw`\(-3\le x\le 2\) memuat \(x=-3\).`,true],
+     [String.raw`\(x\gt 0\) includes \(x=0\).`,String.raw`\(x\gt 0\) memuat \(x=0\).`,false],
+     [String.raw`The vertex of \(y=(x-1)^2-4\) is \((1,-4)\).`,String.raw`Puncak dari \(y=(x-1)^2-4\) adalah \((1,-4)\).`,true],
+     [String.raw`\(2^x\) can be negative for some \(x\).`,String.raw`\(2^x\) bisa bernilai negatif untuk suatu \(x\).`,false]],
+  ex:String.raw`<p>1. True: \(\le\) means the end value is included.<span class="tr">Benar: \(\le\) berarti nilai ujung termasuk.</span></p><p>2. False: \(\gt\) means 0 is not included.<span class="tr">Salah: \(\gt\) berarti 0 tidak termasuk.</span></p><p>3. True: \(y=(x-p)^2+q\) has vertex \((p,q)=(1,-4)\).<span class="tr">Benar: puncaknya \((1,-4)\).</span></p><p>4. False: \(2^x\gt 0\) for every \(x\), e.g. \(2^{-3}=\frac18\).<span class="tr">Salah: \(2^x\gt 0\) untuk setiap \(x\), misal \(2^{-3}=\frac18\).</span></p>`},
+ w4:{type:'cb',q:String.raw`Select ALL solutions of \(x^2-2x-8=0\).`,qi:String.raw`Pilih SEMUA penyelesaian dari \(x^2-2x-8=0\).`,
+  o:[String.raw`\(x=4\)`,String.raw`\(x=-2\)`,String.raw`\(x=2\)`,String.raw`\(x=-4\)`],a:[0,1],
+  ex:String.raw`<p>Find two numbers that multiply to \(-8\) and add to \(-2\): \(-4\) and \(2\).<span class="tr">Cari dua bilangan yang hasil kalinya \(-8\) dan jumlahnya \(-2\): \(-4\) dan \(2\).</span></p>\[x^2-2x-8=(x-4)(x+2)=0\Rightarrow x=4\ \text{or}\ x=-2\]`},
+ i1:{type:'mc',q:String.raw`If \(f:x\mapsto 2x+1\), what is the image of \(x=3\)?`,qi:String.raw`Jika \(f:x\mapsto 2x+1\), berapakah peta (image) dari \(x=3\)?`,
+  o:[String.raw`\(6\)`,String.raw`\(7\)`,String.raw`\(1\)`,String.raw`\(9\)`],a:1,
+  ex:String.raw`<p>The image is the output: \(f(3)=2(3)+1=7\).<span class="tr">Peta adalah keluarannya: \(f(3)=2(3)+1=7\).</span></p>`},
+ p1:{type:'mc',q:String.raw`What is the minimum value of \(y=(x+3)^2-20\)?`,qi:String.raw`Berapakah nilai minimum dari \(y=(x+3)^2-20\)?`,
+  o:[String.raw`\(-20\)`,String.raw`\(3\)`,String.raw`\(-3\)`,String.raw`\(20\)`],a:0,
+  ex:String.raw`<p>\((x+3)^2\ge 0\) and equals 0 when \(x=-3\). So the minimum is \(0-20=-20\).<span class="tr">\((x+3)^2\ge 0\) dan bernilai 0 saat \(x=-3\). Jadi minimumnya \(-20\).</span></p>`},
+ p2:{type:'fill',q:'Complete the square and give the vertex.',qi:'Lengkapkan kuadrat dan tentukan titik puncaknya.',
+  t:String.raw`\(x^2-10x=(x-5)^2-\) [[0]] &nbsp;&nbsp; Vertex of \(y=x^2-10x\): ( [[1]] , [[2]] )`,ans:[['25'],['5'],['-25']],
+  ex:String.raw`<p>Half of \(-10\) is \(-5\), and \((-5)^2=25\).<span class="tr">Setengah dari \(-10\) adalah \(-5\), dan \((-5)^2=25\).</span></p>\[x^2-10x=(x-5)^2-25\Rightarrow \text{vertex }(5,-25)\]`},
+ pi1:{type:'mc',q:String.raw`So, what is the range of \(f(x)=x^2-4x+1\) for \(0\le x\le 5\)?`,qi:String.raw`Jadi, berapa range dari \(f(x)=x^2-4x+1\) untuk \(0\le x\le 5\)?`,
+  o:[String.raw`\(1\le f(x)\le 6\)`,String.raw`\(-3\le f(x)\le 6\)`,String.raw`\(-3\le f(x)\le 1\)`,String.raw`\(f(x)\ge -3\)`],a:1,
+  ex:String.raw`<p>\(f(x)=(x-2)^2-3\); vertex \(x=2\) is inside the domain, so minimum \(=-3\). End points: \(f(0)=1\), \(f(5)=6\), so maximum \(=6\).<span class="tr">Puncak \(x=2\) ada di dalam domain, jadi minimum \(-3\). Titik ujung: 1 dan 6, jadi maksimum 6.</span></p>`},
+ g1:{type:'mc',q:String.raw`Your turn: find the range of \(f(x)=x^2+2\) for \(-1\le x\le 3\).`,qi:String.raw`Giliranmu: tentukan range dari \(f(x)=x^2+2\) untuk \(-1\le x\le 3\).`,
+  o:[String.raw`\(3\le f(x)\le 11\)`,String.raw`\(2\le f(x)\le 11\)`,String.raw`\(2\le f(x)\le 3\)`,String.raw`\(f(x)\ge 2\)`],a:1,
+  ex:String.raw`<p>Vertex \((0,2)\), and \(x=0\) lies in \(-1\le x\le 3\) → minimum 2.<span class="tr">Puncak \((0,2)\), dan \(x=0\) ada di domain → minimum 2.</span></p><p>End points: \(f(-1)=1+2=3\), \(f(3)=9+2=11\) → maximum 11.<span class="tr">Titik ujung: 3 dan 11 → maksimum 11.</span></p><p>Range: \(2\le f(x)\le 11\).</p>`},
+ ip1:{type:'dd',q:'Drag each relation (for \\(x\\in\\mathbb{R}\\) unless stated) into the correct box. (You can also tap a card, then tap a box.)',qi:'Seret setiap relasi (untuk \\(x\\in\\mathbb{R}\\) kecuali dinyatakan lain) ke kotak yang benar. (Bisa juga ketuk kartu, lalu ketuk kotak.)',
+  bins:[['One-one function','Fungsi satu-satu'],['Many-one function','Fungsi banyak-satu'],['Not a function','Bukan fungsi']],
+  items:[[String.raw`\(y=2x-3\)`,0],[String.raw`\(y=x^2-3\)`,1],[String.raw`\(y^2=4x\)`,2],[String.raw`\(y=2^x\)`,0],[String.raw`\(y=3x^2+4,\ x\ge 0\)`,0],[String.raw`\(y=x^2+3,\ -2\le x\le 5\)`,1],[String.raw`\(x=3\) (vertical line)`,2],[String.raw`\(y=7-3x^2\)`,1]],
+  ex:String.raw`<p><b>One-one:</b> \(2x-3\), \(2^x\), \(3x^2+4\ (x\ge0)\) — always increasing.<span class="tr"><b>Satu-satu:</b> selalu naik.</span></p><p><b>Many-one:</b> \(x^2-3\) (\(f(2)=f(-2)\)), \(x^2+3\) on \(-2\le x\le5\) (\(f(1)=f(-1)=4\)), \(7-3x^2\) (\(f(1)=f(-1)\)).<span class="tr"><b>Banyak-satu:</b> dua masukan berbeda memberi keluaran sama.</span></p><p><b>Not a function:</b> \(y^2=4x\) (\(x=1\to y=\pm2\)); \(x=3\) (one input, infinitely many outputs).<span class="tr"><b>Bukan fungsi:</b> satu masukan punya lebih dari satu keluaran.</span></p>`},
+ ip2:{type:'cb',q:'Select ALL the one-one functions.',qi:'Pilih SEMUA fungsi satu-satu.',
+  o:[String.raw`\(y=2x^3-1,\ x\in\mathbb{R}\)`,String.raw`\(y=\frac{10}{x},\ x\gt 0\)`,String.raw`\(y=\sqrt{x},\ x\ge 0\)`,String.raw`\(y=x^2-2,\ x\in\mathbb{R}\)`,String.raw`\(y=8-(x-5)^2,\ 4\le x\le 10\)`],a:[0,1,2],
+  ex:String.raw`<p>The first three are always increasing or always decreasing → one-one.<span class="tr">Tiga pertama selalu naik atau selalu turun → satu-satu.</span></p><p>\(x^2-2\): \(f(1)=f(-1)=-1\) → many-one.<span class="tr">→ banyak-satu.</span></p><p>\(8-(x-5)^2\) on \(4\le x\le10\): \(f(4)=f(6)=7\) → many-one.<span class="tr">→ banyak-satu (karena \(x=4\) dan \(x=6\) memberi 7).</span></p>`},
+ ip3:{type:'mc',q:String.raw`Find the range of \(f(x)=7-2x\) for \(-1\le x\le 4\).`,qi:String.raw`Tentukan range dari \(f(x)=7-2x\) untuk \(-1\le x\le 4\).`,
+  o:[String.raw`\(9\le f(x)\le -1\)`,String.raw`\(-1\le f(x)\le 9\)`,String.raw`\(5\le f(x)\le 15\)`,String.raw`\(-1\lt f(x)\lt 9\)`],a:1,
+  ex:String.raw`<p>Decreasing line: \(f(-1)=7+2=9\), \(f(4)=7-8=-1\). Write the smaller value first: \(-1\le f(x)\le 9\). Both ends included (\(\le\)).<span class="tr">Garis turun: \(f(-1)=9\), \(f(4)=-1\). Tulis nilai lebih kecil di depan. Kedua ujung termasuk.</span></p>`},
+ ip4:{type:'fill',q:String.raw`Write \(f(x)=3x^2-6x+1,\ x\in\mathbb{R}\) in the form \(a(x+b)^2+c\), then give the range.`,qi:String.raw`Tulis \(f(x)=3x^2-6x+1\) dalam bentuk \(a(x+b)^2+c\), lalu tentukan range-nya.`,
+  t:String.raw`\(a=\) [[0]] &nbsp; \(b=\) [[1]] &nbsp; \(c=\) [[2]] &nbsp;&nbsp; Range: \(f(x)\ge\) [[3]]`,ans:[['3'],['-1'],['-2'],['-2']],
+  ex:String.raw`\[3x^2-6x+1=3(x^2-2x)+1=3\left[(x-1)^2-1\right]+1=3(x-1)^2-2\]<p>So \(a=3,\ b=-1,\ c=-2\). Since \(3(x-1)^2\ge 0\), \(f(x)\ge -2\).<span class="tr">Jadi \(a=3,\ b=-1,\ c=-2\). Karena \(3(x-1)^2\ge 0\), \(f(x)\ge -2\).</span></p>`},
+ ip5:{type:'tf',q:'True or False?',qi:'Benar atau Salah?',
+  s:[[String.raw`\(f(x)=2^x,\ x\in\mathbb{R}\) has range \(f(x)\ge 0\).`,String.raw`\(f(x)=2^x\) memiliki range \(f(x)\ge 0\).`,false],
+     [String.raw`The largest domain of \(\frac{1}{x-2}\) is \(x\in\mathbb{R},\ x\ne 2\).`,String.raw`Domain terbesar dari \(\frac{1}{x-2}\) adalah \(x\in\mathbb{R},\ x\ne 2\).`,true],
+     [String.raw`The range of \(x^2+3\) for \(-2\le x\le 5\) is \(7\le f(x)\le 28\).`,String.raw`Range dari \(x^2+3\) untuk \(-2\le x\le 5\) adalah \(7\le f(x)\le 28\).`,false],
+     [String.raw`A relation where \(x=2\) gives two different outputs is not a function.`,String.raw`Relasi di mana \(x=2\) memberi dua keluaran berbeda bukan fungsi.`,true]],
+  ex:String.raw`<p>1. False: \(2^x\) is never 0, so \(f(x)\gt 0\).<span class="tr">Salah: \(2^x\) tidak pernah 0, jadi \(f(x)\gt 0\).</span></p><p>2. True: \(x-2\ne 0\).<span class="tr">Benar.</span></p><p>3. False: the vertex \(x=0\) is inside the domain, so the minimum is 3: \(3\le f(x)\le 28\).<span class="tr">Salah: puncak \(x=0\) ada di domain, minimumnya 3.</span></p><p>4. True: one input must have only one output.<span class="tr">Benar: satu masukan harus punya satu keluaran saja.</span></p>`},
+ ip6:{type:'sort',q:String.raw`Put the steps in order to find the range of \(f(x)=x^2-2x-3\) for \(-2\le x\le 2\).`,qi:String.raw`Urutkan langkah-langkah mencari range \(f(x)=x^2-2x-3\) untuk \(-2\le x\le 2\).`,
+  items:[[String.raw`Complete the square: \(f(x)=(x-1)^2-4\)`,'Lengkapkan kuadrat'],[String.raw`Turning point \((1,-4)\); \(x=1\) lies in \(-2\le x\le 2\)`,'Titik balik ada di dalam domain'],[String.raw`Evaluate end points: \(f(-2)=5,\ f(2)=-3\)`,'Hitung nilai di titik ujung'],[String.raw`Compare: minimum \(-4\), maximum \(5\)`,'Bandingkan: minimum dan maksimum'],[String.raw`Write the range: \(-4\le f(x)\le 5\)`,'Tulis range-nya']],
+  ex:String.raw`<p>The order follows the 4-step method: shape → turning point → end points → compare → write the answer.<span class="tr">Urutan mengikuti metode 4 langkah: bentuk → titik balik → titik ujung → bandingkan → tulis jawaban.</span></p><p>\(f(-2)=4+4-3=5\), \(f(2)=4-4-3=-3\).</p>`},
+ ip7:{type:'pair',q:'Match each function with its range. Tap a function, then tap its range.',qi:'Jodohkan setiap fungsi dengan range-nya. Ketuk fungsi, lalu ketuk range-nya.',
+  L:[String.raw`\(x^2-2,\ x\in\mathbb{R}\)`,String.raw`\(\frac{12}{x},\ 1\le x\le 8\)`,String.raw`\(2^x,\ -5\le x\le 4\)`,String.raw`\(1+\sqrt{x-4},\ x\ge 4\)`,String.raw`\(3-2x^2,\ x\le 2\)`],
+  R:[String.raw`\(f(x)\ge -2\)`,String.raw`\(1.5\le f(x)\le 12\)`,String.raw`\(\frac{1}{32}\le f(x)\le 16\)`,String.raw`\(f(x)\ge 1\)`,String.raw`\(f(x)\le 3\)`],
+  ex:String.raw`<p>\(x^2\ge0\Rightarrow x^2-2\ge-2\). \(\frac{12}{x}\) decreases: \(12\) to \(1.5\). \(2^{-5}=\frac1{32}\), \(2^4=16\). \(\sqrt{x-4}\ge0\Rightarrow f\ge1\). \(3-2x^2\) has maximum 3 at \(x=0\).<span class="tr">Lihat Soal 5, 6, dan 7 untuk langkah lengkapnya.</span></p>`},
+ ip8:{type:'fill',q:String.raw`Write \(7-8x-x^2\) in the form \(a-(x+c)^2\) and give the range.`,qi:String.raw`Tulis \(7-8x-x^2\) dalam bentuk \(a-(x+c)^2\) dan tentukan range-nya.`,
+  t:String.raw`\(a=\) [[0]] &nbsp; \(c=\) [[1]] &nbsp;&nbsp; Range: \(f(x)\le\) [[2]]`,ans:[['23'],['4'],['23']],
+  ex:String.raw`\[7-(x^2+8x)=7-\left[(x+4)^2-16\right]=23-(x+4)^2\]<p>Maximum 23 at \(x=-4\), so \(f(x)\le 23\).<span class="tr">Maksimum 23 di \(x=-4\).</span></p>`},
+ ip9:{type:'mc',q:String.raw`What is the largest possible domain of \(f(x)=\sqrt{x-3}-2\)?`,qi:String.raw`Apa domain terbesar yang mungkin dari \(f(x)=\sqrt{x-3}-2\)?`,
+  o:[String.raw`\(x\ge 3\)`,String.raw`\(x\gt 3\)`,String.raw`\(x\ge -2\)`,String.raw`\(x\in\mathbb{R}\)`],a:0,
+  ex:String.raw`<p>We need \(x-3\ge 0\Rightarrow x\ge 3\). \(x=3\) is allowed because \(\sqrt0=0\).<span class="tr">Perlu \(x-3\ge0\Rightarrow x\ge3\). \(x=3\) boleh karena \(\sqrt0=0\).</span></p>`},
+ ip10:{type:'fill',q:String.raw`\(f(x)=x^2+6x+k,\ x\in\mathbb{R}\). Complete the range.`,qi:String.raw`Lengkapi range-nya.`,
+  t:String.raw`\(f(x)\ge k-\) [[0]]`,ans:[['9']],
+  ex:String.raw`\[x^2+6x+k=(x+3)^2-9+k\]<p>Minimum \(k-9\).<span class="tr">Minimum \(k-9\).</span></p>`},
+ ip11:{type:'mc',q:String.raw`\(f(x)=x^2+x-4\) for \(a\le x\le a+3\) has range \(-2\le f(x)\le 16\). Which values of \(a\) are possible?`,qi:String.raw`\(f(x)=x^2+x-4\) untuk \(a\le x\le a+3\) memiliki range \(-2\le f(x)\le 16\). Nilai \(a\) mana yang mungkin?`,
+  o:[String.raw`\(a=1\) only`,String.raw`\(a=1\) or \(a=-5\)`,String.raw`\(a=-2\) or \(a=4\)`,String.raw`\(a=-5\) only`],a:1,
+  ex:String.raw`<p>See Question 14: \(f=-2\) at \(x=1,-2\); \(f=16\) at \(x=4,-5\). Intervals of length 3 not containing the vertex: \([1,4]\) and \([-5,-2]\).<span class="tr">Lihat Soal 14: interval sepanjang 3 yang tidak memuat puncak adalah \([1,4]\) dan \([-5,-2]\).</span></p>`},
+ ip12:{type:'cb',q:String.raw`Which numbers are in the range of \(f(x)=2^x,\ x\in\mathbb{R}\)? Select all.`,qi:String.raw`Bilangan mana yang ada di range \(f(x)=2^x\)? Pilih semua.`,
+  o:[String.raw`\(0.001\)`,String.raw`\(0\)`,String.raw`\(5\)`,String.raw`\(-1\)`],a:[0,2],
+  ex:String.raw`<p>Range: \(f(x)\gt 0\). Any positive number is reached (e.g. \(2^x=5\) when \(x\approx2.32\)), but 0 and negatives never are.<span class="tr">Range: \(f(x)\gt0\). Semua bilangan positif tercapai, tetapi 0 dan bilangan negatif tidak pernah.</span></p>`},
+ e1:{type:'mc',q:'Which type of mapping is NOT a function?',qi:'Jenis pemetaan mana yang BUKAN fungsi?',
+  o:['One-one <i>(satu-satu)</i>','Many-one <i>(banyak-satu)</i>','One-many <i>(satu-banyak)</i>','All of them are functions <i>(semuanya fungsi)</i>'],a:2,
+  ex:String.raw`<p>One-many: one input has several outputs, so it is not a function.<span class="tr">Satu-banyak: satu masukan punya beberapa keluaran, jadi bukan fungsi.</span></p>`},
+ e2:{type:'mc',q:String.raw`Range of \(f(x)=(x+1)^2+2,\ x\in\mathbb{R}\)?`,qi:String.raw`Range dari \(f(x)=(x+1)^2+2\)?`,
+  o:[String.raw`\(f(x)\ge 1\)`,String.raw`\(f(x)\ge 2\)`,String.raw`\(f(x)\le 2\)`,String.raw`\(f(x)\ge -1\)`],a:1,
+  ex:String.raw`<p>\((x+1)^2\ge0\Rightarrow f(x)\ge 2\).</p>`},
+ e3:{type:'tf',q:'True or False?',qi:'Benar atau Salah?',
+  s:[[ 'A many-one function passes the vertical line test but fails the horizontal line test.','Fungsi banyak-satu lolos uji garis vertikal tetapi gagal uji garis horizontal.',true],
+     [String.raw`If the turning point is inside the domain, it gives the smallest or largest value.`,String.raw`Jika titik balik ada di dalam domain, titik itu memberi nilai terkecil atau terbesar.`,true]],
+  ex:String.raw`<p>1. True: each \(x\) has one \(y\), but some \(y\) come from two \(x\).<span class="tr">Benar: setiap \(x\) punya satu \(y\), tetapi beberapa \(y\) berasal dari dua \(x\).</span></p><p>2. True: for a quadratic, the vertex is the minimum (\(a\gt0\)) or maximum (\(a\lt0\)).<span class="tr">Benar: untuk fungsi kuadrat, puncak adalah minimum atau maksimum.</span></p>`}
+};
+
+/* ================= ENGINE ================= */
+const TYPE={mc:'Multiple choice / Pilihan ganda',cb:'Select all that apply / Pilih semua yang benar',tf:'True or False / Benar atau Salah',fill:'Fill in the blank / Isian',sort:'Sorting / Mengurutkan',pair:'Pairing / Menjodohkan',dd:'Drag & drop / Seret & lepas'};
+const solved=new Set();let total=0;
+function rm(el){if(window.renderMathInElement)renderMathInElement(el,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});}
+function shuffle(a){const b=a.slice();for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function shuffleIdx(n){let s;do{s=shuffle([...Array(n).keys()]);}while(n>1&&s.every((v,i)=>v===i));return s;}
+function parseVal(s){s=String(s).trim().replace(/\s+/g,'').replace(/[−–]/g,'-').replace(/,/g,'.');
+  if(/^[-+]?\d*\.?\d+\/[-+]?\d*\.?\d+$/.test(s)){const[a,b]=s.split('/');return parseFloat(a)/parseFloat(b);}
+  if(/^[-+]?\d*\.?\d+$/.test(s))return parseFloat(s);return null;}
+function same(u,acc){const a=parseVal(u),b=parseVal(acc);if(a!==null&&b!==null)return Math.abs(a-b)<1e-6;return String(u).trim().toLowerCase().replace(/\s+/g,'')===String(acc).toLowerCase().replace(/\s+/g,'');}
+const COLORS=['#2f4dd8','#0d8a8f','#f08a24','#7a4cd9','#d9433b','#1f9d55'];
+let qn=0;
+function build(el){
+  const id=el.dataset.q,d=Q[id];qn++;total++;
+  let h=`<span class="qtype">${TYPE[d.type]}</span><div class="qtext"><span class="qno">Q${qn}.</span>${d.q}<span class="tr">${d.qi}</span></div><div class="body">`;
+  if(d.type==='mc'||d.type==='cb'){h+='<div class="opts">'+d.o.map((o,i)=>`<label><input type="${d.type==='mc'?'radio':'checkbox'}" name="${id}" value="${i}"> ${o}</label>`).join('')+'</div>';}
+  if(d.type==='tf'){h+=d.s.map((s,i)=>`<div class="tfrow" data-i="${i}"><div>${s[0]}<span class="tr">${s[1]}</span></div><div class="ch"><label><input type="radio" name="${id}_${i}" value="1"> True <i>/ Benar</i></label><label><input type="radio" name="${id}_${i}" value="0"> False <i>/ Salah</i></label></div></div>`).join('');}
+  if(d.type==='fill'){h+='<div class="fillline">'+d.t.replace(/\[\[(\d+)\]\]/g,(m,k)=>`<input class="blank" data-b="${k}" placeholder="?">`)+'</div><small class="tr">Type numbers only, e.g. -2 or 19/3. / Ketik angka saja, misal -2 atau 19/3.</small>';}
+  if(d.type==='sort'){const ord=shuffleIdx(d.items.length);h+='<ul class="sort">'+ord.map(i=>`<li draggable="true" data-i="${i}"><span class="hand">☰</span><span>${d.items[i][0]}<span class="tr">${d.items[i][1]}</span></span><span class="mv"><button class="up">▲</button><button class="dn">▼</button></span></li>`).join('')+'</ul><small class="tr">Drag the cards or use ▲▼. / Seret kartu atau gunakan ▲▼.</small>';}
+  if(d.type==='pair'){const ord=shuffleIdx(d.R.length);h+='<div class="pairs"><div>'+d.L.map((t,i)=>`<div class="pitem L" data-i="${i}">${t}</div>`).join('')+'</div><div>'+ord.map(i=>`<div class="pitem R" data-i="${i}">${d.R[i]}</div>`).join('')+'</div></div>';}
+  if(d.type==='dd'){const ord=shuffle([...d.items.keys()]);h+='<div class="pool">'+ord.map(i=>`<span class="chip" draggable="true" data-i="${i}">${d.items[i][0]}</span>`).join('')+'</div><div class="bins">'+d.bins.map((b,i)=>`<div class="bin" data-b="${i}"><div class="bh">${b[0]}<span class="tr">${b[1]}</span></div></div>`).join('')+'</div>';}
+  h+=`</div><div class="qbtns"><button class="btn check">Check <small>/ Periksa</small></button><button class="btn ghost reset">Reset <small>/ Ulangi</small></button></div><div class="fb"></div><details class="expl"><summary>Show explanation / Lihat pembahasan</summary><div>${d.ex}</div></details>`;
+  el.innerHTML=h;
+  wire(el,id,d);
+}
+function wire(el,id,d){
+  const fb=el.querySelector('.fb');
+  // sort
+  if(d.type==='sort'){const ul=el.querySelector('ul.sort');let drag=null;
+    ul.querySelectorAll('li').forEach(li=>{li.addEventListener('dragstart',e=>{drag=li;li.classList.add('dragging');e.dataTransfer.setData('text/plain','');});li.addEventListener('dragend',()=>{li.classList.remove('dragging');drag=null;});
+      li.querySelector('.up').onclick=()=>{if(li.previousElementSibling)ul.insertBefore(li,li.previousElementSibling);};
+      li.querySelector('.dn').onclick=()=>{if(li.nextElementSibling)ul.insertBefore(li.nextElementSibling,li);};});
+    ul.addEventListener('dragover',e=>{e.preventDefault();if(!drag)return;const others=[...ul.querySelectorAll('li:not(.dragging)')];const after=others.find(o=>e.clientY<o.getBoundingClientRect().top+o.offsetHeight/2);if(after)ul.insertBefore(drag,after);else ul.appendChild(drag);});}
+  // pair
+  if(d.type==='pair'){el._pairs={};let selL=null;
+    const paint=()=>{el.querySelectorAll('.pitem .badge').forEach(b=>b.remove());Object.entries(el._pairs).forEach(([l,r],k)=>{const c=COLORS[l%COLORS.length];[el.querySelector(`.L[data-i="${l}"]`),el.querySelector(`.R[data-i="${r}"]`)].forEach(x=>x.insertAdjacentHTML('beforeend',`<span class="badge" style="background:${c}">${+l+1}</span>`));});};
+    el.querySelectorAll('.L').forEach(x=>x.onclick=()=>{el.querySelectorAll('.L').forEach(y=>y.classList.remove('sel'));x.classList.add('sel');selL=x.dataset.i;});
+    el.querySelectorAll('.R').forEach(x=>x.onclick=()=>{if(selL===null)return;const r=x.dataset.i;for(const k in el._pairs)if(el._pairs[k]===r)delete el._pairs[k];el._pairs[selL]=r;el.querySelectorAll('.L').forEach(y=>y.classList.remove('sel'));selL=null;paint();});
+    el._paint=paint;}
+  // dd
+  if(d.type==='dd'){let dragChip=null,selChip=null;const pool=el.querySelector('.pool');
+    const chips=()=>el.querySelectorAll('.chip');
+    chips().forEach(c=>{c.addEventListener('dragstart',e=>{dragChip=c;e.dataTransfer.setData('text/plain','');});c.addEventListener('click',e=>{e.stopPropagation();chips().forEach(x=>x.classList.remove('sel'));if(selChip===c){selChip=null;return;}selChip=c;c.classList.add('sel');});});
+    [pool,...el.querySelectorAll('.bin')].forEach(z=>{z.addEventListener('dragover',e=>{e.preventDefault();z.classList.add('over');});z.addEventListener('dragleave',()=>z.classList.remove('over'));
+      z.addEventListener('drop',e=>{e.preventDefault();z.classList.remove('over');if(dragChip){z.appendChild(dragChip);dragChip.classList.remove('good','bad');}dragChip=null;});
+      z.addEventListener('click',()=>{if(selChip){z.appendChild(selChip);selChip.classList.remove('sel','good','bad');selChip=null;}});});}
+  el.querySelector('.check').onclick=()=>{
+    let ok=false;
+    if(d.type==='mc'){const s=el.querySelector('input:checked');el.querySelectorAll('label').forEach(l=>l.classList.remove('good','bad'));if(!s){fb.className='fb bad';fb.innerHTML='Choose an answer first. <i>/ Pilih jawaban dulu.</i>';return;}ok=+s.value===d.a;s.parentElement.classList.add(ok?'good':'bad');if(ok)el.querySelectorAll('label')[d.a].classList.add('good');}
+    if(d.type==='cb'){const sel=[...el.querySelectorAll('input')].map((x,i)=>x.checked?i:-1).filter(i=>i>=0);ok=sel.length===d.a.length&&sel.every(i=>d.a.includes(i));el.querySelectorAll('label').forEach((l,i)=>{l.classList.remove('good','bad');const c=el.querySelectorAll('input')[i].checked;if(c)l.classList.add(d.a.includes(i)?'good':'bad');});}
+    if(d.type==='tf'){ok=true;el.querySelectorAll('.tfrow').forEach((r,i)=>{r.classList.remove('good','bad');const s=r.querySelector('input:checked');const good=s&&(s.value==='1')===d.s[i][2];if(!good)ok=false;if(s)r.classList.add(good?'good':'bad');});}
+    if(d.type==='fill'){ok=true;el.querySelectorAll('.blank').forEach(b=>{const g=d.ans[b.dataset.b].some(a=>same(b.value,a));b.classList.remove('good','bad');b.classList.add(g?'good':'bad');if(!g)ok=false;});}
+    if(d.type==='sort'){ok=true;el.querySelectorAll('ul.sort li').forEach((li,k)=>{const g=+li.dataset.i===k;li.classList.remove('good','bad');li.classList.add(g?'good':'bad');if(!g)ok=false;});}
+    if(d.type==='pair'){ok=d.L.every((_,i)=>el._pairs[i]!==undefined&&+el._pairs[i]===i);el.querySelectorAll('.L').forEach(x=>{x.classList.remove('good','bad');const r=el._pairs[x.dataset.i];if(r!==undefined)x.classList.add(+r===+x.dataset.i?'good':'bad');});}
+    if(d.type==='dd'){ok=el.querySelector('.pool').querySelectorAll('.chip').length===0;el.querySelectorAll('.bin .chip').forEach(c=>{const g=d.items[c.dataset.i][1]===+c.closest('.bin').dataset.b;c.classList.remove('good','bad');c.classList.add(g?'good':'bad');if(!g)ok=false;});}
+    if(ok){fb.className='fb good';fb.innerHTML='✅ Correct! Well done. <i>/ Benar! Kerja bagus.</i>';el.classList.add('ok');solved.add(el.dataset.q);}
+    else{fb.className='fb bad';fb.innerHTML='❌ Not quite — check the red parts, try again, or open the explanation. <i>/ Belum tepat — periksa bagian merah, coba lagi, atau buka pembahasan.</i>';}
+    updScore();
+  };
+  el.querySelector('.reset').onclick=()=>{solved.delete(el.dataset.q);el.classList.remove('ok');
+    const num=el.querySelector('.qno').textContent,sq=qn,st=total;build(el);qn=sq;total=st;el.querySelector('.qno').textContent=num;rm(el);updScore();};
+}
+function updScore(){document.getElementById('score').innerHTML=`Score: ${solved.size} / ${total}<br><i>Skor (benar)</i>`;}
+
+/* ================= NAV / MODAL / STEPS ================= */
+function go(id){document.querySelectorAll('section').forEach(s=>s.classList.toggle('show',s.id===id));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.s===id));window.scrollTo({top:0,behavior:'smooth'});}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>go(b.dataset.s));
+const modal=document.getElementById('rulesModal');
+document.getElementById('rulesBtn').onclick=()=>modal.classList.add('open');
+document.getElementById('closeRules').onclick=()=>modal.classList.remove('open');
+modal.onclick=e=>{if(e.target===modal)modal.classList.remove('open');};
+document.querySelectorAll('.reveal').forEach(r=>{const st=r.querySelectorAll('.step');st[0].classList.add('on');
+  r.querySelector('.nextstep').onclick=()=>{const n=[...st].find(s=>!s.classList.contains('on'));if(n)n.classList.add('on');};
+  r.querySelector('.allstep').onclick=()=>st.forEach(s=>s.classList.add('on'));});
+document.querySelectorAll('#conf button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#conf button').forEach(x=>x.classList.remove('on'));b.classList.add('on');const[m,i]=b.dataset.m.split('|');document.getElementById('confmsg').innerHTML=`${m}<span class="tr">${i}</span>`;});
+
+/* ================= INIT ================= */
+function init(){
+  document.querySelectorAll('[data-g]').forEach(d=>d.innerHTML=graph(G[d.dataset.g]));
+  document.getElementById('q1graphs').innerHTML=Q1G.map(([t,o])=>`<div class="mini">${graph(Object.assign({w:220,h:180},o))}<div class="cap">${t}</div></div>`).join('');
+  document.getElementById('shapes').innerHTML=SHAPES.map(([t,e,i,o])=>`<div class="mini">${graph(o)}<div class="cap">${t}</div><small>${e}<span class="tr">${i}</span></small></div>`).join('');
+  document.getElementById('mapdiags').innerHTML=
+    mapDiag('One-one','Satu-satu',['1','2','3'],['a','b','c'],[[0,0],[1,1],[2,2]],true)+
+    mapDiag('Many-one','Banyak-satu',['1','2','3'],['a','b'],[[0,0],[1,0],[2,1]],true)+
+    mapDiag('One-many','Satu-banyak',['1','2'],['a','b','c'],[[0,0],[0,1],[1,2]],false)+
+    mapDiag('Many-many','Banyak-banyak',['1','2','3'],['a','b','c'],[[0,0],[0,1],[1,1],[2,2]],false);
+  document.querySelectorAll('.quiz').forEach(build);
+  updScore();
+  rm(document.body);
+}
+window.addEventListener('load',init);
+</script>
+</body>
+</html>
